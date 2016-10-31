@@ -46,7 +46,7 @@
 					 			<p class="texy-right"><b>ID :</b></p>
 					 		</div>
 					 		<div class = "col-xs-6 col-sm-3 ">
-								<input id = "inputId" type="text" class="form-control input-sm" disabled >
+								<input id = "inputId" type="number" class="form-control input-sm" onchange="checkMode()" >
 							</div>
 						</div>
 						
@@ -64,7 +64,7 @@
 					 			<p class="texy-right"><b>List :</b></p>
 					 		</div>
 					 		<div class = "col-xs-6 col-sm-3 ">
-								<input id = "inputList" type="text" class="form-control input-sm" >
+								<input id = "inputList" type="number" class="form-control input-sm" >
 							</div>
 						</div>
 						

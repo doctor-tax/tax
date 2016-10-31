@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONObject;
 
 import com.tax.bean.util.DbConnector;
+import com.tax.been.dao.SetGroupDAO;
 
 /**
  * Servlet implementation class SetGroupSrvl
@@ -51,7 +52,7 @@ public class SetGroupSrvl extends HttpServlet {
 						String id = listData.get(i).get("id_group");
 						String name = listData.get(i).get("name_group");
 						String list = listData.get(i).get("list_group");
-						option += "<tr ondblclick = \"clickRow('"+id+"')\"><td>"+id+"</td>"
+						option += "<tr ondblclick = \"clickRow('"+id+"','"+name+"','"+list+"')\"><td>"+id+"</td>"
 								+ "<td>"+name+"</td>"
 								+ "<td>"+list+"</td></tr>";
 					}
@@ -62,7 +63,48 @@ public class SetGroupSrvl extends HttpServlet {
 			}catch(Exception e){}
 			//System.out.println(option);
 			out.println(obj);
+			
+		}else if(request.getParameter("method").equals("checkMode")){
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			
+			String id = request.getParameter("id");
+			PrintWriter out = response.getWriter();
+			JSONObject obj =new JSONObject();
+			DbConnector db = new DbConnector();
+			db.doConnect();
+			String sql = "SELECT * FROM group_tax WHERE id_group = '" + id + "'";
+			try{
+			obj = db.getJsonData(sql);
+			}catch(Exception e){System.out.println(e);}
+			out.println(obj);
+		}else if(request.getParameter("method").equals("save")){
+			PrintWriter out = response.getWriter();
+			String id = request.getParameter("id");
+			String name = request.getParameter("name");
+			String list = request.getParameter("list");
+			String mode = request.getParameter("mode");
+			SetGroupDAO sd = new SetGroupDAO();
+			sd.setId(id);
+			sd.setName(name);
+			sd.setList(list);
+			if(mode.equals("New")){
+				sd.doSave();
+				out.println("Insert Success!");
+			}else if(mode.equals("Update")){
+				sd.doUpdate();
+				out.println("Update Success!");
+			}
+		}else if(request.getParameter("method").equals("delete")){
+			PrintWriter out = response.getWriter();
+			String id = request.getParameter("id");
+			SetGroupDAO ud = new SetGroupDAO();
+			ud.setId(id);
+			ud.doDelete();
+			
+			out.print("Delete Success!");
 		}
+		
 	}
 
 	/**
