@@ -1,5 +1,4 @@
 //modal
-
 $( function() {
     $( "#dialogDelete" ).dialog({
       autoOpen: false,
@@ -63,7 +62,7 @@ $( function() {
 //modal
 
 $(document).ready(function(){
-	
+	genRoleGroup();
 });
 
 function changeDropDown(){
@@ -148,4 +147,24 @@ function clickSave(){
 			alert("save pr");
 		}
 	}
+}
+
+function genRoleGroup(){
+	$.ajax({
+		type: 'GET',
+		url: './SetTaxSrvl',
+		data: 
+		 {"method":"genRoleGroup"} ,
+		success: function(data){
+			//alert(data);
+			$('#dropdownGroup').append(data);
+		}
+	})
+}
+
+function genUpdate(){
+	var mode = $("#mode").val();
+	var id = $("#id").val();
+	alert("id "+id);
+	alert("mode "+mode);
 }

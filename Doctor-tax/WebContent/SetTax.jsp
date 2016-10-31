@@ -122,7 +122,7 @@
 					 		</div>
 					 		<div class = "col-xs-6 col-sm-3 ">
 								<select class="form-control input-sm" id="dropdownGroup">
-						 				<option value="f">กำหนดไว้แล้ว</option>
+
 						 		</select>
 							</div>
 							
@@ -132,30 +132,30 @@
 					 		<div class = "col-xs-6 col-sm-3 ">
 								<input id = "inputList" type="text" class="form-control input-sm" >
 							</div>
-					 	</div>
+					 </div>
 						
-						<div class="row">
-					  <div class="col-xs-6 col-sm-3"></div>
-					  
-					  <div class="col-xs-6 col-sm-3">
-					  	<button id="btnDelete" class="btn btn-default"
-							 disabled>
-								<b>Delete</b>
-						</button>
-					  
-					  	<button id="btnReset" class="btn btn-default">
-								<b>Reset</b>
-						</button>
-					  </div>
-					  
-					  <div class="col-xs-6 col-sm-3"></div>
-					  
-					  <div class="col-xs-6 col-sm-3 text-right">
-						<button id="btnSave" class="btn btn-default">
-								<b>Save</b>
-						</button>
-					  </div>	
-				  </div>
+					 	<div class="row">
+						  <div class="col-xs-6 col-sm-3"></div>
+						  
+						  <div class="col-xs-6 col-sm-3">
+						  	<button id="btnDelete" class="btn btn-default"
+								 disabled>
+									<b>Delete</b>
+							</button>
+						  
+						  	<button id="btnReset" class="btn btn-default">
+									<b>Reset</b>
+							</button>
+						  </div>
+						  
+						  <div class="col-xs-6 col-sm-3"></div>
+						  
+						  <div class="col-xs-6 col-sm-3 text-right">
+							<button id="btnSave" class="btn btn-default">
+									<b>Save</b>
+							</button>
+						  </div>	
+				  		</div>
 					</div>
 				</div>
 			</div>
