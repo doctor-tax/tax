@@ -59,7 +59,7 @@ $( function() {
       $( "#dialogSave" ).dialog( "open" );
     });
   } );
-//modal
+// modal
 
 $(document).ready(function(){
 	genRoleGroup();
@@ -156,8 +156,9 @@ function genRoleGroup(){
 		data: 
 		 {"method":"genRoleGroup"} ,
 		success: function(data){
-			//alert(data);
+			// alert(data);
 			$('#dropdownGroup').append(data);
+			
 		}
 	})
 }

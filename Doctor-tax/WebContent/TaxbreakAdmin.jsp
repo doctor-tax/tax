@@ -10,7 +10,6 @@
 <link href="css/jquery-ui.css" rel="stylesheet">
 <script src="js/jquery-1.11.3.min.js"></script>
 <script src="js/jquery-ui.min.js"></script>
-<script src="jsform/SetTax.js"></script>
 <script src="jsform/TaxbreakAdmin.js"></script>
 </head>
 <body>
@@ -27,6 +26,10 @@
 				</div>
 			</div>
 		</div>
+		<form style="display: hidden" action="SetTax.jsp" method="POST"id="form">
+			<input type="hidden" id="var1" name="var1" value="" /> 
+			<input type="hidden" id="var2" name="var2" value="" />
+		</form>
 		<h3>Tax Order</h3>
 		<div class="table table-responsive">
 			<table class="table table-responsive">

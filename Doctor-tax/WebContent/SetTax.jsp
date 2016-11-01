@@ -17,6 +17,8 @@
 	</head>
 	  
 	<body>
+	<input id="inputParam1"  class="form-control input-sm" value="<%= request.getParameter("var1")%>"  >
+	<input id="inputParam2"  class="form-control input-sm" value="<%= request.getParameter("var2")%>"  >
 		<div class="row form-group"></div>
 		
 		<div class="form-horizontal">

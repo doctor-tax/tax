@@ -2,7 +2,7 @@ function getData() {
 	$("#tbDB").empty();
 	$.ajax({
 		type : 'GET',
-		url : './TaxbreakAdmin',
+		url : './TaxbreakAdminSrvl',
 		data : {
 			"method" : "getDbTable"
 		},
@@ -12,11 +12,23 @@ function getData() {
 		}
 	})
 }
-function Update(id) {
-	var text = $('#row' + id);
-	var getData = "";
-	text.children().each(function() {
-		getData = $(this).html();
-		alert(getData);
-	});
+
+// function setOrderTax(id) {
+// $.ajax({
+// type : 'POST',
+// url : './TaxbreakAdminSrvl',
+// data : {
+// "method" : "UpdateTax",
+// "ID" : id
+// },
+// success : function(data) {
+// alert("Success");
+// // location.href="SetTax.jsp";
+// }
+// });
+// }
+function getID(id) {
+	$("#var1").val(id);
+	$("#var2").val("update");
+	form.submit();
 }
