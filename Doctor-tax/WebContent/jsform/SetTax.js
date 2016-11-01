@@ -110,7 +110,7 @@ function clickDelete(){
 			"id":id } ,
 		 success: function(data){
 			alert(data);
-			clickReset();
+			clickBack();
 		}
 	})
 }
@@ -263,7 +263,48 @@ function clickSave(){
 		})
 	}
 }
-
+function checkMode(){
+	var id = $("#inputParam1").val();
+	var mode = $("#inputParam2").val();
+	
+	$("#inputId").val(id);
+	$("#inputMode").val(mode);
+	
+	if(mode == "Update"){
+		$("#btnDelete").prop("disabled", false);
+		$.ajax({
+			type: 'GET',
+			url: './SetTaxSrvl',
+			data: 
+			 {"method":"GenAll",
+				"id":id},
+			 
+			success: function(data){
+				$('#dropdownType').val(data.type).attr("selected", "selected");
+				changeDropDown();
+				$('#inputName').val(data.tax_order);
+				$('#inputAmount').val(data.tax_amount);
+				$('#inputMax').val(data.max_val);
+				$('#inputRate').val(data.tax_rate);
+				$('#inputPercent').val(data.tax_percent);
+				$('#dropdownGroup').val(data.group_id).attr("selected", "selected");
+				$('#inputList').val(data.tax_list);
+			}
+		})
+	}else if(mode == "New"){
+		$.ajax({
+			type: 'GET',
+			url: './SetTaxSrvl',
+			data: 
+			 {"method":"GenId"} ,
+			success: function(data){
+				$("#inputId").val(data.ID);
+				$("#inputList").val(data.LIST);
+				$("#inputList").prop("disabled", true);
+			}
+		})
+	}
+}
 function genRoleGroup(){
 	$.ajax({
 		type: 'GET',
@@ -273,7 +314,7 @@ function genRoleGroup(){
 		success: function(data){
 			// alert(data);
 			$('#dropdownGroup').append(data);
-			
+			checkMode();
 		}
 	})
 }
@@ -287,4 +328,19 @@ function genUpdate(){
 
 function clickBack(){
 	location.href = "TaxbreakAdmin.jsp";
+}
+
+function changeGroup(){
+	var group = $("#dropdownGroup").val();
+	$.ajax({
+		type: 'GET',
+		url: './SetTaxSrvl',
+		data: 
+		 {"method":"changeGroup",
+			"group":group } ,
+		 
+		success: function(data){
+			$("#inputList").val(data.LIST);
+		}
+	})
 }

@@ -58,8 +58,8 @@ public class TaxbreakAdminSrvl extends HttpServlet {
 
 					dbtb += "<tr ondblclick=\"getID('" + id + "')\"><td>" + id + "</td>" + "<td>" + tax_order
 							+ "</td>" + "<td>" + tax_percen + "</td>" + "<td>" + tax_rate + "</td>" + "<td>"
-							+ tax_amount + "</td>" + "<td>" + type + "</td>" + "<td>" + tax_list + "</td>" + "<td>"
-							+ max_val + "</td>" + "</tr>";
+							+ tax_amount + "</td>" + "<td>" + type + "</td>" + "<td>" + max_val + "</td>" + "<td>"
+							+ tax_list + "</td>" + "</tr>";
 
 				}
 

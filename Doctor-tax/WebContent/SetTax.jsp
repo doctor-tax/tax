@@ -17,30 +17,34 @@
 	</head>
 	  
 	<body>
-	<input id="inputParam1"  class="form-control input-sm" value="<%= request.getParameter("var1")%>"  >
-	<input id="inputParam2"  class="form-control input-sm" value="<%= request.getParameter("var2")%>"  >
+	<input id="inputParam1" type="hidden" class="form-control input-sm" value="<%= request.getParameter("var1")%>"  >
+	<input id="inputParam2" type="hidden" class="form-control input-sm" value="<%= request.getParameter("var2")%>"  >
 		<div class="row form-group"></div>
 		
 		<div class="form-horizontal">
 			<div class="container">
+			
+			<input id="inputMode" type="hidden" class="form-control input-sm" value="New">
+			
 				<div class="panel panel-primary">
+				
 					<div class="panel-heading text-center">
 						<b>Set Tax Break</b>
 					</div>
 					
 					<div class="panel-body">
 					
-					<div id="dialogDelete" title="Delete">
-  						<b>Confirm ?</b>
-					</div>
-					
-					<div id="dialogReset" title="Reset">
-  						<b>Confirm ?</b>
-					</div>
-					
-					<div id="dialogSave" title="Save">
-  						<b>Confirm ?</b>
-					</div>
+						<div id="dialogDelete" title="Delete">
+	  						<b>Confirm ?</b>
+						</div>
+						
+						<div id="dialogReset" title="Reset">
+	  						<b>Confirm ?</b>
+						</div>
+						
+						<div id="dialogSave" title="Save">
+	  						<b>Confirm ?</b>
+						</div>
 					
 					
 						<div class="row">
@@ -48,7 +52,7 @@
 					 			<p class="texy-right"><b>ID :</b></p>
 					 		</div>
 					 		<div class = "col-xs-6 col-sm-3 ">
-								<input id = "inputId" type="text" class="form-control input-sm" >
+								<input id = "inputId" type="text" class="form-control input-sm" disabled>
 							</div>
 							<div class="col-xs-6 col-sm-3 control-label">
 					 			<p class="texy-right"><b>Type :</b></p>
@@ -79,7 +83,7 @@
 				 		</div>
 				 		<div class = "col-xs-6 col-sm-3 ">
 							<div class="input-group">
-							  <input id="inputAmount" type="text" class="form-control" placeholder="จำนวนเงิน" aria-describedby="basic-addon1">
+							  <input id="inputAmount" type="number" class="form-control" placeholder="จำนวนเงิน" aria-describedby="basic-addon1">
 							  <span class="input-group-addon">บาท</span>
 							</div>
 						</div>
@@ -89,7 +93,7 @@
 				 		</div>
 				 		<div class = "col-xs-6 col-sm-3 ">
 							<div class="input-group">
-							  <input id="inputMax" type="text" class="form-control" placeholder="จำนวน" aria-describedby="basic-addon1">
+							  <input id="inputMax" type="number" class="form-control" placeholder="จำนวน" aria-describedby="basic-addon1">
 							  <span class="input-group-addon">คน</span>
 							</div>
 						</div>
@@ -101,7 +105,7 @@
 				 		</div>
 				 		<div class = "col-xs-6 col-sm-3 ">
 							<div class="input-group">
-							  <input id="inputRate" type="text" class="form-control" placeholder="จำนวนเงิน" aria-describedby="basic-addon1" disabled>
+							  <input id="inputRate" type="number" class="form-control" placeholder="จำนวนเงิน" aria-describedby="basic-addon1" disabled>
 							  <span class="input-group-addon">บาท</span>
 							</div>
 						</div>
@@ -111,7 +115,7 @@
 				 		</div>
 				 		<div class = "col-xs-6 col-sm-3 ">
 							<div class="input-group">
-							  <input id="inputPercent" type="text" class="form-control" placeholder="%" aria-describedby="basic-addon1" disabled>
+							  <input id="inputPercent" type="number" class="form-control" placeholder="%" aria-describedby="basic-addon1" disabled>
 							  <span class="input-group-addon">%</span>
 							</div>
 						</div>
@@ -123,7 +127,7 @@
 					 			<p class="texy-right"><b>Group :</b></p>
 					 		</div>
 					 		<div class = "col-xs-6 col-sm-3 ">
-								<select class="form-control input-sm" id="dropdownGroup">
+								<select class="form-control input-sm" id="dropdownGroup" onchange="changeGroup()">
 
 						 		</select>
 							</div>
@@ -132,12 +136,16 @@
 					 			<p class="texy-right"><b>ลำดับ :</b></p>
 					 		</div>
 					 		<div class = "col-xs-6 col-sm-3 ">
-								<input id = "inputList" type="text" class="form-control input-sm" >
+								<input id = "inputList" type="number" class="form-control input-sm" >
 							</div>
 					 </div>
 						
 					 	<div class="row">
-						  <div class="col-xs-6 col-sm-3"></div>
+						  <div class="col-xs-6 col-sm-3">
+						  	<button id="btnBack" class="btn btn-default" onclick="clickBack()">
+									<b>Back</b>
+							</button>
+						  </div>
 						  
 						  <div class="col-xs-6 col-sm-3">
 						  	<button id="btnDelete" class="btn btn-default"
