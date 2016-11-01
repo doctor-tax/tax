@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Test Tax</title>
+<title>Tax Order</title>
 <meta name="viewport" content="width=divice-width,initial-scale=1">
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/jquery-ui.css" rel="stylesheet">
@@ -16,7 +16,7 @@
 	<div class="row form-group"></div>
 	<div class="container">
 		<div class="panel panel-primary">
-			<div class="panel-heading text-center">สิทธิการหักลดหย่อนภาษี</div>
+			<div class="panel-heading text-center">Tax Break</div>
 			<div class="panel-body">
 				<div class="col-sm-6 col-xs-6 text-right">
 					<button class="btn btn-primary" onclick="getData()">ดึงข้อมูล</button>

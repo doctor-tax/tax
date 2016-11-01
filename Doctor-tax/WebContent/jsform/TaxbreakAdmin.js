@@ -15,11 +15,11 @@ function getData() {
 
 function getID(id) {
 	$("#var1").val(id);
-	$("#var2").val("update");
+	$("#var2").val("Update");
 	form.submit();
 }
 function addID() {
-	$("#var2").val("add");
+	$("#var2").val("New");
 	$("#var1").val("");
 	form.submit();
 }
