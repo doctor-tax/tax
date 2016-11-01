@@ -13,22 +13,13 @@ function getData() {
 	})
 }
 
-// function setOrderTax(id) {
-// $.ajax({
-// type : 'POST',
-// url : './TaxbreakAdminSrvl',
-// data : {
-// "method" : "UpdateTax",
-// "ID" : id
-// },
-// success : function(data) {
-// alert("Success");
-// // location.href="SetTax.jsp";
-// }
-// });
-// }
 function getID(id) {
 	$("#var1").val(id);
 	$("#var2").val("update");
+	form.submit();
+}
+function addID() {
+	$("#var2").val("add");
+	$("#var1").val("");
 	form.submit();
 }

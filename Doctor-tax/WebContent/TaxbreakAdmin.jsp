@@ -22,7 +22,7 @@
 					<button class="btn btn-primary" onclick="getData()">ดึงข้อมูล</button>
 				</div>
 				<div class="col-sm-6 col-xs-6">
-					<button class="btn btn-primary">เพิ่ม</button>
+					<button class="btn btn-primary" onclick="addID()">เพิ่ม</button>
 				</div>
 			</div>
 		</div>
