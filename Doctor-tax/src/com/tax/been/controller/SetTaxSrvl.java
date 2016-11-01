@@ -74,11 +74,15 @@ public class SetTaxSrvl extends HttpServlet {
 			
 			try{
 				obj = db.getJsonData(sql);
+				db.doDisconnect();
+				
+				db.doConnect();
+				String sql1 = "SELECT MAX(tax_list) AS MAX_LIST FROM order_tax WHERE group_id =" + obj.getString("group_id");
+				obj.put("MAX_LIST",db.getJsonData(sql1).getString("MAX_LIST"));
 				
 			}catch(Exception e){
 				System.out.println(e);
 			}
-			
 			out.println(obj);
         }else if(request.getParameter("method").equals("save")){
             PrintWriter out = response.getWriter();

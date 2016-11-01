@@ -289,6 +289,9 @@ function checkMode(){
 				$('#inputPercent').val(data.tax_percent);
 				$('#dropdownGroup').val(data.group_id).attr("selected", "selected");
 				$('#inputList').val(data.tax_list);
+				$('#inputOldList').val(data.tax_list);
+				$('#inputMaxList').val(data.MAX_LIST);
+				$('#inputOldGroup').val(data.group_id);
 			}
 		})
 	}else if(mode == "New"){
@@ -331,7 +334,10 @@ function clickBack(){
 }
 
 function changeGroup(){
+	var oldGroup = $("#inputOldGroup").val();
+	var oldList = $("#inputOldList").val();
 	var group = $("#dropdownGroup").val();
+	var mode = $("#inputMode").val();
 	$.ajax({
 		type: 'GET',
 		url: './SetTaxSrvl',
@@ -340,7 +346,19 @@ function changeGroup(){
 			"group":group } ,
 		 
 		success: function(data){
-			$("#inputList").val(data.LIST);
+			if(mode == "New"){
+				$("#inputList").val(data.LIST);
+			}else if(mode == "Update"){
+				if(oldGroup == group){
+					alert("update old");
+					$("#inputList").val(oldList);
+					$("#inputMaxList").val(data.LIST-1);
+				}else{
+					alert("update new");
+					$("#inputList").val(data.LIST);
+					$("#inputMaxList").val(data.LIST-1);
+				}
+			}
 		}
 	})
 }

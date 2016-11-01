@@ -25,7 +25,9 @@
 			<div class="container">
 			
 			<input id="inputMode" type="hidden" class="form-control input-sm" value="New">
-			
+			<input id="inputOldList" type="hidden" class="form-control input-sm">
+			<input id="inputMaxList" type="hidden" class="form-control input-sm">
+			<input id="inputOldGroup" type="hidden" class="form-control input-sm">
 				<div class="panel panel-primary">
 				
 					<div class="panel-heading text-center">
