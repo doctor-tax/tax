@@ -5,6 +5,7 @@ $( function() {
       buttons: {
         "Confirm": function() {
           $( this ).dialog(clickDelete());
+          $( this ).dialog( "close" );
         },
         Cancel: function() {
           $( this ).dialog( "close" );
@@ -25,6 +26,7 @@ $( function() {
       buttons: {
         "Confirm": function() {
           $( this ).dialog(clickReset());
+          $( this ).dialog( "close" );
         },
         Cancel: function() {
           $( this ).dialog( "close" );
@@ -76,6 +78,81 @@ function genTable(){
 	})
 }
 
-function clickRow(id){
-	alert(id);
+function clickRow(id,name,list){
+	$('#inputId').val(id);
+	$('#inputName').val(name);
+	$('#inputList').val(list);
+	$('#inputMode').val("Update");
+	$('#btnDelete').prop("disabled", false);
+	$('#inputId').prop("disabled", true);
+}
+
+function clickSave(){
+	var mode = $("#inputMode").val();
+	var id = $("#inputId").val();
+	var name = $("#inputName").val();
+	var list = $("#inputList").val();
+	
+	
+	
+	$.ajax({
+		type: 'GET',
+		url: './SetGroupSrvl',
+		data: 
+		 {"method":"save",
+			"id":id,
+			"name":name,
+			"list":list,
+			"mode":mode} ,
+		 success: function(data){
+			alert(data);
+			clickReset();
+		}
+	})
+}
+
+function clickDelete(){
+	var id = $("#inputId").val();
+	$.ajax({
+		type: 'GET',
+		url: './SetGroupSrvl',
+		data: 
+		 {"method":"delete",
+			"id":id } ,
+		 success: function(data){
+			alert(data);
+			clickReset();
+		}
+	})
+	
+	
+}
+
+function clickReset(){
+	location.reload();
+}
+
+function checkMode(){
+	var ID = $("#inputId").val();
+	$.ajax({
+		type: 'GET',
+		url: './SetGroupSrvl',
+		data: 
+		 {"method":"checkMode",
+			"id": ID } ,
+		success: function(data){
+			//alert(data.NAME);
+			if(data.name_group == undefined){
+				alert("New");
+				$("#inputMode").val("New");
+			}else{
+				alert("Update");
+				$("#inputMode").val("Update");
+				$("#inputId").attr("disabled", "disabled");
+				$("#btnDelete").removeAttr("disabled");
+				$('#inputName').val(data.name_group);
+				$('#inputList').val(data.list_group);
+			}
+		}
+	})
 }

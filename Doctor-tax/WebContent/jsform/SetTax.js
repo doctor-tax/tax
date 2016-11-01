@@ -101,7 +101,18 @@ function clickReset(){
 }
 
 function clickDelete(){
-	alert("delete");
+	var id = $("#inputId").val();
+	$.ajax({
+		type: 'GET',
+		url: './SetTaxSrvl',
+		data: 
+		 {"method":"delete",
+			"id":id } ,
+		 success: function(data){
+			alert(data);
+			clickReset();
+		}
+	})
 }
 
 function clickSave(){
@@ -115,37 +126,141 @@ function clickSave(){
 	var percent = $("#inputPercent").val();
 	var group = $("#dropdownGroup").val();
 	var list = $("#inputList").val();
+	var mode = $("#inputMode").val();
 	
 	if(type == "f"){
 		if(id==""||name==""||amount==""||max==""||list==""){
 			alert("กรุณากรอกข้อมูลให้ครบด้วยครับ");
 		}else{
-			alert("save f");
+			$.ajax({
+				type: 'GET',
+				url: './SetTaxSrvl',
+				data: 
+				 {"method":"save",
+				     "mode" : mode,
+					 "type":type,
+					 "id":id,
+					 "name":name,
+					 "amount":amount,
+					 "max":max,
+					 "list":list,
+					 "group":group},
+				success: function(data){
+					//alert(data);
+					alert(data);
+				}
+			})
 		}
 	}else if(type == "r"){
 		if(id==""||name==""||rate==""||list==""){
 			alert("กรุณากรอกข้อมูลให้ครบด้วยครับ");
 		}else{
-			alert("save r");
+			$.ajax({
+				type: 'GET',
+				url: './SetTaxSrvl',
+				data: 
+				 {"method":"save",
+				     "mode" : mode,
+					 "type":type,
+					 "id":id,
+					 "name":name,
+					 "list":list,
+					 "group":group,
+					 "rate":rate },
+				success: function(data){
+					//alert(data);
+					alert(data);
+				}
+			})
 		}
 	}else if(type == "p"){
 		if(id==""||name==""||percent==""||list==""){
 			alert("กรุณากรอกข้อมูลให้ครบด้วยครับ");
 		}else{
-			alert("save p");
+			$.ajax({
+				type: 'GET',
+				url: './SetTaxSrvl',
+				data: 
+				 {"method":"save",
+				     "mode" : mode,
+					 "type":type,
+					 "id":id,
+					 "name":name,
+					 "list":list,
+					 "group":group,
+					 "percent":percent,
+					 "rate":rate },
+				success: function(data){
+					//alert(data);
+					alert(data);
+				}
+			})
 		}
 	}else if(type == "fr"){
 		if(id==""||name==""||list==""){
 			alert("กรุณากรอกข้อมูลให้ครบด้วยครับ");
 		}else{
-			alert("save fr");
+			$.ajax({
+				type: 'GET',
+				url: './SetTaxSrvl',
+				data: 
+				 {"method":"save",
+				     "mode" : mode,
+					 "type":type,
+					 "id":id,
+					 "name":name,
+					 "list":list,
+					 "group":group},
+				success: function(data){
+					//alert(data);
+					alert(data);
+				}
+			})
 		}
 	}else if(type == "pr"){
 		if(id==""||name==""||percent==""||rate==""||list==""){
 			alert("กรุณากรอกข้อมูลให้ครบด้วยครับ");
 		}else{
-			alert("save pr");
+			$.ajax({
+				type: 'GET',
+				url: './SetTaxSrvl',
+				data: 
+				 {"method":"save",
+				     "mode" : mode,
+					 "type":type,
+					 "id":id,
+					 "name":name,
+					 "list":list,
+					 "group":group,
+					 "percent":percent,
+					 "rate":rate },
+				success: function(data){
+					//alert(data);
+					alert(data);
+				}
+			})
 		}
+	}else{
+		$.ajax({
+			type: 'GET',
+			url: './SetTaxSrvl',
+			data: 
+			 {"method":"save",
+			     "mode" : mode,
+				 "type":type,
+				 "id":id,
+				 "name":name,
+				 "amount":amount,
+				 "max":max,
+				 "list":list,
+				 "group":group,
+				 "percent":percent,
+				 "rate":rate },
+			success: function(data){
+				//alert(data);
+				alert(data);
+			}
+		})
 	}
 }
 
@@ -168,4 +283,8 @@ function genUpdate(){
 	var id = $("#id").val();
 	alert("id "+id);
 	alert("mode "+mode);
+}
+
+function clickBack(){
+	location.href = "TaxbreakAdmin.jsp";
 }
