@@ -79,6 +79,7 @@ public class DbConnector {
     
     public boolean doSave(String sql){
         try {
+        	System.out.println(sql);
 			stm.executeUpdate(sql);
 			return true;
 		} catch (SQLException e) {

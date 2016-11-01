@@ -17,9 +17,11 @@
 	</head>
 	  
 	<body>
+		
 		<div class="row form-group"></div>
 		
 		<div class="form-horizontal">
+			<input id="inputMode" type="hidden" class="form-control input-sm" value="New">
 			<div class="container">
 				<div class="panel panel-primary">
 					<div class="panel-heading text-center">
@@ -46,7 +48,7 @@
 					 			<p class="texy-right"><b>ID :</b></p>
 					 		</div>
 					 		<div class = "col-xs-6 col-sm-3 ">
-								<input id = "inputId" type="text" class="form-control input-sm" >
+								<input id = "inputId" type="text" class="form-control input-sm">
 							</div>
 							<div class="col-xs-6 col-sm-3 control-label">
 					 			<p class="texy-right"><b>Type :</b></p>
@@ -135,8 +137,12 @@
 					 </div>
 						
 					 	<div class="row">
-						  <div class="col-xs-6 col-sm-3"></div>
-						  
+						  <div class="col-xs-6 col-sm-3">
+						  	<button id="btnBack" class="btn btn-default" onclick="clickBack()">
+									<b>Back</b>
+							</button>
+						  </div>
+						  	
 						  <div class="col-xs-6 col-sm-3">
 						  	<button id="btnDelete" class="btn btn-default"
 								 disabled>

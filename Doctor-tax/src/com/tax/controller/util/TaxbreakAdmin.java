@@ -48,7 +48,7 @@ public class TaxbreakAdmin extends HttpServlet {
 				for (int i = 0; i < listData.size(); i++) {
 					String id = listData.get(i).get("id");
 					String tax_order = listData.get(i).get("tax_order");
-					String tax_percen = listData.get(i).get("tax_percen");
+					String tax_percen = listData.get(i).get("tax_percent");
 					String tax_rate = listData.get(i).get("tax_rate");
 					String tax_amount = listData.get(i).get("tax_amount");
 					String type = listData.get(i).get("type");
