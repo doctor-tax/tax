@@ -127,10 +127,12 @@ function clickSave(){
 	var group = $("#dropdownGroup").val();
 	var list = $("#inputList").val();
 	var mode = $("#inputMode").val();
+	var oldList = $("#inputOldList").val();
+	var maxList = $("#inputMaxList").val();
 	
 	if(type == "f"){
 		if(id==""||name==""||amount==""||max==""||list==""){
-			alert("กรุณากรอกข้อมูลให้ครบด้วยครับ");
+			alert("กรุณากรอกข้อมูลให้ครบ");
 		}else{
 			$.ajax({
 				type: 'GET',
@@ -144,7 +146,8 @@ function clickSave(){
 					 "amount":amount,
 					 "max":max,
 					 "list":list,
-					 "group":group},
+					 "group":group,
+					 "oldList":oldList},
 				success: function(data){
 					//alert(data);
 					alert(data);
@@ -153,7 +156,7 @@ function clickSave(){
 		}
 	}else if(type == "r"){
 		if(id==""||name==""||rate==""||list==""){
-			alert("กรุณากรอกข้อมูลให้ครบด้วยครับ");
+			alert("กรุณากรอกข้อมูลให้ครบ");
 		}else{
 			$.ajax({
 				type: 'GET',
@@ -166,7 +169,9 @@ function clickSave(){
 					 "name":name,
 					 "list":list,
 					 "group":group,
-					 "rate":rate },
+					 "rate":rate,
+					 "maxList":maxList,
+					 "oldList":oldList},
 				success: function(data){
 					//alert(data);
 					alert(data);
@@ -175,7 +180,7 @@ function clickSave(){
 		}
 	}else if(type == "p"){
 		if(id==""||name==""||percent==""||list==""){
-			alert("กรุณากรอกข้อมูลให้ครบด้วยครับ");
+			alert("กรุณากรอกข้อมูลให้ครบ");
 		}else{
 			$.ajax({
 				type: 'GET',
@@ -189,7 +194,9 @@ function clickSave(){
 					 "list":list,
 					 "group":group,
 					 "percent":percent,
-					 "rate":rate },
+					 "rate":rate,
+					 "maxList":maxList,
+					 "oldList":oldList},
 				success: function(data){
 					//alert(data);
 					alert(data);
@@ -198,7 +205,7 @@ function clickSave(){
 		}
 	}else if(type == "fr"){
 		if(id==""||name==""||list==""){
-			alert("กรุณากรอกข้อมูลให้ครบด้วยครับ");
+			alert("กรุณากรอกข้อมูลให้ครบ");
 		}else{
 			$.ajax({
 				type: 'GET',
@@ -210,7 +217,9 @@ function clickSave(){
 					 "id":id,
 					 "name":name,
 					 "list":list,
-					 "group":group},
+					 "group":group,
+					 "maxList":maxList,
+					 "oldList":oldList},
 				success: function(data){
 					//alert(data);
 					alert(data);
@@ -219,7 +228,7 @@ function clickSave(){
 		}
 	}else if(type == "pr"){
 		if(id==""||name==""||percent==""||rate==""||list==""){
-			alert("กรุณากรอกข้อมูลให้ครบด้วยครับ");
+			alert("กรุณากรอกข้อมูลให้ครบ");
 		}else{
 			$.ajax({
 				type: 'GET',
@@ -233,14 +242,16 @@ function clickSave(){
 					 "list":list,
 					 "group":group,
 					 "percent":percent,
-					 "rate":rate },
+					 "rate":rate,
+					 "maxList":maxList,
+					 "oldList":oldList},
 				success: function(data){
 					//alert(data);
 					alert(data);
 				}
 			})
 		}
-	}else{
+	}/*else{
 		$.ajax({
 			type: 'GET',
 			url: './SetTaxSrvl',
@@ -261,7 +272,7 @@ function clickSave(){
 				alert(data);
 			}
 		})
-	}
+	}*/
 }
 function checkMode(){
 	var id = $("#inputParam1").val();
@@ -361,4 +372,14 @@ function changeGroup(){
 			}
 		}
 	})
+}
+
+function checkList(){
+	var max = $("#inputMaxList").val();
+	var oldList = $("#inputOldList").val();
+	var list = $("#inputList").val();
+	if(list > max){
+		alert("ค่าสูงสุดที่ใส่ได้คือ "+max);
+		$("#inputList").val(oldList);
+	}
 }
