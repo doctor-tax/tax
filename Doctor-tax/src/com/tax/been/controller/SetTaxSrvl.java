@@ -49,6 +49,7 @@ public class SetTaxSrvl extends HttpServlet {
 			String option = "";
 			try {
 				ArrayList<HashMap<String, String>> listData = db.getData(sql);
+				System.out.print(listData);
 
 				for (int i = 0; i < listData.size(); i++) {
 					String value = listData.get(i).get("id_group");
@@ -96,6 +97,10 @@ public class SetTaxSrvl extends HttpServlet {
             String group = request.getParameter("group");
             String percent = request.getParameter("percent");
             String rate = request.getParameter("rate");
+            String oldList = request.getParameter("oldList");
+            
+            int oldListInt = Integer.parseInt(oldList);
+            int listInt = Integer.parseInt(list);
             
             SetTaxDAO sd = new SetTaxDAO();
             sd.setType(type);
@@ -138,6 +143,16 @@ public class SetTaxSrvl extends HttpServlet {
                 sd.doSave();
                 out.println("Insert Success!!!");
             }else if(mode.equals("Update")){
+            	if(listInt > oldListInt){
+                	sd.setOldList(oldList);
+                	sd.setListMode("Greater");
+                	sd.doManageList();
+                	
+                }else if(listInt < oldListInt){
+                	sd.setOldList(oldList);
+                	sd.setListMode("Less");
+                	sd.doManageList();
+                }
                 sd.doUpdate();
                 out.println("Update Success!!!!");
             }

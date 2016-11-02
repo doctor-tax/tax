@@ -1,9 +1,26 @@
 package com.tax.been.dao;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import com.tax.bean.util.DbConnector;
 
 public class SetTaxDAO {
 	private String id;
+	private String listMode;
+	public String getListMode() {
+		return listMode;
+	}
+	public void setListMode(String listMode) {
+		this.listMode = listMode;
+	}
+	public String getOldList() {
+		return oldList;
+	}
+	public void setOldList(String oldList) {
+		this.oldList = oldList;
+	}
+	private String oldList;
 	public String getId() {
 		return id;
 	}
@@ -90,5 +107,34 @@ public class SetTaxDAO {
 		conn.doConnect();
 		conn.doDelete("DELETE FROM order_tax WHERE id = '"+getId()+"'");
 		conn.doCommit();
+	}
+	
+	public void doManageList(){
+		//System.out.println(getListMode());
+		DbConnector db = new DbConnector();
+		db.doConnect();
+		if(getListMode().equals("Greater")){
+			System.out.println("Great");
+			String sql = "SELECT * FROM order_tax WHERE group_id ="+getGroup()+"AND tax_list >"+getOldList()+"AND tax_list <= "+getList();
+			ArrayList<HashMap<String,String>> listData = db.getData(sql);
+			//System.out.println("SetTaxDAOGreat>>>>>>>>>>"+listData);
+			for(int i=0;i<listData.size();i++){
+				int nList = Integer.parseInt(listData.get(i).get("tax_list"));
+				--nList;
+				db.doUpdate("UPDATE order_tax SET tax_list = '"+nList+"' WHERE id ="+listData.get(i).get("id"));
+				db.doCommit();
+			}
+		}else if(getListMode().equals("Less")){
+			System.out.println("Less");
+			String sql = "SELECT * FROM order_tax WHERE group_id ="+getGroup()+"AND tax_list >="+getList()+"AND tax_list < "+getOldList();
+			ArrayList<HashMap<String,String>> listData = db.getData(sql);
+			//System.out.println("SetTaxDAOLess>>>>>>>>>>"+listData);
+			for(int i=0;i<listData.size();i++){
+				int nList = Integer.parseInt(listData.get(i).get("tax_list"));
+				++nList;
+				db.doUpdate("UPDATE order_tax SET tax_list = '"+nList+"' WHERE id ="+listData.get(i).get("id"));
+				db.doCommit();
+			}
+		}
 	}
 }
