@@ -99,7 +99,7 @@ public class SetTaxSrvl extends HttpServlet {
             String rate = request.getParameter("rate");
             String oldList = request.getParameter("oldList");
             
-            int oldListInt = Integer.parseInt(oldList);
+            
             int listInt = Integer.parseInt(list);
             
             SetTaxDAO sd = new SetTaxDAO();
@@ -143,6 +143,7 @@ public class SetTaxSrvl extends HttpServlet {
                 sd.doSave();
                 out.println("Insert Success!!!");
             }else if(mode.equals("Update")){
+            	int oldListInt = Integer.parseInt(oldList);
             	if(listInt > oldListInt){
                 	sd.setOldList(oldList);
                 	sd.setListMode("Greater");
