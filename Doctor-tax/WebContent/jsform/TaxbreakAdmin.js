@@ -23,3 +23,9 @@ function addID() {
 	$("#var1").val("");
 	form.submit();
 }
+function addStep(){
+	location.href = "SetStep.jsp";
+}
+function addGroup(){
+	location.href = "SetGroup.jsp";
+}

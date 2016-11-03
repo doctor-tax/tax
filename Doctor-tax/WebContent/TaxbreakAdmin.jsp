@@ -18,11 +18,21 @@
 		<div class="panel panel-primary">
 			<div class="panel-heading text-center">Tax Break</div>
 			<div class="panel-body">
-				<div class="col-sm-6 col-xs-6 text-right">
-					<button class="btn btn-primary" onclick="getData()">ดึงข้อมูล</button>
-				</div>
-				<div class="col-sm-6 col-xs-6">
-					<button class="btn btn-primary" onclick="addID()">เพิ่ม</button>
+				<div class="row">
+					<div class="col-sm-3 col-xs-3 text-right">
+						
+					</div>
+					<div class="col-sm-3 col-xs-3 text-right">
+						<button class="btn btn-primary" onclick="getData()">ดึงข้อมูล</button>
+					</div>
+					<div class="col-sm-3 col-xs-3">
+						<button class="btn btn-primary" onclick="addID()">เพิ่ม</button>
+						<button class="btn btn-primary" onclick="addGroup()">แก้ไข Group</button>
+					</div>
+					<div class="col-sm-3 col-xs-3">
+						
+						<button class="btn btn-primary" onclick="addStep()">แก้ไขเงื่อนไขขั้นบรรได</button>
+					</div>
 				</div>
 			</div>
 		</div>
