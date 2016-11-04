@@ -40,7 +40,6 @@ function clickRemove() {
 		alert("ไม่สามารถลบได้แล้ว");
 		return false;
 	}
-
 	counter--;
 	$("#group" + counter).remove();
 
@@ -90,7 +89,22 @@ function genStep(){
 		data: 
 		 {"method":"genStep"} ,
 		success: function(data){
-			//alert("data");
+			clickRemove();
+			for(i=0;i<data.length;i++){
+				
+				clickAdd(data[i].step_start,data[i].step_end,data[i].step_percent);
+			}
+			//alert(data.itemb.length);
+			
 		}
 	})
+}
+
+function clickReset(){
+	var newcounter = counter-1;
+	for(i=0;i<newcounter;i++){
+		clickRemove();
+		
+	}
+	clickAdd('','','');
 }

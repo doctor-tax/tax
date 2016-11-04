@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import com.tax.bean.util.DbConnector;
 import com.tax.been.dao.SetStepDAO;
@@ -74,13 +75,26 @@ public class SetStepSrvl extends HttpServlet {
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");
 			DbConnector db = new DbConnector();
+			JSONArray jArray = new JSONArray();
+			JSONObject obj = new JSONObject();
+			PrintWriter out = response.getWriter();
 			String sql = "SELECT * FROM step_tax";
+			ArrayList<HashMap<String, String>> listData = db.getData(sql);
+			//System.out.println(listData.get(0).get("step_id"));
+			//out.println(listData);
 			try{
-				JSONArray jArray = db.getJsonAutoComplete(sql);
-				
+				for(int i=0;i<listData.size();i++){
+					obj = new JSONObject();
+					obj.put("step_id", listData.get(i).get("step_id"));
+					obj.put("step_start", listData.get(i).get("step_start"));
+					obj.put("step_end", listData.get(i).get("step_end"));
+					obj.put("step_percent", listData.get(i).get("step_percent"));
+					jArray.put(obj);
+					
+				}
 				System.out.println(jArray);
-				
-			}catch(Exception e){}
+				out.println(jArray);
+			}catch(Exception e){System.out.println(e);}
 		}
 	}
 

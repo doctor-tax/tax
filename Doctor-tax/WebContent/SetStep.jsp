@@ -64,7 +64,7 @@
 						  </div>
 						  
 						  <div class="col-xs-6 col-sm-3">
-						  	<button id="btnDelete" class="btn btn-default">
+						  	<button id="btnDelete" class="btn btn-default" onclick = "clickReset()">
 									<b>Reset</b>
 							</button>
 						  </div>
