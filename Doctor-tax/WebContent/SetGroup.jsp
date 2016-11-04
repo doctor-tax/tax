@@ -32,7 +32,8 @@
 			</div>
 			
 			<div class="container">
-				
+				<input id="inputOldList" type="hidden" class="form-control input-sm">
+				<input id="inputMaxList" type="hidden" class="form-control input-sm">
 				<input id="inputMode" type="hidden" class="form-control input-sm" value="New">
 			
 				<div class="panel panel-primary">
@@ -46,7 +47,8 @@
 					 			<p class="texy-right"><b>ID :</b></p>
 					 		</div>
 					 		<div class = "col-xs-6 col-sm-3 ">
-								<input id = "inputId" type="number" class="form-control input-sm" onchange="checkMode()" >
+								<input id = "inputId" type="number" class="form-control input-sm" onchange="checkMode()" 
+								disabled>
 							</div>
 						</div>
 						
@@ -64,12 +66,17 @@
 					 			<p class="texy-right"><b>List :</b></p>
 					 		</div>
 					 		<div class = "col-xs-6 col-sm-3 ">
-								<input id = "inputList" type="number" class="form-control input-sm" >
+								<input id = "inputList" type="number" class="form-control input-sm" 
+								onchange="changeList()" disabled >
 							</div>
 						</div>
 						
 						<div class="row">
-							  <div class="col-xs-6 col-sm-3"></div>
+							  <div class="col-xs-6 col-sm-3">
+							  	<button id="btnBack" class="btn btn-default" onclick="clickBack()">
+									<b>Back</b>
+								</button>
+							  </div>
 							  
 							  <div class="col-xs-6 col-sm-3">
 							  	<button id="btnDelete" class="btn btn-default"

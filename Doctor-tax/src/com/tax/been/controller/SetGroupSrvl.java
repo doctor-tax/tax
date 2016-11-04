@@ -42,11 +42,15 @@ public class SetGroupSrvl extends HttpServlet {
 			DbConnector db = new DbConnector();
 			JSONObject obj = new JSONObject();
 			db.doConnect();
-			String sql = "SELECT t1.*,t2._max FROM group_tax t1,(SELECT MAX(id_group) AS '_max' FROM group_tax) t2";
+			String sql = "SELECT t1.*,t2._max,t2.max_list FROM group_tax t1,"
+					+ "(SELECT MAX(id_group) AS '_max',MAX(list_group) AS 'max_list' FROM group_tax) t2 "
+					+ "ORDER BY list_group";
 			ArrayList<HashMap<String,String>> listData = db.getData(sql);
 			String option = "";
 			int max = Integer.parseInt(listData.get(0).get("_max"));
+			int oldMaxList = Integer.parseInt(listData.get(0).get("max_list"));
 			++max;
+			int maxList = oldMaxList+1;
 			try{
 					for(int i = 0 ; i < listData.size() ;i++){
 						String id = listData.get(i).get("id_group");
@@ -59,6 +63,8 @@ public class SetGroupSrvl extends HttpServlet {
 					
 					obj.put("html",option);
 					obj.put("max",max);
+					obj.put("maxlist", maxList);
+					obj.put("oldMax", oldMaxList);
 				
 			}catch(Exception e){}
 			//System.out.println(option);
@@ -84,6 +90,9 @@ public class SetGroupSrvl extends HttpServlet {
 			String name = request.getParameter("name");
 			String list = request.getParameter("list");
 			String mode = request.getParameter("mode");
+			String oldList = request.getParameter("oldList");
+			int listInt = Integer.parseInt(list);
+			
 			SetGroupDAO sd = new SetGroupDAO();
 			sd.setId(id);
 			sd.setName(name);
@@ -92,6 +101,17 @@ public class SetGroupSrvl extends HttpServlet {
 				sd.doSave();
 				out.println("Insert Success!");
 			}else if(mode.equals("Update")){
+				int oldListInt = Integer.parseInt(oldList);
+				if(listInt > oldListInt){
+                	sd.setOldList(oldListInt);
+                	sd.setListMode("Greater");
+                	sd.doManageList();
+                	
+                }else if(listInt < oldListInt){
+                	sd.setOldList(oldListInt);
+                	sd.setListMode("Less");
+                	sd.doManageList();
+                }
 				sd.doUpdate();
 				out.println("Update Success!");
 			}

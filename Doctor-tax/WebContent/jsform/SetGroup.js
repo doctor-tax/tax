@@ -73,7 +73,9 @@ function genTable(){
 		 {"method":"genTable"} ,
 		success: function(data){
 			$('#inputId').val(data.max);
+			$('#inputList').val(data.maxlist);
 			$('#tb').append(data.html);
+			$('#inputMaxList').val(data.oldMax);
 		}
 	})
 }
@@ -82,9 +84,11 @@ function clickRow(id,name,list){
 	$('#inputId').val(id);
 	$('#inputName').val(name);
 	$('#inputList').val(list);
+	$('#inputOldList').val(list);
 	$('#inputMode').val("Update");
 	$('#btnDelete').prop("disabled", false);
 	$('#inputId').prop("disabled", true);
+	$('#inputList').prop("disabled", false);
 }
 
 function clickSave(){
@@ -92,6 +96,7 @@ function clickSave(){
 	var id = $("#inputId").val();
 	var name = $("#inputName").val();
 	var list = $("#inputList").val();
+	var oldList = $("#inputOldList").val();
 	
 	
 	
@@ -103,7 +108,8 @@ function clickSave(){
 			"id":id,
 			"name":name,
 			"list":list,
-			"mode":mode} ,
+			"mode":mode,
+			"oldList":oldList} ,
 		 success: function(data){
 			alert(data);
 			clickReset();
@@ -143,10 +149,10 @@ function checkMode(){
 		success: function(data){
 			//alert(data.NAME);
 			if(data.name_group == undefined){
-				alert("New");
+				//alert("New");
 				$("#inputMode").val("New");
 			}else{
-				alert("Update");
+				//alert("Update");
 				$("#inputMode").val("Update");
 				$("#inputId").attr("disabled", "disabled");
 				$("#btnDelete").removeAttr("disabled");
@@ -156,3 +162,17 @@ function checkMode(){
 		}
 	})
 }
+
+function clickBack() {
+	location.href = "TaxbreakAdmin.jsp";
+}
+
+function changeList(){
+	var list = $("#inputList").val();
+	var listMax = $("#inputMaxList").val();
+	if(list > listMax){
+		alert("ค่าสูงสุดที่ใส่ได้คือ "+ listMax);
+		$("#inputList").val(listMax);
+	}
+}
+

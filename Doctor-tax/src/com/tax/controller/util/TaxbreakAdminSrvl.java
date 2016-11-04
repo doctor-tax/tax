@@ -41,7 +41,9 @@ public class TaxbreakAdminSrvl extends HttpServlet {
 			PrintWriter out = response.getWriter();
 			DbConnector db = new DbConnector();
 			db.doConnect();
-			String sql = "SELECT * FROM ORDER_TAX";
+			String sql = "SELECT t1.*,t2.name_group FROM order_tax t1 "
+					+ "join group_tax t2 on t1.group_id=t2.id_group "
+					+ "order by t2.list_group";
 			String dbtb = "";
 			try {
 				ArrayList<HashMap<String, String>> listData = db.getData(sql);
@@ -49,17 +51,15 @@ public class TaxbreakAdminSrvl extends HttpServlet {
 				for (int i = 0; i < listData.size(); i++) {
 					String id = listData.get(i).get("id");
 					String tax_order = listData.get(i).get("tax_order");
-					String tax_percen = listData.get(i).get("tax_percent");
-					String tax_rate = listData.get(i).get("tax_rate");
-					String tax_amount = listData.get(i).get("tax_amount");
-					String type = listData.get(i).get("type");
+					//String tax_percen = listData.get(i).get("tax_percent");
+					//String tax_rate = listData.get(i).get("tax_rate");
+					//String tax_amount = listData.get(i).get("tax_amount");
+					//String type = listData.get(i).get("type");
 					String tax_list = listData.get(i).get("tax_list");
-					String max_val = listData.get(i).get("max_val");
+					String group = listData.get(i).get("name_group");
 
-					dbtb += "<tr ondblclick=\"getID('" + id + "')\"><td>" + id + "</td>" + "<td>" + tax_order
-							+ "</td>" + "<td>" + tax_percen + "</td>" + "<td>" + tax_rate + "</td>" + "<td>"
-							+ tax_amount + "</td>" + "<td>" + type + "</td>" + "<td>" + max_val + "</td>" + "<td>"
-							+ tax_list + "</td>" + "</tr>";
+					dbtb += "<tr ondblclick=\"getID('" + id + "')\"><td>" + group + "</td>" + "<td>" + tax_list
+							+ "</td>" + "<td>" + tax_order + "</td></tr>";
 
 				}
 

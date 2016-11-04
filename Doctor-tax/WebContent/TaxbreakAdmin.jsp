@@ -45,14 +45,14 @@
 			<table class="table table-responsive">
 				<thead>
 					<tr>
-						<th>#</th>
+						<th>Group</th>
+						<th>List</th>
 						<th>Order</th>
-						<th>Percent</th>
-						<th>Rate</th>
+						<!-- <th>Rate</th>
 						<th>Amount</th>
 						<th>Type</th>
 						<th>Max Value</th>
-						<th>Tax List</th>
+						<th>Tax List</th> -->
 					</tr>
 				</thead>
 				<tbody id="tbDB">
