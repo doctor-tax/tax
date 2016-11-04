@@ -1,4 +1,4 @@
-package com.tax.controller.util;
+package com.tax.been.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -22,13 +22,13 @@ import com.tax.bean.util.DbConnector;
  * Servlet implementation class TaxbreakCal
  */
 @WebServlet("/TaxbreakCal")
-public class TaxbreakCal extends HttpServlet {
+public class TaxbreakCalSrvl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public TaxbreakCal() {
+	public TaxbreakCalSrvl() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
