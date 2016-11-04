@@ -53,12 +53,20 @@ function clickSave() {
 	jsonObj = [];
 	var x = 0;
 	item = {};
+	boo = true;
 	$(".Step").each(function() {
 		++x;
 		//item["id"] = id;
 		var id = this.id;
 		// alert(id);
 		var value = $(this).val();
+		if(value == ""){
+			alert("กรุณากรอกให้ครบทุกช่องด้วยครับ");
+			
+			boo = false;
+			return false;
+		}
+		
 		item[id] = value;
 		if (x % 3 == 0) {
 			jsonObj.push(item);
@@ -66,20 +74,25 @@ function clickSave() {
 		}
 
 	});
-	jsonString = JSON.stringify(jsonObj);
-	console.log(jsonString);
 	
-	$.ajax({
-		type: 'POST',
-		url: './SetStepSrvl',
-		dataType: 'json',
-		data: 
-		 {"method":"clickSave",
-			"json": jsonString} ,
-		success: function(data){
-			alert("Success");
-		}
-	})
+	if(boo){
+		jsonString = JSON.stringify(jsonObj);
+		console.log(jsonString);
+		
+		$.ajax({
+			type: 'POST',
+			url: './SetStepSrvl',
+			dataType: 'json',
+			data: 
+			 {"method":"clickSave",
+				"json": jsonString} ,
+			success: function(data){
+				alert("Success");
+			}
+		})
+	}
+	
+	return boo;
 }
 
 function genStep(){
