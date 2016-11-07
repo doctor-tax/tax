@@ -92,6 +92,16 @@ function changeDropDown(){
 		$("#inputMax").prop("disabled", true);
 		$("#inputRate").prop("disabled", false);
 		$("#inputPercent").prop("disabled", false);
+	}else if(value == "a"){
+		$("#inputAmount").prop("disabled", false);
+		$("#inputMax").prop("disabled", true);
+		$("#inputRate").prop("disabled", true);
+		$("#inputPercent").prop("disabled", true);
+	}else if(value == "s"){
+		$("#inputAmount").prop("disabled", true);
+		$("#inputMax").prop("disabled", true);
+		$("#inputRate").prop("disabled", false);
+		$("#inputPercent").prop("disabled", false);
 	}
 }
 
@@ -227,6 +237,54 @@ function clickSave(){
 			})
 		}
 	}else if(type == "pr"){
+		if(id==""||name==""||percent==""||rate==""||list==""){
+			alert("กรุณากรอกข้อมูลให้ครบ");
+		}else{
+			$.ajax({
+				type: 'GET',
+				url: './SetTaxSrvl',
+				data: 
+				 {"method":"save",
+				     "mode" : mode,
+					 "type":type,
+					 "id":id,
+					 "name":name,
+					 "list":list,
+					 "group":group,
+					 "percent":percent,
+					 "rate":rate,
+					 "maxList":maxList,
+					 "oldList":oldList},
+				success: function(data){
+					//alert(data);
+					alert(data);
+				}
+			})
+		}
+	}else if(type == "a"){
+		if(id==""||name==""||amount==""||list==""){
+			alert("กรุณากรอกข้อมูลให้ครบ");
+		}else{
+			$.ajax({
+				type: 'GET',
+				url: './SetTaxSrvl',
+				data: 
+				 {"method":"save",
+				     "mode" : mode,
+					 "type":type,
+					 "id":id,
+					 "name":name,
+					 "amount":amount,
+					 "list":list,
+					 "group":group,
+					 "oldList":oldList},
+				success: function(data){
+					//alert(data);
+					alert(data);
+				}
+			})
+		}
+	}else if(type == "s"){
 		if(id==""||name==""||percent==""||rate==""||list==""){
 			alert("กรุณากรอกข้อมูลให้ครบ");
 		}else{

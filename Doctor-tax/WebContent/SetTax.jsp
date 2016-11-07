@@ -61,11 +61,14 @@
 					 		</div>
 					 		<div class = "col-xs-6 col-sm-3 ">
 								<select class="form-control input-sm" id="dropdownType" onchange="changeDropDown()">
+										
 						 				<option value="f">กำหนดไว้แล้ว</option>
 						 				<option value="r">รับค่าตามจริงแต่ไม่เกินเรทที่กำหนด</option>
 						 				<option value="p">รับค่าตามจริงแต่ไม่เกิน % ที่กำหนด</option>
 						 				<option value="fr">รับค่าตามจริง</option>
 						 				<option value="pr">รับค่าตามจริงแต่ไม่เกิน % และเรทที่กำหนด</option>
+						 				<option value="a">ต้องลดหย่อนอยู่แล้ว</option>
+						 				<option value="s">ลดหย่อนส่วนตัว</option>
 						 		</select>
 							</div>
 					 	</div>

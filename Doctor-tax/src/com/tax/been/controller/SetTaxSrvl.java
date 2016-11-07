@@ -98,7 +98,7 @@ public class SetTaxSrvl extends HttpServlet {
             String percent = request.getParameter("percent");
             String rate = request.getParameter("rate");
             String oldList = request.getParameter("oldList");
-            
+            System.out.println(type);
             
             int listInt = Integer.parseInt(list);
             
@@ -133,6 +133,19 @@ public class SetTaxSrvl extends HttpServlet {
                 sd.setPercent("0");
             }else if(type.equals("pr")){
                 sd.setPercent(percent);
+                sd.setRate(rate);
+                
+                sd.setAmount("0");
+                sd.setMax("0");
+            }else if(type.equals("a")){
+            	System.out.println(type);
+            	sd.setAmount(amount);
+            	
+                sd.setMax("0");
+                sd.setPercent("0");
+                sd.setRate("0");
+            }else if(type.equals("s")){
+            	sd.setPercent(percent);
                 sd.setRate(rate);
                 
                 sd.setAmount("0");
