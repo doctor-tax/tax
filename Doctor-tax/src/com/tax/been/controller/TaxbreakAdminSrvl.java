@@ -43,7 +43,7 @@ public class TaxbreakAdminSrvl extends HttpServlet {
 			db.doConnect();
 			String sql = "SELECT t1.*,t2.name_group FROM order_tax t1 "
 					+ "join group_tax t2 on t1.group_id=t2.id_group "
-					+ "order by t2.list_group";
+					+ "order by t2.list_group,t1.tax_list";
 			String dbtb = "";
 			try {
 				ArrayList<HashMap<String, String>> listData = db.getData(sql);

@@ -39,6 +39,17 @@ public class SetTaxSrvl extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
+		
+    }
+
+	
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		if (request.getParameter("method").equals("genRoleGroup")) {
 			response.setContentType("application/html");
 			response.setCharacterEncoding("UTF-8");
@@ -49,7 +60,7 @@ public class SetTaxSrvl extends HttpServlet {
 			String option = "";
 			try {
 				ArrayList<HashMap<String, String>> listData = db.getData(sql);
-				System.out.print(listData);
+				//System.out.print(listData);
 
 				for (int i = 0; i < listData.size(); i++) {
 					String value = listData.get(i).get("id_group");
@@ -98,7 +109,7 @@ public class SetTaxSrvl extends HttpServlet {
             String percent = request.getParameter("percent");
             String rate = request.getParameter("rate");
             String oldList = request.getParameter("oldList");
-            System.out.println(type);
+            //System.out.println(type);
             
             int listInt = Integer.parseInt(list);
             
@@ -192,15 +203,15 @@ public class SetTaxSrvl extends HttpServlet {
 					+ "(SELECT MAX(tax_list) as max_list FROM order_tax WHERE group_id=1) t2";
 			try{
 				int id = Integer.parseInt(db.getData(sql).get(0).get("max_id"));
-				System.out.println("id=="+id);
+				//System.out.println("id=="+id);
 				++id;
 				int list;
 				if(db.getData(sql).get(0).get("max_list").length() == 0){
 					list = 1 ;
-					System.out.println("Nodata=="+list);
+					//System.out.println("Nodata=="+list);
 				}else{
 					list = Integer.parseInt(db.getData(sql).get(0).get("max_list"));
-					System.out.println("list=="+list);
+					//System.out.println("list=="+list);
 					++list;
 				}
 				
@@ -224,10 +235,10 @@ public class SetTaxSrvl extends HttpServlet {
 				int list;
 				if(db.getData(sql).get(0).get("max_list").length() == 0){
 					list = 1 ;
-					System.out.println("Nodata=="+list);
+					//System.out.println("Nodata=="+list);
 				}else{
 					list = Integer.parseInt(db.getData(sql).get(0).get("max_list"));
-					System.out.println("list=="+list);
+					//System.out.println("list=="+list);
 					++list;
 				}
 				
@@ -237,18 +248,6 @@ public class SetTaxSrvl extends HttpServlet {
 			
 			out.println(obj);
         }
-    }
-
-	
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
 	}
 
 }

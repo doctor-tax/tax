@@ -113,7 +113,7 @@ function clickReset(){
 function clickDelete(){
 	var id = $("#inputId").val();
 	$.ajax({
-		type: 'GET',
+		type: 'POST',
 		url: './SetTaxSrvl',
 		data: 
 		 {"method":"delete",
@@ -145,7 +145,7 @@ function clickSave(){
 			alert("กรุณากรอกข้อมูลให้ครบ");
 		}else{
 			$.ajax({
-				type: 'GET',
+				type: 'POST',
 				url: './SetTaxSrvl',
 				data: 
 				 {"method":"save",
@@ -169,7 +169,7 @@ function clickSave(){
 			alert("กรุณากรอกข้อมูลให้ครบ");
 		}else{
 			$.ajax({
-				type: 'GET',
+				type: 'POST',
 				url: './SetTaxSrvl',
 				data: 
 				 {"method":"save",
@@ -193,7 +193,7 @@ function clickSave(){
 			alert("กรุณากรอกข้อมูลให้ครบ");
 		}else{
 			$.ajax({
-				type: 'GET',
+				type: 'POST',
 				url: './SetTaxSrvl',
 				data: 
 				 {"method":"save",
@@ -218,7 +218,7 @@ function clickSave(){
 			alert("กรุณากรอกข้อมูลให้ครบ");
 		}else{
 			$.ajax({
-				type: 'GET',
+				type: 'POST',
 				url: './SetTaxSrvl',
 				data: 
 				 {"method":"save",
@@ -241,7 +241,7 @@ function clickSave(){
 			alert("กรุณากรอกข้อมูลให้ครบ");
 		}else{
 			$.ajax({
-				type: 'GET',
+				type: 'POST',
 				url: './SetTaxSrvl',
 				data: 
 				 {"method":"save",
@@ -266,7 +266,7 @@ function clickSave(){
 			alert("กรุณากรอกข้อมูลให้ครบ");
 		}else{
 			$.ajax({
-				type: 'GET',
+				type: 'POST',
 				url: './SetTaxSrvl',
 				data: 
 				 {"method":"save",
@@ -289,7 +289,7 @@ function clickSave(){
 			alert("กรุณากรอกข้อมูลให้ครบ");
 		}else{
 			$.ajax({
-				type: 'GET',
+				type: 'POST',
 				url: './SetTaxSrvl',
 				data: 
 				 {"method":"save",
@@ -342,7 +342,7 @@ function checkMode(){
 	if(mode == "Update"){
 		$("#btnDelete").prop("disabled", false);
 		$.ajax({
-			type: 'GET',
+			type: 'POST',
 			url: './SetTaxSrvl',
 			data: 
 			 {"method":"GenAll",
@@ -365,7 +365,7 @@ function checkMode(){
 		})
 	}else if(mode == "New"){
 		$.ajax({
-			type: 'GET',
+			type: 'POST',
 			url: './SetTaxSrvl',
 			data: 
 			 {"method":"GenId"} ,
@@ -379,7 +379,7 @@ function checkMode(){
 }
 function genRoleGroup(){
 	$.ajax({
-		type: 'GET',
+		type: 'POST',
 		url: './SetTaxSrvl',
 		data: 
 		 {"method":"genRoleGroup"} ,
@@ -408,7 +408,7 @@ function changeGroup(){
 	var group = $("#dropdownGroup").val();
 	var mode = $("#inputMode").val();
 	$.ajax({
-		type: 'GET',
+		type: 'POST',
 		url: './SetTaxSrvl',
 		data: 
 		 {"method":"changeGroup",
