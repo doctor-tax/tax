@@ -53,7 +53,8 @@ function clickSave(){
 		   "month":month,
 		   "year":year},
 		success: function(data){
-			alert(data);
+			$("#inputTax").val(data);
+			$(".hidden").show();
 		}
 	})
 }

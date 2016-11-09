@@ -92,7 +92,7 @@ public class SetStepSrvl extends HttpServlet {
 					jArray.put(obj);
 					
 				}
-				System.out.println(jArray);
+				//System.out.println(jArray);
 				out.println(jArray);
 			}catch(Exception e){System.out.println(e);}
 		}

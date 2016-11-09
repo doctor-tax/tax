@@ -56,15 +56,15 @@
 						</div>
 						<div class="col-xs-6 col-sm-3 ">
 							<select class="form-control input-sm" id="dropdownMonth">
-								<option value="1">มกราคม</option>
-								<option value="2">กุมภาพันธ์</option>
-								<option value="3">มีนาคม</option>
-								<option value="4">เมษายน</option>
-								<option value="5">พฤษภาคม</option>
-								<option value="6">มิถุนายน</option>
-								<option value="7">กรกฎาคม</option>
-								<option value="8">สิงหาคม</option>
-								<option value="9">กันยายน</option>
+								<option value="01">มกราคม</option>
+								<option value="02">กุมภาพันธ์</option>
+								<option value="03">มีนาคม</option>
+								<option value="04">เมษายน</option>
+								<option value="05">พฤษภาคม</option>
+								<option value="06">มิถุนายน</option>
+								<option value="07">กรกฎาคม</option>
+								<option value="08">สิงหาคม</option>
+								<option value="09">กันยายน</option>
 								<option value="10">ตุลาคม</option>
 								<option value="11">พฤศจิกายน</option>
 								<option value="12">ธันวาคม</option>
@@ -76,12 +76,28 @@
 								<b>Year :</b>
 							</p>
 						</div>
+						
+						
+						
 						<div class="col-xs-6 col-sm-3 ">
 							<select class="form-control input-sm" id="dropdownYear">
 								<option value="2016">2016</option>
 								
 							</select>
 						</div>
+					</div>
+					
+					<div id="cal" class="row">
+						<div class="col-xs-6 col-sm-3 control-label">
+							<p class="texy-right">
+								<b>Tax :</b>
+							</p>
+						</div>
+						<div class="col-xs-6 col-sm-3 ">
+							<input id="inputTax" class="form-control input-sm">
+						</div>
+
+
 					</div>
 					
 					<div class="row">
