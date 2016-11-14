@@ -2,9 +2,12 @@ $(document).ready(function(){
 	genStep();
 });
 
-var counter = 2;
+var counter = 1;
+var start = "";
+var end = "";
+var percent = "";
 
-function clickAdd(s,e,p) {
+function clickAdd() {
 	var newTextBoxDiv = $(document.createElement('div')).attr("id",
 			'group' + counter);
 
@@ -18,20 +21,23 @@ function clickAdd(s,e,p) {
 							+ '</div>'
 							+ '<div class="col-xs-6 col-sm-3"><div class="input-group">'
 							+ '<input title = "'+ counter
-							+ '" id="inputStart" type="number" class="form-control Step" placeholder="จำนวนเงินเริ่มต้นของขั้น" aria-describedby="basic-addon1" value="'+s+'"><span class="input-group-addon">บาท</span>'
+							+ '" id="inputStart" type="number" class="form-control Step" placeholder="จำนวนเงินเริ่มต้นของขั้น" aria-describedby="basic-addon1" value="'+start+'"><span class="input-group-addon">บาท</span>'
 							+ '</div></div>'
 							+ '<div class="col-xs-6 col-sm-3"><div class="input-group">'
 							+ '<input title = "'+ counter
-							+ '" id="inputEnd" type="number" class="form-control Step" placeholder="จำนวนเงินสิ้นสุดของขั้น" aria-describedby="basic-addon1" value="'+e+'"><span class="input-group-addon">บาท</span>'
+							+ '" id="inputEnd" type="number" class="form-control Step" placeholder="จำนวนเงินสิ้นสุดของขั้น" aria-describedby="basic-addon1" value="'+end+'"><span class="input-group-addon">บาท</span>'
 							+ '</div></div>'
 							+ '<div class="col-xs-6 col-sm-3"><div class="input-group">'
 							+ '<input title = "'+ counter
-							+ '" id="inputPercent" type="number" class="form-control Step" placeholder="เรทที่นำไปคิด" aria-describedby="basic-addon1" value="'+p+'"><span class="input-group-addon">%</span>'
+							+ '" id="inputPercent" type="number" class="form-control Step" placeholder="เรทที่นำไปคิด" aria-describedby="basic-addon1" value="'+percent+'"><span class="input-group-addon">%</span>'
 							+ '</div></div></div>');
 
 	newTextBoxDiv.appendTo("#groupStep");
 
 	counter++;
+	start = "";
+	end = "";
+	percent = "";
 
 }
 
@@ -102,10 +108,12 @@ function genStep(){
 		data: 
 		 {"method":"genStep"} ,
 		success: function(data){
-			clickRemove();
-			for(i=0;i<data.length;i++){
-				
-				clickAdd(data[i].step_start,data[i].step_end,data[i].step_percent);
+			for(i=0;i<data.length;i++){		
+				start = data[i].step_start;
+				end = data[i].step_end;
+				percent = data[i].step_percent;
+				//alert(start);
+				clickAdd();
 			}
 			//alert(data.itemb.length);
 			
@@ -119,5 +127,5 @@ function clickReset(){
 		clickRemove();
 		
 	}
-	clickAdd('','','');
+	clickAdd();
 }

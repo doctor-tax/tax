@@ -368,11 +368,12 @@ function checkMode(){
 			type: 'POST',
 			url: './SetTaxSrvl',
 			data: 
-			 {"method":"GenId"} ,
+			 {"method":"GenId"},
 			success: function(data){
 				$("#inputId").val(data.ID);
-				$("#inputList").val(data.LIST);
+				//$("#inputList").val(data.LIST);
 				$("#inputList").prop("disabled", true);
+				changeGroup();
 			}
 		})
 	}
@@ -419,11 +420,11 @@ function changeGroup(){
 				$("#inputList").val(data.LIST);
 			}else if(mode == "Update"){
 				if(oldGroup == group){
-					alert("update old");
+					//alert("update old");
 					$("#inputList").val(oldList);
 					$("#inputMaxList").val(data.LIST-1);
 				}else{
-					alert("update new");
+					//alert("update new");
 					$("#inputList").val(data.LIST);
 					$("#inputMaxList").val(data.LIST-1);
 				}

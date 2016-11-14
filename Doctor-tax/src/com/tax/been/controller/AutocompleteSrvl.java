@@ -46,9 +46,10 @@ public class AutocompleteSrvl extends HttpServlet {
 		DbConnector db = new DbConnector();
 		String term = request.getParameter("term");
 		String tb = request.getParameter("tb");
+		String value = request.getParameter("value");
 		//System.out.println(term);
 		if(tb.equals("DOC_NAME")){
-			String sql = "SELECT doctor_id,doctor_name FROM doctor_income";
+			String sql = "SELECT doctor_id,doctor_name FROM doctor_income WHERE doctor_id+doctor_name LIKE '%"+value+"%'";
 			JSONArray jArray = db.getJsonAutoComplete(sql);
 			out.println(jArray);
 		}

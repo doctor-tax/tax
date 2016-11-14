@@ -70,7 +70,7 @@ public class TaxbreakAdminSrvl extends HttpServlet {
 			System.out.println(dbtb);
 			out.println(dbtb);
 		}
-		if (request.getParameter("method").equals("UpdateTax")) {
+		/*if (request.getParameter("method").equals("UpdateTax")) {
 			response.setContentType("application/html");
 			response.setCharacterEncoding("UTF-8");
 			String getId = request.getParameter("ID");
@@ -79,7 +79,7 @@ public class TaxbreakAdminSrvl extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("SetTax.jsp");
 			rd.forward(request, response);
 
-		}
+		}*/
 
 	}
 

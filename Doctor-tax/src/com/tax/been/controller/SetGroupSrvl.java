@@ -116,13 +116,24 @@ public class SetGroupSrvl extends HttpServlet {
 				out.println("Update Success!");
 			}
 		}else if(request.getParameter("method").equals("delete")){
+			response.setCharacterEncoding("UTF-8");
 			PrintWriter out = response.getWriter();
 			String id = request.getParameter("id");
 			SetGroupDAO ud = new SetGroupDAO();
+			
 			ud.setId(id);
 			ud.doDelete();
+			if(ud.doDelete()){
+				out.print("Delete Success!");
+			}else{
+				out.println("ไม่สามารถลบ Group ที่มีสมาชิกได้\n หากต้องการลบ กรุณาลบสมาชิกใน Group ให้หมดก่อน");
+			}
 			
-			out.print("Delete Success!");
+			
+			
+				
+			
+					
 		}
 		
 	}

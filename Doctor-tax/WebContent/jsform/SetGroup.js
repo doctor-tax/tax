@@ -89,6 +89,9 @@ function clickRow(id,name,list){
 	$('#btnDelete').prop("disabled", false);
 	$('#inputId').prop("disabled", true);
 	$('#inputList').prop("disabled", false);
+	if(id == "0"){
+		$('#btnDelete').prop("disabled", true);
+	}
 }
 
 function clickSave(){

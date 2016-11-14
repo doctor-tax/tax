@@ -33,7 +33,7 @@
 							</p>
 						</div>
 						<div class="col-xs-6 col-sm-3 ">
-							<input id="inputName" type="text" class="form-control input-sm">
+							<input id="inputName" type="text" class="form-control input-sm" onkeyup="autocompleteName()">
 						</div>
 
 						<div class="col-xs-6 col-sm-3 control-label">
@@ -42,7 +42,7 @@
 							</p>
 						</div>
 						<div class="col-xs-6 col-sm-3 ">
-							<input id="inputId" type="text" class="form-control input-sm">
+							<input id="inputId" type="text" class="form-control input-sm" disabled>
 						</div>
 
 

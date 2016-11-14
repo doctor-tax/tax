@@ -59,23 +59,7 @@ public class CalTaxSrvl extends HttpServlet {
 			String sql = //"DECLARE " + "@SetYear CHAR(4)," + "@SetStrMonth CHAR(2)," + "@SetEndMonth CHAR(2),"
 					//+ "@IDDoctor CHAR(50)SET " + "@SetYear = '2016'SET " + "@SetStrMonth = '01'SET "
 					//+ "@SetEndMonth = '03'SET @IDDoctor = '01'"
-					"SELECT t6.id,t6.doctor_id,t6.income,t6.income-SUM(t6.sum_tax_break) "
-					+ "AS sum_all_tax_break,"+year+"+"+month+" AS 'stdate' FROM "
-					+ "(SELECT t1.*,t2.type,t2.tax_rate,t2.tax_percent,t2.tax_amount,t5.Income," + "CASE "
-					+ "WHEN t2.type='a' THEN t1.tax_break "
-					+ "WHEN t2.type='s' AND (t5.Income*t2.tax_percent)/100 >= t2.tax_rate THEN t2.tax_rate "
-					+ "WHEN t2.type='s' AND (t5.Income*t2.tax_percent)/100 < t2.tax_rate THEN (t5.Income*t2.tax_percent)/100 "
-					+ "WHEN t2.type='f' THEN t2.tax_amount * t1.tax_break WHEN t2.type='fr' THEN t1.tax_break "
-					+ "WHEN t2.type='p' AND t1.tax_break >= (t5.Income*t2.tax_percent)/100 THEN (t5.Income*t2.tax_percent)/100 "
-					+ "WHEN t2.type='p' AND t1.tax_break < (t5.Income*t2.tax_percent)/100 THEN t1.tax_break "
-					+ "WHEN t2.type='pr' AND t1.tax_break >= (t5.Income*t2.tax_percent)/100 THEN t2.tax_rate "
-					+ "WHEN t2.type='pr' AND t1.tax_break < (t5.Income*t2.tax_percent)/100 THEN t1.tax_break "
-					+ "WHEN t2.type='r' AND t1.tax_break >= t2.tax_rate THEN t2.tax_rate WHEN t2.type='r' AND t1.tax_break < t2.tax_rate THEN t1.tax_break "
-					+ "END AS 'sum_tax_break' FROM tra_tax t1 LEFT JOIN order_tax t2 ON t1.tax_id=t2.id "
-					+ "LEFT JOIN doctor_income t3  ON t1.doctor_id=t3.doctor_id , (SELECT MAX(id) AS '_max' FROM tra_tax) t4,"
-					+ "(SELECT SUM(doctor_income) AS 'Income' FROM doctor_income WHERE doctor_month BETWEEN '"+year+"01' AND '"+year+month+"') "
-					+ "t5 WHERE t3.doctor_id = '"+id+"' AND t3.doctor_month='"+year+month+"' AND t1.id=t4._max) t6 GROUP BY t6.id,t6.doctor_id,t6.income";
-			System.out.println(sql);
+					"SELECT t7.id,t7.hcode,t7.doctor_id,t7.doctor_income,t7.income,t7.sum_pay_tax,SUM(t7.sum_tax_break) AS sum_tax_break,'201603' AS 'stdate' FROM (SELECT t1.*,t2.type,t2.tax_rate,t2.tax_percent,t2.tax_amount,t5.Income,t3.hcode,t3.doctor_income,t6.sum_pay_tax, CASE WHEN t2.type='a' THEN t1.tax_break WHEN t2.type='s' AND (t5.Income*t2.tax_percent)/100 >= t2.tax_rate THEN t2.tax_rate WHEN t2.type='s' AND (t5.Income*t2.tax_percent)/100 < t2.tax_rate THEN (t5.Income*t2.tax_percent)/100 WHEN t2.type='f' THEN t2.tax_amount * t1.tax_break WHEN t2.type='fr' THEN t1.tax_break WHEN t2.type='p' AND t1.tax_break >= (t5.Income*t2.tax_percent)/100 THEN (t5.Income*t2.tax_percent)/100 WHEN t2.type='p' AND t1.tax_break < (t5.Income*t2.tax_percent)/100 THEN t1.tax_break WHEN t2.type='pr' AND t1.tax_break >= (t5.Income*t2.tax_percent)/100 THEN t2.tax_rate WHEN t2.type='pr' AND t1.tax_break < (t5.Income*t2.tax_percent)/100 THEN t1.tax_break WHEN t2.type='r' AND t1.tax_break >= t2.tax_rate THEN t2.tax_rate WHEN t2.type='r' AND t1.tax_break < t2.tax_rate THEN t1.tax_break END AS 'sum_tax_break' FROM tra_tax t1 LEFT JOIN order_tax t2 ON t1.tax_id=t2.id LEFT JOIN doctor_income t3  ON t1.doctor_id=t3.doctor_id ,(SELECT MAX(id) AS '_max' FROM tra_tax) t4,(SELECT SUM(doctor_income) AS 'Income' FROM doctor_income  WHERE doctor_month BETWEEN '201601' AND '201602') t5,(SELECT sum_pay_tax FROM pay_tax WHERE tax_period = '201601') t6 WHERE t3.doctor_id = '01' AND doctor_month = '201602' AND t1.id=t4._max) t7 GROUP BY t7.id,t7.doctor_id,t7.income,t7.hcode,t7.doctor_income,t7.sum_pay_tax";
 			DbConnector db = new DbConnector();
 			db.doConnect();
 			JSONObject obj = db.getJsonData(sql);
@@ -85,9 +69,9 @@ public class CalTaxSrvl extends HttpServlet {
 				String docId = obj.getString("doctor_id");
 				String docIncome = Double.toString(obj.getDouble("income"));
 						//obj.getDouble("income");
-				String taxBreak = obj.getString("sum_all_tax_break");
+				String taxBreak = obj.getString("sum_tax_break");
 				String date = obj.getString("stdate");
-				System.out.println(tranId+" "+docId+" "+docIncome+" "+taxBreak+" "+date);
+				//System.out.println(tranId+" "+docId+" "+docIncome+" "+taxBreak+" "+date);
 				cd.setTranId(tranId);
 				cd.setDocId(docId);
 				cd.setDocIncome(docIncome);
@@ -97,7 +81,7 @@ public class CalTaxSrvl extends HttpServlet {
 
 				db.doConnect();
 
-				Double net = Double.parseDouble(taxBreak);
+				Double net = Double.parseDouble(docIncome)-Double.parseDouble(taxBreak);
 				System.out.println(net);
 				Double tax = 0.00;
 				System.out.println(tax);

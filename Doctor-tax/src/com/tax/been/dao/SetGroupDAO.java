@@ -58,11 +58,17 @@ public class SetGroupDAO {
 		conn.doCommit();
 	}
 	
-	public void doDelete(){
-		DbConnector conn = new DbConnector();
-		conn.doConnect();
-		conn.doDelete("DELETE FROM group_tax WHERE id_group = '"+getId()+"'");
-		conn.doCommit();
+	public boolean doDelete(){
+		
+			DbConnector conn = new DbConnector();
+			conn.doConnect();
+			boolean result = conn.doDelete("DELETE FROM group_tax WHERE id_group = '"+getId()+"'");
+			
+			System.out.println(result);
+			conn.doCommit();
+			return result;
+			
+			
 	}
 	
 	public void doManageList(){
