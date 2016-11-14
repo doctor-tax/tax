@@ -52,14 +52,15 @@ public class CalTaxSrvl extends HttpServlet {
 		if (request.getParameter("method").equals("save")) {
 			String id = request.getParameter("id");
 			String month = request.getParameter("month");
+			int monthInt = Integer.parseInt(month);
 			String year = request.getParameter("year");
 			System.out.println(id + "   " + month + "   " + year);
 			PrintWriter out = response.getWriter();
-			String sql = "DECLARE " + "@SetYear CHAR(4)," + "@SetStrMonth CHAR(2)," + "@SetEndMonth CHAR(2),"
-					+ "@IDDoctor CHAR(50)SET " + "@SetYear = '2016'SET " + "@SetStrMonth = '01'SET "
-					+ "@SetEndMonth = '03'SET "
-					+ "@IDDoctor = '01'SELECT t6.id,t6.doctor_id,t6.income,SUM(t6.sum_tax_break) "
-					+ "AS sum_all_tax_break,@SetYear+@SetEndMonth AS 'stdate' FROM "
+			String sql = //"DECLARE " + "@SetYear CHAR(4)," + "@SetStrMonth CHAR(2)," + "@SetEndMonth CHAR(2),"
+					//+ "@IDDoctor CHAR(50)SET " + "@SetYear = '2016'SET " + "@SetStrMonth = '01'SET "
+					//+ "@SetEndMonth = '03'SET @IDDoctor = '01'"
+					"SELECT t6.id,t6.doctor_id,t6.income,t6.income-SUM(t6.sum_tax_break) "
+					+ "AS sum_all_tax_break,"+year+"+"+month+" AS 'stdate' FROM "
 					+ "(SELECT t1.*,t2.type,t2.tax_rate,t2.tax_percent,t2.tax_amount,t5.Income," + "CASE "
 					+ "WHEN t2.type='a' THEN t1.tax_break "
 					+ "WHEN t2.type='s' AND (t5.Income*t2.tax_percent)/100 >= t2.tax_rate THEN t2.tax_rate "
@@ -72,15 +73,14 @@ public class CalTaxSrvl extends HttpServlet {
 					+ "WHEN t2.type='r' AND t1.tax_break >= t2.tax_rate THEN t2.tax_rate WHEN t2.type='r' AND t1.tax_break < t2.tax_rate THEN t1.tax_break "
 					+ "END AS 'sum_tax_break' FROM tra_tax t1 LEFT JOIN order_tax t2 ON t1.tax_id=t2.id "
 					+ "LEFT JOIN doctor_income t3  ON t1.doctor_id=t3.doctor_id , (SELECT MAX(id) AS '_max' FROM tra_tax) t4,"
-					+ "(SELECT SUM(doctor_income) AS 'Income' FROM doctor_income WHERE MONTH(doctor_month) BETWEEN @SetStrMonth AND @SetEndMonth) "
-					+ "t5 WHERE t3.doctor_id = @IDDoctor AND YEAR(t3.doctor_month)=@SetYear AND MONTH(t3.doctor_month) = @SetEndMonth AND t1.id=t4._max) t6 GROUP BY t6.id,t6.doctor_id,t6.income";
+					+ "(SELECT SUM(doctor_income) AS 'Income' FROM doctor_income WHERE doctor_month BETWEEN '"+year+"01' AND '"+year+month+"') "
+					+ "t5 WHERE t3.doctor_id = '"+id+"' AND t3.doctor_month='"+year+month+"' AND t1.id=t4._max) t6 GROUP BY t6.id,t6.doctor_id,t6.income";
 			System.out.println(sql);
 			DbConnector db = new DbConnector();
 			db.doConnect();
 			JSONObject obj = db.getJsonData(sql);
 			CalTaxDAO cd = new CalTaxDAO();
 			try {
-				System.out.println("try");
 				String tranId = obj.getString("id");
 				String docId = obj.getString("doctor_id");
 				String docIncome = Double.toString(obj.getDouble("income"));
@@ -97,7 +97,7 @@ public class CalTaxSrvl extends HttpServlet {
 
 				db.doConnect();
 
-				Double net = Double.parseDouble(docIncome) - Double.parseDouble(taxBreak);
+				Double net = Double.parseDouble(taxBreak);
 				System.out.println(net);
 				Double tax = 0.00;
 				System.out.println(tax);
@@ -119,10 +119,16 @@ public class CalTaxSrvl extends HttpServlet {
 					
 
 				}
+				
+				if(monthInt>1){
+					String beforeMonth = year + String.format("%02d", monthInt-1);
+					Double oldTax = Double.parseDouble(db.getData("select sum(pay_tax) AS sum from pay_tax where tax_period between '201601' AND '"+beforeMonth+"' AND doctor_id = '"+id+"'").get(0).get("sum"));
+					tax = tax-oldTax;
+				}
 				NumberFormat formatter = new DecimalFormat("#0.00");     
 				out.println(formatter.format(tax));
 				
-				System.out.println(docIncome + "-" + taxBreak + "= taxStep "+tax);
+				System.out.println("tax-teaxBreak = "+ taxBreak + ",taxStep = "+tax);
 				// cd.doSave();
 			} catch (Exception e) {
 				System.out.println(e);
