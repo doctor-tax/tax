@@ -17,8 +17,8 @@
 	</head>
 	  
 	<body>
-	<input id="inputParam1" type="hidden" class="form-control input-sm" value="<%= request.getParameter("var1")%>"  >
-	<input id="inputParam2" type="hidden" class="form-control input-sm" value="<%= request.getParameter("var2")%>"  >
+	<input id="inputParam1" type="hidden" class="form-control input-sm" value="<%= request.getParameter("id")%>"  >
+	<input id="inputParam2" type="hidden" class="form-control input-sm" value="<%= request.getParameter("mode")%>"  >
 		<div class="row form-group"></div>
 		
 		<div class="form-horizontal">

@@ -37,8 +37,8 @@
 			</div>
 		</div>
 		<form style="display: hidden" action="SetTax.jsp" method="POST"id="form">
-			<input type="hidden" id="id" name="var1" value="" /> 
-			<input type="hidden" id="var2" name="var2" value="" />
+			<input type="hidden" id="id" name="id" value="" /> 
+			<input type="hidden" id="mode" name="mode" value="" />
 		</form>
 		<h3>Tax Order</h3>
 		<div class="table table-responsive">
