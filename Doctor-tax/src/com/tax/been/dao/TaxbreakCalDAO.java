@@ -1,7 +1,5 @@
 package com.tax.been.dao;
 
-import java.util.Date;
-
 import com.tax.bean.util.DbConnector;
 
 public class TaxbreakCalDAO {
@@ -9,7 +7,7 @@ public class TaxbreakCalDAO {
 	String doctor_id;
 	int tax_id;
 	double tax_break;
-	Date datestam;
+	String datestam;
 
 	public int getId() {
 		return id;
@@ -43,19 +41,19 @@ public class TaxbreakCalDAO {
 		this.tax_break = tax_break;
 	}
 
-	public Date getDatestam() {
+	public String getDatestam() {
 		return datestam;
 	}
 
-	public void setDatestam(Date datestam) {
+	public void setDatestam(String datestam) {
 		this.datestam = datestam;
 	}
 
 	public void doSave() {
 		DbConnector conn = new DbConnector();
 		conn.doConnect();
-		conn.doSave("INSERT INTO tra_tax (id,doctor_id,tax_id,tax_break,datestam) " + " VALUES('" + getId() + "','"
-				+ getDoctor_id() + "','" + getTax_id() + "','" + getTax_break() + "','" + getDatestam() + "')");
+		conn.doSave("INSERT INTO tra_tax (id,doctor_id,tax_id,tax_break,datestam) " + " VALUES(" + getId() + ",'"
+				+ getDoctor_id() + "'," + getTax_id() + "," + getTax_break() + ",'" + getDatestam() + "');");
 		conn.doCommit();
 	}
 

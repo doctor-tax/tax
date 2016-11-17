@@ -90,7 +90,7 @@ function ClickSave() {
 
 		myVal = $(this).val();
 		if (myVal == null || myVal == "") {
-			myVal = 0;
+			myVal = "0";
 		}
 		myObj["id"] = this.id;
 		myObj["value"] = myVal;
@@ -99,24 +99,28 @@ function ClickSave() {
 	});
 
 	var json = JSON.stringify(jsonObj);
-	alert(json);
-	// InsertTra(json);
+	InsertTra(json);
 
 }
 
 function InsertTra(json) {
-	$("#tbDB").empty();
 	$.ajax({
 		type : 'POST',
 		url : './TaxbreakCal',
 		dataType : 'json',
 		data : {
 			"method" : "InsertTra",
-			"jon" : json
+			"json" : json
 		},
 		success : function(data) {
-			alert("Insert Success");
-			// $('#myCollapse').append(data);
+			alert(data.result);
+			// $('select option[value="0"]').attr("selected", true);
+			// $('input').val('');
+			$(".collapse").collapse('hide');
+			location.reload();
 		}
 	})
+}
+function ClickCancel(){
+	location.reload();
 }

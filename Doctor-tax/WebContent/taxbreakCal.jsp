@@ -31,9 +31,8 @@
 		</div>
 		<div class="container">
 			<div class="row text-right">
-				<button class="btn btn-success" onclick="ClickSave()">
-					SAVE</button>
-				<button class="btn btn-warning">CANCEL</button>
+				<button class="btn btn-success" onclick="ClickSave()">SAVE</button>
+				<button class="btn btn-warning" onclick="ClickCancel()">CANCEL</button>
 			</div>
 		</div>
 	</div>

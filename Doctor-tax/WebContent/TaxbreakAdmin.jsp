@@ -11,6 +11,9 @@
 <script src="js/jquery-1.11.3.min.js"></script>
 <script src="js/jquery-ui.min.js"></script>
 <script src="jsform/TaxbreakAdmin.js"></script>
+<script src="js/dataTables.bootstrap.min.js"></script>
+<script src="js/jquery.dataTables.min.js"></script>
+<link href="css/dataTables.bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 	<div class="row form-group"></div>
@@ -19,46 +22,41 @@
 			<div class="panel-heading text-center">Tax Break</div>
 			<div class="panel-body">
 				<div class="row">
+					<div class="col-sm-3 col-xs-3 text-right"></div>
 					<div class="col-sm-3 col-xs-3 text-right">
-						
-					</div>
-					<div class="col-sm-3 col-xs-3 text-right">
-						<button class="btn btn-primary" onclick="getData()">ดึงข้อมูล</button>
+						<button class="btn btn-primary" onclick="loadDataTable()">ดึงข้อมูล</button>
 					</div>
 					<div class="col-sm-3 col-xs-3">
 						<button class="btn btn-primary" onclick="addID()">เพิ่ม</button>
-						<button class="btn btn-primary" onclick="addGroup()">แก้ไข Group</button>
+						<button class="btn btn-primary" onclick="addGroup()">แก้ไข
+							Group</button>
 					</div>
 					<div class="col-sm-3 col-xs-3">
-						
+
 						<button class="btn btn-primary" onclick="addStep()">แก้ไขเงื่อนไขขั้นบันได</button>
 					</div>
 				</div>
 			</div>
 		</div>
-		<form style="display: hidden" action="SetTax.jsp" method="POST"id="form">
-			<input type="hidden" id="id" name="id" value="" /> 
-			<input type="hidden" id="mode" name="mode" value="" />
+		<form style="display: hidden" action="SetTax.jsp" method="POST"
+			id="form">
+			<input type="hidden" id="id" name="id" value="" /> <input
+				type="hidden" id="mode" name="mode" value="" />
 		</form>
 		<h3>Tax Order</h3>
-		<div class="table table-responsive">
-			<table class="table table-responsive">
-				<thead>
-					<tr>
-						<th>Group</th>
-						<th>List</th>
-						<th>Order</th>
-						<!-- <th>Rate</th>
-						<th>Amount</th>
-						<th>Type</th>
-						<th>Max Value</th>
-						<th>Tax List</th> -->
-					</tr>
-				</thead>
-				<tbody id="tbDB">
-				</tbody>
-			</table>
-		</div>
+		<table id="order_tax"
+			class="table table-striped table-bordered dataTable table-hover">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Group</th>
+					<th>List</th>
+					<th>Order</th>
+				</tr>
+			</thead>
+			<tbody id="tbdata">
+			</tbody>
+		</table>
 	</div>
 </body>
 </html>
