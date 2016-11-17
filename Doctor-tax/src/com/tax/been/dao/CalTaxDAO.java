@@ -3,14 +3,56 @@ package com.tax.been.dao;
 import com.tax.bean.util.DbConnector;
 
 public class CalTaxDAO {
-	private String tranId;
+	
 	private String date;
-	public String getTranId() {
-		return tranId;
+	private String payTax;
+	private String income;
+	private String hcode;
+	private String donate;
+	private String sumPayTax;
+	private String docId;
+	private String docIncome;
+	private String taxBreak;
+	
+	public String getPayTax() {
+		return payTax;
 	}
-	public void setTranId(String tranId) {
-		this.tranId = tranId;
+	public void setPayTax(String payTax) {
+		this.payTax = payTax;
 	}
+	public String getSumPayTax() {
+		return sumPayTax;
+	}
+	public void setSumPayTax(String sumPayTax) {
+		this.sumPayTax = sumPayTax;
+	}
+	
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
+	public String getIncome() {
+		return income;
+	}
+	public void setIncome(String income) {
+		this.income = income;
+	}
+	public String getHcode() {
+		return hcode;
+	}
+	public void setHcode(String hcode) {
+		this.hcode = hcode;
+	}
+	public String getDonate() {
+		return donate;
+	}
+	public void setDonate(String donate) {
+		this.donate = donate;
+	}
+	
+	
 	public String getDocId() {
 		return docId;
 	}
@@ -29,16 +71,15 @@ public class CalTaxDAO {
 	public void setTaxBreak(String taxBreak) {
 		this.taxBreak = taxBreak;
 	}
-	private String docId;
-	private String docIncome;
-	private String taxBreak;
+	
 	
 	public void doSave(){
 		DbConnector conn = new DbConnector();
 		conn.doConnect();
-		//conn.doSave("INSERT INTO order_tax(id,tax_order, tax_percent, tax_rate, tax_amount, type, tax_list, max_val,group_id) "
-		//		+ "VALUES ('"+getId()+"','"+getOrder()+"',"+getPercent()+","
-		//				+getRate()+","+getAmount()+",'"+getType()+"','"+getList()+"','"+getMax()+"','"+getGroup()+"')");
+		//System.out.println(getHcode());
+		conn.doSave("INSERT INTO pay_tax(doctor_id,pay_tax, tax_period, hcode, doctor_income, income, sum_tax_break, sum_pay_tax,sum_donate,status) "
+				+ "VALUES ('"+getDocId()+"',"+getPayTax()+","+getDate()+",'"
+						+getHcode()+"',"+getDocIncome()+","+getIncome()+","+getTaxBreak()+","+getSumPayTax()+","+getDonate()+",'a')");
 		conn.doCommit();
 		
 	} 
