@@ -22,44 +22,32 @@
 			<div class="panel-heading text-center">Tax Break</div>
 			<div class="panel-body">
 				<div class="row">
-
-
-					<div class="col-sm-3 col-xs-3 text-center">
+					<div class="col-sm-12 col-xs-12 text-center">
 						<button class="btn btn-primary" onclick="loadDataTable()">ดึงข้อมูล</button>
-					</div>
-
-					<div class="col-sm-3 col-xs-3">
 						<button class="btn btn-primary" onclick="addID()">เพิ่ม</button>
-					</div>
-					
-					<div class="col-sm-3 col-xs-3 text-center">
 						<button class="btn btn-primary" onclick="addGroup()">แก้ไข Group</button>
-					</div>
-
-					<div class="col-sm-3 col-xs-3">
 						<button class="btn btn-primary" onclick="addStep()">แก้ไขเงื่อนไขขั้นบันได</button>
 					</div>
-
 				</div>
-
 			</div>
 			<div class="panel-body">
 				<div class="row">
 					<div class="col-sm-12 col-xs-12">
 						<h3>Tax Order</h3>
-						<table id="order_tax"
-							class="table table-striped table-bordered dt-responsive nowrap table-hover">
-							<thead>
-								<tr>
-									<th>ID</th>
-									<th>Group</th>
-									<th>List</th>
-									<th>Order</th>
-								</tr>
-							</thead>
-							<tbody id="tbdata">
-							</tbody>
-						</table>
+						<div class="table-responsive">
+							<table id="order_tax"
+								class="table table-striped table-responsive table-bordered nowrap table-hover">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th>Group</th>
+										<th>List</th>
+										<th>Order</th>
+									</tr>
+								</thead>
+								<tbody id="tbdata"></tbody>
+							</table>
+						</div>
 					</div>
 				</div>
 			</div>

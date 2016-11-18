@@ -68,7 +68,7 @@ $(document).ready(function() {
 function getOrderTax() {
 	$("#tbDB").empty();
 	$.ajax({
-		type : 'GET',
+		type : 'POST',
 		url : './TaxbreakCal',
 		data : {
 			"method" : "getOrder"

@@ -42,7 +42,69 @@ public class TaxbreakCalSrvl extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		if (request.getParameter("method").equals("getOrder")) {
+
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		// doGet(request, response);
+		if (request.getParameter("method").equals("InsertTra")) {
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			PrintWriter out = response.getWriter();
+			TaxbreakCalDAO db = new TaxbreakCalDAO();
+
+			// get Max id tra_tax
+			String sql = "select max(id) as 'max' from tra_tax;";
+			DbConnector conn = new DbConnector();
+			conn.doConnect();
+			ArrayList<HashMap<String, String>> listData = conn.getData(sql);
+			String _max = listData.get(0).get("max");
+
+			// System.out.println(_max);
+			int max = 0;
+			if (_max == null || _max == "") {
+				max += 1;
+			} else {
+				max = Integer.parseInt(_max) + 1;
+			}
+
+			// Get Date time Current
+			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			Date date = new Date();
+			String df = dateFormat.format(date);
+
+			try {
+				JSONArray jsonAray = new JSONArray(request.getParameter("json"));
+				for (int i = 0; i < jsonAray.length(); i++) {
+					int tax_id = Integer.parseInt(jsonAray.getJSONObject(i).getString("id"));
+					double value = Double.parseDouble(jsonAray.getJSONObject(i).getString("value"));
+					db.setDoctor_id("010");
+					db.setId(max);
+					db.setDatestam(df);
+					db.setTax_id(tax_id);
+					db.setTax_break(value);
+					db.doSave();
+
+				}
+
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+			JSONObject jsonResult = new JSONObject();
+			try {
+				jsonResult.put("result", "Insert Data Success");
+				out.println(jsonResult);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+
+		} else if (request.getParameter("method").equals("getOrder")) {
 			response.setContentType("application/html");
 			response.setCharacterEncoding("UTF-8");
 			PrintWriter out = response.getWriter();
@@ -159,69 +221,6 @@ public class TaxbreakCalSrvl extends HttpServlet {
 			dbMain.doCommit();
 			// System.out.println(taxOrderMain);
 			out.println(result);
-
-		}
-
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		// doGet(request, response);
-		if (request.getParameter("method").equals("InsertTra")) {
-			response.setContentType("application/json");
-			response.setCharacterEncoding("UTF-8");
-			PrintWriter out = response.getWriter();
-			TaxbreakCalDAO db = new TaxbreakCalDAO();
-
-			// get Max id tra_tax
-			String sql = "select max(id) as 'max' from tra_tax;";
-			DbConnector conn = new DbConnector();
-			conn.doConnect();
-			ArrayList<HashMap<String, String>> listData = conn.getData(sql);
-			String _max = listData.get(0).get("max");
-
-			// System.out.println(_max);
-			int max = 0;
-			if (_max == null || _max == "") {
-				max += 1;
-			} else {
-				max = Integer.parseInt(_max) + 1;
-			}
-
-			// Get Date time Current
-			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-			Date date = new Date();
-			String df = dateFormat.format(date);
-
-			try {
-				JSONArray jsonAray = new JSONArray(request.getParameter("json"));
-				for (int i = 0; i < jsonAray.length(); i++) {
-					int tax_id = Integer.parseInt(jsonAray.getJSONObject(i).getString("id"));
-					double value = Double.parseDouble(jsonAray.getJSONObject(i).getString("value"));
-					db.setDoctor_id("010");
-					db.setId(max);
-					db.setDatestam(df);
-					db.setTax_id(tax_id);
-					db.setTax_break(value);
-					db.doSave();
-
-				}
-
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-			JSONObject jsonResult = new JSONObject();
-			try {
-				jsonResult.put("result", "Insert Data Success");
-				out.println(jsonResult);
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
 
 		}
 
