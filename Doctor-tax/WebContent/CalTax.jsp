@@ -26,7 +26,7 @@
 				</div>
 
 				<div class="panel-body">
-					<div class="row">
+					<!-- <div class="row">
 						<div class="col-xs-6 col-sm-3 control-label">
 							<p class="texy-right">
 								<b>DOCTOR Name :</b>
@@ -46,7 +46,7 @@
 						</div>
 
 
-					</div>
+					</div> -->
 
 					<div class="row">
 						<div class="col-xs-6 col-sm-3 control-label">
@@ -87,7 +87,7 @@
 						</div>
 					</div>
 					
-					<div id="cal" class="row">
+					<!-- <div id="cal" class="row">
 						<div class="col-xs-6 col-sm-3 control-label">
 							<p class="texy-right">
 								<b>Tax :</b>
@@ -98,7 +98,7 @@
 						</div>
 
 
-					</div>
+					</div> -->
 					
 					<div class="row">
 						  <div class="col-xs-6 col-sm-3">
@@ -109,6 +109,10 @@
 						  
 						  <div class="col-xs-6 col-sm-3">
 						  
+						  	<button id="btnRollBack" class="btn btn-default" onclick="clickRollBack()">
+									<b>Roll Back</b>
+							</button>
+							
 						  	<button id="btnReset" class="btn btn-default" onclick="clickReset()">
 									<b>Reset</b>
 							</button>

@@ -83,4 +83,12 @@ public class CalTaxDAO {
 		conn.doCommit();
 		
 	} 
+	
+	public void doDelete(){
+		DbConnector conn = new DbConnector();
+		conn.doConnect();
+		//System.out.println(getHcode());
+		conn.doSave("DELETE FROM pay_tax WHERE tax_period = '"+getDate()+"'");
+		conn.doCommit();
+	}
 }//Main Method

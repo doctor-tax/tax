@@ -38,8 +38,12 @@ public class CalculateTax {
 		ArrayList<HashMap<String, String>> check = db.getData("SELECT * FROM pay_tax WHERE tax_period ='" + getYear() + getMonth() + "'");
 		if(check.size() != 0 && check.get(0).get("status").equals("c")) {
 			status = "This Month is Close!!!";
+		}else if(check.size() != 0 && check.get(0).get("status").equals("a")){
+			status = "This Month has Calculateed Please RollBack First";
 		}else {
-
+			CalTaxDAO cd = new CalTaxDAO();
+			//cd.setDate(getYear()+getMonth());
+			//cd.doDelete();
 			ArrayList<HashMap<String, String>> listData = db.getData("SELECT * FROM doctor_income WHERE doctor_month ='" + getYear() + getMonth() + "'");
 			for (int i = 0; i < listData.size(); i++) {
 				String id = listData.get(i).get("doctor_id");
@@ -86,7 +90,7 @@ public class CalculateTax {
 
 				JSONObject obj = db.getJsonData(sql);
 				System.out.println(obj);
-				CalTaxDAO cd = new CalTaxDAO();
+				
 				try {
 					// รหัสโรงพยาบาล
 					String hcode = obj.getString("hcode");
@@ -118,6 +122,7 @@ public class CalculateTax {
 					Double tax = 0.00;
 					// คำนวนขั้นบันได
 					String sqlStep = "SELECT * FROM step_tax";
+					
 					ArrayList<HashMap<String, String>> listData1 = db.getData(sqlStep);
 					for (int n = 0; n < listData1.size(); n++) {
 						
@@ -162,8 +167,23 @@ public class CalculateTax {
 
 	}
 
-	public void RollBack() {
-
+	public String RollBack() {
+		
+		String status = "Roll Back Complete";
+		DbConnector db = new DbConnector();
+		db.doConnect();
+		ArrayList<HashMap<String, String>> check = db.getData("SELECT * FROM pay_tax WHERE tax_period ='" + getYear() + getMonth() + "'");
+		if(check.size() != 0 && check.get(0).get("status").equals("c")) {
+			status = "This Month is Close!!!";
+		}else if(check.size() == 0){
+			status = "Ready To Calculate";
+		}else{
+			String date = getYear()+getMonth();
+			CalTaxDAO cd = new CalTaxDAO();
+			cd.setDate(date);
+			cd.doDelete();
+		}
+		return(status);
 	}
 
 	public void Close() {
