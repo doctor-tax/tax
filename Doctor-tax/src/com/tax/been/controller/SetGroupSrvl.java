@@ -46,25 +46,26 @@ public class SetGroupSrvl extends HttpServlet {
 					+ "(SELECT MAX(id_group) AS '_max',MAX(list_group) AS 'max_list' FROM group_tax) t2 "
 					+ "ORDER BY list_group";
 			ArrayList<HashMap<String,String>> listData = db.getData(sql);
-			String option = "";
+			//String option = "";
 			int max = Integer.parseInt(listData.get(0).get("_max"));
 			int oldMaxList = Integer.parseInt(listData.get(0).get("max_list"));
 			++max;
 			int maxList = oldMaxList+1;
 			try{
-					for(int i = 0 ; i < listData.size() ;i++){
+					/*for(int i = 0 ; i < listData.size() ;i++){
 						String id = listData.get(i).get("id_group");
 						String name = listData.get(i).get("name_group");
 						String list = listData.get(i).get("list_group");
 						option += "<tr ondblclick = \"clickRow('"+id+"','"+name+"','"+list+"')\"><td>"+id+"</td>"
 								+ "<td>"+name+"</td>"
 								+ "<td>"+list+"</td></tr>";
-					}
+					}*/
 					
-					obj.put("html",option);
+					//obj.put("html",option);
 					obj.put("max",max);
 					obj.put("maxlist", maxList);
 					obj.put("oldMax", oldMaxList);
+					System.out.println("Step 1");
 				
 			}catch(Exception e){}
 			//System.out.println(option);
@@ -119,21 +120,29 @@ public class SetGroupSrvl extends HttpServlet {
 			response.setCharacterEncoding("UTF-8");
 			PrintWriter out = response.getWriter();
 			String id = request.getParameter("id");
+			String list = request.getParameter("list");
 			SetGroupDAO ud = new SetGroupDAO();
 			
 			ud.setId(id);
+			ud.setList(list);
+			ud.setListMode("Delete");
+			ud.doManageList();
 			ud.doDelete();
 			if(ud.doDelete()){
 				out.print("Delete Success!");
 			}else{
 				out.println("ไม่สามารถลบ Group ที่มีสมาชิกได้\n หากต้องการลบ กรุณาลบสมาชิกใน Group ให้หมดก่อน");
 			}
-			
-			
-			
-				
-			
-					
+		}else if(request.getParameter("method").equals("getDbTable")) {
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			PrintWriter out = response.getWriter();
+			DbConnector db = new DbConnector();
+			db.doConnect();
+			String sql = "SELECT * FROM group_tax order by list_group";
+			JSONObject jsonObj = db.getJsonArrayData(sql);
+			out.println(jsonObj);
+			System.out.println(jsonObj);
 		}
 		
 	}

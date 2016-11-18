@@ -112,12 +112,16 @@ function clickReset(){
 
 function clickDelete(){
 	var id = $("#inputId").val();
+	var oldList = $("#inputOldList").val();
+	var group = $("#dropdownGroup").val();
 	$.ajax({
 		type: 'POST',
 		url: './SetTaxSrvl',
 		data: 
 		 {"method":"delete",
-			"id":id } ,
+			"id":id,
+			"list":oldList,
+			"group":group} ,
 		 success: function(data){
 			alert(data);
 			clickBack();
@@ -434,9 +438,10 @@ function changeGroup(){
 }
 
 function checkList(){
-	var max = $("#inputMaxList").val();
+	var max = $("#inputMaxList").val() * 1;
 	var oldList = $("#inputOldList").val();
-	var list = $("#inputList").val();
+	var list = $("#inputList").val() * 1;
+	alert(list+" "+max);
 	if(list > max){
 		alert("ค่าสูงสุดที่ใส่ได้คือ "+max);
 		$("#inputList").val(oldList);

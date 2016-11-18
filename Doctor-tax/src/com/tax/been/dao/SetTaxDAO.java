@@ -135,6 +135,17 @@ public class SetTaxDAO {
 				db.doUpdate("UPDATE order_tax SET tax_list = '"+nList+"' WHERE id ="+listData.get(i).get("id"));
 				db.doCommit();
 			}
+		}else if(getListMode().equals("Delete")){
+			System.out.println("Delete");
+			String sql = "SELECT * FROM order_tax WHERE group_id ="+getGroup()+"AND tax_list > "+getList();
+			ArrayList<HashMap<String,String>> listData = db.getData(sql);
+			System.out.println("SetTaxDAODELETE>>>>>>>>>>"+listData);
+			for(int i=0;i<listData.size();i++){
+				int nList = Integer.parseInt(listData.get(i).get("tax_list"));
+				--nList;
+				db.doUpdate("UPDATE order_tax SET tax_list = '"+nList+"' WHERE id ="+listData.get(i).get("id"));
+				db.doCommit();
+			}
 		}
 	}
 }

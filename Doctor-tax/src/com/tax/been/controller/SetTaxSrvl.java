@@ -185,8 +185,15 @@ public class SetTaxSrvl extends HttpServlet {
         }else if(request.getParameter("method").equals("delete")){
             PrintWriter out = response.getWriter();
             String id = request.getParameter("id");
+            String group = request.getParameter("group");
+            //oldList NaJa
+            String list = request.getParameter("list");
             SetTaxDAO sd = new SetTaxDAO();
             sd.setId(id);
+            sd.setList(list);
+            sd.setGroup(group);
+            sd.setListMode("Delete");
+        	sd.doManageList();
             sd.doDelete();
             
             out.print("Delete Success!");

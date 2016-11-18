@@ -97,6 +97,16 @@ public class SetGroupDAO {
 				db.doUpdate("UPDATE group_tax SET list_group = '"+nList+"' WHERE id_group ="+listData.get(i).get("id_group"));
 				db.doCommit();
 			}
+		}else if(getListMode().equals("Delete")){
+			System.out.println("Delete");
+			String sql = "SELECT * FROM group_tax WHERE list_group >="+getList();
+			ArrayList<HashMap<String,String>> listData = db.getData(sql);
+			for(int i=0;i<listData.size();i++){
+				int nList = Integer.parseInt(listData.get(i).get("list_group"));
+				--nList;
+				db.doUpdate("UPDATE group_tax SET list_group = '"+nList+"' WHERE id_group ="+listData.get(i).get("id_group"));
+				db.doCommit();
+			}
 		}
 	}
 }

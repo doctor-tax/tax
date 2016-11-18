@@ -74,13 +74,51 @@ function genTable(){
 		success: function(data){
 			$('#inputId').val(data.max);
 			$('#inputList').val(data.maxlist);
-			$('#tb').append(data.html);
+			//$('#tb').append(data.html);
 			$('#inputMaxList').val(data.oldMax);
+			loadDataTable();
 		}
 	})
 }
 
-function clickRow(id,name,list){
+function loadDataTable(){
+	$('#tbGroup').dataTable().fnDestroy();
+	$('#tbGroup').dataTable({
+		"ajax" : {
+			type : "GET",
+			url : "./SetGroupSrvl",
+			dataSrc : "data",
+			data : {
+				method : "getDbTable"
+			},
+		}
+
+	});
+
+	$('#tbGroup').on('dblclick', 'tr', function() {
+		var $this = $(this);
+		var row = $this.closest("tr");
+		var id = row.find('td:eq(0)').text();
+		var name = row.find('td:eq(1)').text();
+		var list = row.find('td:eq(2)').text();
+		//getID(cell1text);
+		
+		$('#inputId').val(id);
+		$('#inputName').val(name);
+		$('#inputList').val(list);
+		$('#inputOldList').val(list);
+		
+		$('#inputMode').val("Update");
+		$('#btnDelete').prop("disabled", false);
+		$('#inputId').prop("disabled", true);
+		$('#inputList').prop("disabled", false);
+		if(id == "0"){
+			$('#btnDelete').prop("disabled", true);
+		}
+	});
+}
+
+/*function clickRow(id,name,list){
 	$('#inputId').val(id);
 	$('#inputName').val(name);
 	$('#inputList').val(list);
@@ -92,7 +130,7 @@ function clickRow(id,name,list){
 	if(id == "0"){
 		$('#btnDelete').prop("disabled", true);
 	}
-}
+}*/
 
 function clickSave(){
 	var mode = $("#inputMode").val();
@@ -122,12 +160,14 @@ function clickSave(){
 
 function clickDelete(){
 	var id = $("#inputId").val();
+	var list = $("#inputOldList").val();
 	$.ajax({
 		type: 'GET',
 		url: './SetGroupSrvl',
 		data: 
 		 {"method":"delete",
-			"id":id } ,
+			"id":id,
+			"list":list} ,
 		 success: function(data){
 			alert(data);
 			clickReset();
@@ -171,8 +211,12 @@ function clickBack() {
 }
 
 function changeList(){
-	var list = $("#inputList").val();
-	var listMax = $("#inputMaxList").val();
+	
+	var list = $("#inputList").val() * 1;
+	var listMax = $("#inputMaxList").val() * 1;
+	
+	//alert(list);
+	//alert(listMax);
 	if(list > listMax){
 		alert("ค่าสูงสุดที่ใส่ได้คือ "+ listMax);
 		$("#inputList").val(listMax);
