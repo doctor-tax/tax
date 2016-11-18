@@ -67,7 +67,7 @@ $(document).ready(function(){
 
 function genTable(){
 	$.ajax({
-		type: 'GET',
+		type: 'POST',
 		url: './SetGroupSrvl',
 		data: 
 		 {"method":"genTable"} ,
@@ -85,7 +85,7 @@ function loadDataTable(){
 	$('#tbGroup').dataTable().fnDestroy();
 	$('#tbGroup').dataTable({
 		"ajax" : {
-			type : "GET",
+			type : "POST",
 			url : "./SetGroupSrvl",
 			dataSrc : "data",
 			data : {
@@ -142,7 +142,7 @@ function clickSave(){
 	
 	
 	$.ajax({
-		type: 'GET',
+		type: 'POST',
 		url: './SetGroupSrvl',
 		data: 
 		 {"method":"save",
@@ -162,7 +162,7 @@ function clickDelete(){
 	var id = $("#inputId").val();
 	var list = $("#inputOldList").val();
 	$.ajax({
-		type: 'GET',
+		type: 'POST',
 		url: './SetGroupSrvl',
 		data: 
 		 {"method":"delete",
@@ -184,7 +184,7 @@ function clickReset(){
 function checkMode(){
 	var ID = $("#inputId").val();
 	$.ajax({
-		type: 'GET',
+		type: 'POST',
 		url: './SetGroupSrvl',
 		data: 
 		 {"method":"checkMode",
