@@ -111,7 +111,7 @@
 					<h3>
 						<b>Group</b>
 					</h3>
-					<div class="row">
+					<div class="row table-responsive">
 
 						<div class="col-sm-12 col-xs-12">
 

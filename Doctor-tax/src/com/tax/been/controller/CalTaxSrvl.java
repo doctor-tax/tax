@@ -63,6 +63,16 @@ public class CalTaxSrvl extends HttpServlet {
 			out.println(cal.Calculate());
 			
 
+		}else if(request.getParameter("method").equals("rollback")){
+			PrintWriter out = response.getWriter();
+			String month = request.getParameter("month");
+			String year = request.getParameter("year");
+			
+			CalculateTax cal = new CalculateTax();
+			cal.setMonth(month);
+			cal.setYear(year);
+			
+			out.print(cal.RollBack());
 		}
 	}// POST
 

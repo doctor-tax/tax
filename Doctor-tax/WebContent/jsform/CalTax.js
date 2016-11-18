@@ -33,7 +33,7 @@ $(document).ready(function(){
 	});*/
 });
 
-function autocompleteName(){
+/*function autocompleteName(){
 	var value = $("#inputName").val();
 	//alert(value);
 	$("#inputName").autocomplete({
@@ -65,35 +65,30 @@ function autocompleteName(){
          	$("#inputId").val(ui.item.id);
          }
 	});
-}
+}*/
 function clickBack(){
 	location.href = "TaxbreakAdmin.jsp";
 }
 
 function clickSave(){
 	
-	var id = $("#inputId").val();
-	var name= $("#inputName").val();
+	//var id = $("#inputId").val();
+	//var name= $("#inputName").val();
 	var month= $("#dropdownMonth").val();
 	var year = $("#dropdownYear").val();
 	
-	if(id ==""||name==""){
-		alert("กรุณาเลือกคุณหมอด้วยครับ");
-	}else{
 		$.ajax({
 			type: 'POST',
 			url: './CalTaxSrvl',
 			data: 
 			 {"method":"save",
-			   "id":id,
 			   "month":month,
 			   "year":year},
 			success: function(data){
-				$("#inputTax").val(data);
-				$(".hidden").show();
+				alert(data);
 			}
 		})
-	}
+	
 	//alert(id+" "+name+" "+month+" "+year);
 	
 	
@@ -102,4 +97,21 @@ function clickSave(){
 function clickReset(){
 	location.reload();
 	
+}
+
+function clickRollBack(){
+	var month= $("#dropdownMonth").val();
+	var year = $("#dropdownYear").val();
+	
+	$.ajax({
+		type: 'POST',
+		url: './CalTaxSrvl',
+		data: 
+		 {"method":"rollback",
+		   "month":month,
+		   "year":year},
+		success: function(data){
+			alert(data);
+		}
+	})
 }
