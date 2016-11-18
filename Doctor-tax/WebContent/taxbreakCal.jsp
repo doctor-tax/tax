@@ -14,25 +14,18 @@
 <script src="js/bootstrap.min.js"></script>
 </head>
 <body>
+	<div class="row form-group"></div>
 	<div class="container">
-		<div class="row">
-			<div class="page-header">
-				<h1>
-					Tax <small>Calculator The tax abatement</small>
-				</h1>
-			</div>
-		</div>
-	</div>
-	<div class="form-horizontal">
-		<div class="container">
-			<div class="row">
-				<div class="panel-group" id="myCollapse"></div>
-			</div>
-		</div>
-		<div class="container">
-			<div class="row text-right">
-				<button class="btn btn-success" onclick="ClickSave()">SAVE</button>
-				<button class="btn btn-warning" onclick="ClickCancel()">CANCEL</button>
+		<div class="panel panel-primary">
+			<div class="panel-heading text-center">Calculator The tax abatement</div>
+			<div class="panel-body">
+				<div class="row">
+					<div class="panel-group" id="myCollapse"></div>
+					<div class="text-right col-sm-12">
+						<button class="btn btn-success" onclick="ClickSave()">SAVE</button>
+						<button class="btn btn-warning" onclick="ClickCancel()">CANCEL</button>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

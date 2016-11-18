@@ -129,7 +129,7 @@ public class TaxbreakCalSrvl extends HttpServlet {
 					String name_group = listDataMain.get(i).get("name_group");
 
 					taxOrderMain += "<div class=\"panel panel-default\">"
-							+ "<button type=\"button\" class=\"btn btn-primary text-left btn-block\"data-toggle=\"collapse"
+							+ "<button type=\"button\" class=\"btn btn-success text-left btn-block\"data-toggle=\"collapse"
 							+ "\" " + "data-target=\"#coll-" + group_main + "\"><span class=\"pull-left\">" + name_group
 							+ "</span></button>";
 
