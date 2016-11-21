@@ -6,14 +6,25 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Tax Order</title>
 <meta name="viewport" content="width=divice-width,initial-scale=1">
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="css/jquery-ui.css" rel="stylesheet">
-<script src="js/jquery-1.11.3.min.js"></script>
-<script src="js/jquery-ui.min.js"></script>
-<script src="jsform/TaxbreakAdmin.js"></script>
-<script src="js/dataTables.bootstrap.min.js"></script>
+
+<!-- <link href="css/jquery-ui.css" rel="stylesheet"> -->
+<!-- <script src="js/jquery-1.11.3.min.js"></script> -->
+<!-- <script src="js/jquery-ui.min.js"></script> -->
+
+
+<!-- Data Table-->
+<script src="js/jquery-1.12.3.js"></script>
 <script src="js/jquery.dataTables.min.js"></script>
+<script src="js/dataTables.bootstrap.min.js"></script>
+<script src="js/dataTables.responsive.min.js"></script>
+<script src="js/responsive.bootstrap.min.js"></script>
+<link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/dataTables.bootstrap.min.css" rel="stylesheet">
+<link href="css/responsive.bootstrap.min.css" rel="stylesheet">
+<script src="jsform/TaxbreakAdmin.js"></script>
+
+
+
 </head>
 <body>
 	<div class="row form-group"></div>
@@ -25,7 +36,8 @@
 					<div class="col-sm-12 col-xs-12 text-center">
 						<button class="btn btn-primary" onclick="loadDataTable()">ดึงข้อมูล</button>
 						<button class="btn btn-primary" onclick="addID()">เพิ่ม</button>
-						<button class="btn btn-primary" onclick="addGroup()">แก้ไข Group</button>
+						<button class="btn btn-primary" onclick="addGroup()">แก้ไข
+							Group</button>
 						<button class="btn btn-primary" onclick="addStep()">แก้ไขเงื่อนไขขั้นบันได</button>
 					</div>
 				</div>
@@ -36,7 +48,7 @@
 						<h3>Tax Order</h3>
 						<div class="table-responsive">
 							<table id="order_tax"
-								class="table table-striped table-responsive table-bordered nowrap table-hover">
+								class="table table-striped table-bordered dt-responsive nowrap">
 								<thead>
 									<tr>
 										<th>ID</th>

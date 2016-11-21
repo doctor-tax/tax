@@ -33,7 +33,7 @@ function addGroup() {
 
 function loadDataTable() {
 	$('#order_tax').dataTable().fnDestroy();
-	$('#order_tax').dataTable({
+	$('#order_tax').DataTable({
 		"ajax" : {
 			type : "POST",
 			url : "./TaxbreakAdminSrvl",
