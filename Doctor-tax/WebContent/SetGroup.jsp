@@ -6,16 +6,28 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
+<!-- Data Table-->
+<script src="js/jquery-1.12.3.js"></script>
+<script src="js/jquery.dataTables.min.js"></script>
+<script src="js/dataTables.bootstrap.min.js"></script>
+<script src="js/dataTables.responsive.min.js"></script>
+<script src="js/responsive.bootstrap.min.js"></script>
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/dataTables.bootstrap.min.css" rel="stylesheet">
+<link href="css/responsive.bootstrap.min.css" rel="stylesheet">
+<script src="jsform/TaxbreakAdmin.js"></script>
+
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/jquery-ui.css" rel="stylesheet">
 
-<script src="js/jquery-1.11.3.min.js"></script>
+<!-- <script src="js/jquery-1.11.3.min.js"></script> -->
 <script src="js/jquery-ui.min.js"></script>
 <script src="jsform/SetGroup.js"></script>
 
-<script src="js/dataTables.bootstrap.min.js"></script>
+<!-- <script src="js/dataTables.bootstrap.min.js"></script>
 <script src="js/jquery.dataTables.min.js"></script>
-<link href="css/dataTables.bootstrap.min.css" rel="stylesheet">
+<link href="css/dataTables.bootstrap.min.css" rel="stylesheet"> -->
+
 <title>Set Group</title>
 </head>
 <body>
@@ -111,13 +123,13 @@
 					<h3>
 						<b>Group</b>
 					</h3>
-					<div class="row table-responsive">
+					<div class="row table-responsive dt-responsive ">
 
 						<div class="col-sm-12 col-xs-12">
 
 
 							<table id="tbGroup"
-								class="table table-striped table-bordered dt-responsive nowrap table-hover">
+								class="table table-striped table-responsive table-bordered dt-responsive nowrap table-hover">
 								<thead>
 									<tr>
 										<th>ID_GROUP</th>
