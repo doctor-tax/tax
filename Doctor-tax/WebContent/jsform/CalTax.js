@@ -1,36 +1,6 @@
 $(document).ready(function(){
+	changeDate();
 	
-	/*$( function() {
-		
-
-		$("#inputName").autocomplete({
-			
-			minLength: 1,
-	        autoFocus: true,
-	        cacheLength: 1,
-	        scroll: true,
-	        highlight: false,
-	
-			 source: function(request, response) {
-		            $.ajax({
-		             type: "POST",
-		                url: "./AutocompleteSrvl",
-		                dataType: "json",
-		                data: {
-		                    term: request.term,
-		                    tb:"DOC_NAME"
-		                },
-		                success: function(data) {
-		                    response(data);
-		                }
-		                
-		            });
-			 },
-			 select: function(event, ui) {
-             	$("#inputId").val(ui.item.id);
-             }
-		});
-	});*/
 });
 
 /*function autocompleteName(){
@@ -71,23 +41,50 @@ function clickBack(){
 }
 
 function clickSave(){
-	
-	//var id = $("#inputId").val();
-	//var name= $("#inputName").val();
+	/*var check = "";*/
 	var month= $("#dropdownMonth").val();
 	var year = $("#dropdownYear").val();
 	
+	
+	
+	$("tbody tr").each(function() {
+		/*alert(check);
+		if(check == 'This Month is Close!!!'){
+			return false;
+		}else if(check == 'This Month has Calculateed Please RollBack First'){
+			return false;
+		}*/
+		
+		var $this = $(this);
+		var row = $this.closest("tr");
+		var id = row.find('td:eq(0)').text();
+		var hcode = row.find('td:eq(3)').text();
+		row.find('td:eq(4)').html('<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate">Loading...</span>');
+		
 		$.ajax({
 			type: 'POST',
 			url: './CalTaxSrvl',
 			data: 
 			 {"method":"save",
 			   "month":month,
-			   "year":year},
+			   "year":year,
+			   "id":id,
+			   "hcode":hcode},
 			success: function(data){
-				alert(data);
+				//alert(data);
+				var a = 'Insert Success!!!';
+				//var b = 'This Month has Calculateed Please RollBack First';
+				//alert(data+" = "+a);
+				if(data === a){
+					row.find('td:eq(4)').html('<span class="glyphicon glyphicon-ok">  '+data+'</span>');
+				}else{
+					row.find('td:eq(4)').html('<span class="glyphicon glyphicon-remove">  '+data+'</span>');
+				}
+				
 			}
 		})
+	});
+		
 	
 	//alert(id+" "+name+" "+month+" "+year);
 	
@@ -114,4 +111,25 @@ function clickRollBack(){
 			alert(data);
 		}
 	})
+}
+
+function changeDate(){
+	var month= $("#dropdownMonth").val();
+	var year = $("#dropdownYear").val();
+	
+	$('#doc_income').dataTable().fnDestroy();
+	$('#doc_income').DataTable({
+		"ajax" : {
+			type : "POST",
+			url : "./CalTaxSrvl",
+			dataSrc : "data",
+			data : {
+				"method" : "getDbTable",
+				"month" : month,
+				"year" : year
+			},
+		}
+
+	});
+
 }

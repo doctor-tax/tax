@@ -51,16 +51,22 @@ public class CalTaxSrvl extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		if (request.getParameter("method").equals("save")) {
+			response.setContentType("application/text");
+			response.setCharacterEncoding("UTF-8");
+
 			PrintWriter out = response.getWriter();
-			//String id = request.getParameter("id");
+			String id = request.getParameter("id");
+			String hcode = request.getParameter("hcode");
 			String month = request.getParameter("month");
 			String year = request.getParameter("year");
 			
 			CalculateTax cal = new CalculateTax();
+			cal.setId(id);
 			cal.setMonth(month);
 			cal.setYear(year);
+			cal.setHcode(hcode);
 			
-			out.println(cal.Calculate());
+			out.print(cal.Calculate());
 			
 
 		}else if(request.getParameter("method").equals("rollback")){
@@ -73,6 +79,18 @@ public class CalTaxSrvl extends HttpServlet {
 			cal.setYear(year);
 			
 			out.print(cal.RollBack());
+		}else if(request.getParameter("method").equals("getDbTable")){
+			//System.out.println("genTable");
+			PrintWriter out = response.getWriter();
+			response.setContentType("application/json");
+			response.setCharacterEncoding("UTF-8");
+			DbConnector db = new DbConnector();
+			String month = request.getParameter("month");
+			String year = request.getParameter("year");
+			String sql = "SELECT doctor_id,doctor_name,doctor_income,hcode,'' AS status FROM doctor_income WHERE doctor_month ='"+year+month+"'";
+			JSONObject jsonObj = db.getJsonArrayData(sql);
+			//System.out.println(jsonObj);
+			out.println(jsonObj);
 		}
 	}// POST
 

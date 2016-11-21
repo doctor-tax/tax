@@ -6,11 +6,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
+<script src="js/jquery-1.12.3.js"></script>
+<script src="js/jquery.dataTables.min.js"></script>
+<script src="js/dataTables.bootstrap.min.js"></script>
+<script src="js/dataTables.responsive.min.js"></script>
+<script src="js/responsive.bootstrap.min.js"></script>
 <link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="css/jquery-ui.css" rel="stylesheet">
+<link href="css/dataTables.bootstrap.min.css" rel="stylesheet">
+<link href="css/responsive.bootstrap.min.css" rel="stylesheet">
 
-<script src="js/jquery-1.11.3.min.js"></script>
-<script src="js/jquery-ui.min.js"></script>
 <script src="jsform/CalTax.js"></script>
 <title>Calculate</title>
 </head>
@@ -55,7 +59,8 @@
 							</p>
 						</div>
 						<div class="col-xs-6 col-sm-3 ">
-							<select class="form-control input-sm" id="dropdownMonth">
+							<select class="form-control input-sm" id="dropdownMonth"
+								onchange="changeDate()">
 								<option value="01">มกราคม</option>
 								<option value="02">กุมภาพันธ์</option>
 								<option value="03">มีนาคม</option>
@@ -70,23 +75,24 @@
 								<option value="12">ธันวาคม</option>
 							</select>
 						</div>
-						
+
 						<div class="col-xs-6 col-sm-3 control-label">
 							<p class="texy-right">
 								<b>Year :</b>
 							</p>
 						</div>
-						
-						
-						
+
+
+
 						<div class="col-xs-6 col-sm-3 ">
-							<select class="form-control input-sm" id="dropdownYear">
+							<select class="form-control input-sm" id="dropdownYear"
+								onchange="changeDate()">
 								<option value="2016">2016</option>
-								
+
 							</select>
 						</div>
 					</div>
-					
+
 					<!-- <div id="cal" class="row">
 						<div class="col-xs-6 col-sm-3 control-label">
 							<p class="texy-right">
@@ -99,34 +105,62 @@
 
 
 					</div> -->
-					
+
 					<div class="row">
-						  <div class="col-xs-6 col-sm-3">
-						  	<button id="btnBack" class="btn btn-default" onclick="clickBack()">
-									<b>Back</b>
+						<div class="col-xs-6 col-sm-3">
+							<button id="btnBack" class="btn btn-default"
+								onclick="clickBack()">
+								<b>Back</b>
 							</button>
-						  </div>
-						  
-						  <div class="col-xs-6 col-sm-3">
-						  
-						  	<button id="btnRollBack" class="btn btn-default" onclick="clickRollBack()">
-									<b>Roll Back</b>
+						</div>
+
+						<div class="col-xs-6 col-sm-3">
+
+							<button id="btnRollBack" class="btn btn-default"
+								onclick="clickRollBack()">
+								<b>Roll Back</b>
 							</button>
-							
-						  	<button id="btnReset" class="btn btn-default" onclick="clickReset()">
-									<b>Reset</b>
+
+							<button id="btnReset" class="btn btn-default"
+								onclick="clickReset()">
+								<b>Reset</b>
 							</button>
-						  </div>
-						  
-						  <div class="col-xs-6 col-sm-3"></div>
-						  
-						  <div class="col-xs-6 col-sm-3 text-right">
-							<button id="btnSave" class="btn btn-default" onclick="clickSave()">
-									<b>Calculate</b>
+						</div>
+
+						<div class="col-xs-6 col-sm-3"></div>
+
+						<div class="col-xs-6 col-sm-3 text-right">
+							<button id="btnSave" class="btn btn-default"
+								onclick="clickSave()">
+								<b>Calculate</b>
 							</button>
-						  </div>	
-				  		</div>
+						</div>
+					</div>
 				</div>
+
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-sm-12 col-xs-12">
+							<h3>Doctor Income</h3>
+							<div class="table-responsive">
+								<table id="doc_income"
+									class="table table-striped table-bordered dt-responsive nowrap">
+									<thead>
+										<tr>
+											<th>ID</th>
+											<th>Name</th>
+											<th>Hospital</th>
+											<th>Income</th>
+											<th>Status</th>
+										</tr>
+									</thead>
+									<tbody id="tbdata"></tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+
 			</div>
 		</div>
 	</div>
