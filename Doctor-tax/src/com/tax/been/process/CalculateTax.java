@@ -63,15 +63,17 @@ public class CalculateTax {
 			CalTaxDAO cd = new CalTaxDAO();
 			// cd.setDate(getYear()+getMonth());
 			// cd.doDelete();
-			/*ArrayList<HashMap<String, String>> listData = db
-					.getData("SELECT * FROM doctor_income WHERE doctor_month ='" + getYear() + getMonth() + "'");
-			// System.out.println("size = "+listData.size());
-			if (listData.size() == 0) {
-				return ("Not found doctor income");
-			}*/
+			/*
+			 * ArrayList<HashMap<String, String>> listData = db
+			 * .getData("SELECT * FROM doctor_income WHERE doctor_month ='" +
+			 * getYear() + getMonth() + "'"); //
+			 * System.out.println("size = "+listData.size()); if
+			 * (listData.size() == 0) { return ("Not found doctor income"); }
+			 */
 
 			// sql คำนวณลดหย่อน
-			String sql = "SELECT t10.id,t10.hcode,t10.doctor_income,t10.Income,t10.sum_pay_tax,t10.stdate,t10.sum_tax_break,SUM(t10.sum_donate) as 'sum_donate' FROM "
+			String sql = "IF (SELECT MAX(id) AS '_max' FROM tra_tax WHERE doctor_id='" + id + "') > 0"
+					+ " SELECT t10.id,t10.hcode,t10.doctor_income,t10.Income,t10.sum_pay_tax,t10.stdate,t10.sum_tax_break,SUM(t10.sum_donate) as 'sum_donate' FROM "
 					+ "(SELECT t8.*, " + "CASE" + "	WHEN t9.type='a'  THEN t9.tax_break"
 					+ "	WHEN t9.type='s'  AND ((t8.Income-t8.sum_tax_break)*t9.tax_percent)/100 >= t9.tax_rate THEN t9.tax_rate"
 					+ "	WHEN t9.type='s'  AND ((t8.Income-t8.sum_tax_break)*t9.tax_percent)/100 < t9.tax_rate THEN ((t8.Income-t8.sum_tax_break)*t9.tax_percent)/100"
@@ -103,6 +105,7 @@ public class CalculateTax {
 					+ " (SELECT MAX(id) AS '_max' FROM tra_tax WHERE doctor_id='" + id
 					+ "') t4,(SELECT SUM(doctor_income) AS 'Income' FROM doctor_income "
 					+ " WHERE doctor_month BETWEEN '" + getYear() + "01' AND '" + getYear() + getMonth()
+					+ "' AND doctor_id = '" + id
 					+ "') t5,(SELECT CASE WHEN ISNULL(COUNT(sum_pay_tax),0)=0 THEN 0 WHEN (SELECT sum_pay_tax FROM pay_tax WHERE tax_period = '"
 					+ beforeMonth + "' AND doctor_id='" + id
 					+ "') <> 0 THEN (SELECT sum_pay_tax FROM pay_tax WHERE tax_period = '" + beforeMonth
@@ -113,7 +116,17 @@ public class CalculateTax {
 					+ " (select t1.tax_break,t2.type,t2.tax_percent,t2.tax_rate,t2.tax_amount from tra_tax t1  "
 					+ " LEFT JOIN order_tax t2 on t1.tax_id=t2.id,(SELECT MAX(id) AS '_max' FROM tra_tax WHERE doctor_id='"
 					+ id + "') t3 where " + " t2.group_id=0 " + " and t1.id=t3._max " + " ) t9 ) t10"
-					+ " group by t10.id,t10.hcode,t10.doctor_income,t10.Income,t10.sum_pay_tax,t10.sum_tax_break,t10.stdate";
+					+ " group by t10.id,t10.hcode,t10.doctor_income,t10.Income,t10.sum_pay_tax,t10.sum_tax_break,t10.stdate"
+					+ " ELSE"
+					+ " select t4.hcode,t4.doctor_income,t4.Income,t4.sum_pay_tax,t4.stdate,sum(t4.sum_tax_break) sum_tax_break,t4.sum_donate from"
+					+ " (select t1.hcode,t1.doctor_income,t3.Income,t2.sum_pay_tax,'" + getYear() + getMonth() + "' AS 'stdate'," + " CASE"
+					+ " WHEN t0.type='a'  THEN t0.tax_amount" + " WHEN t0.type='s'  THEN (t3.Income*t0.tax_percent)/100"
+					+ " END" + " AS 'sum_tax_break',0 AS 'sum_donate'"
+					+ " from doctor_income t1,(select * from order_tax where type in ('a','s')) t0,"
+					+ " (SELECT CASE WHEN ISNULL(COUNT(sum_pay_tax),0)=0 THEN 0 WHEN (SELECT sum_pay_tax FROM pay_tax WHERE tax_period = '" +beforeMonth+ "' AND doctor_id='"+id+"') <> 0 THEN "
+					+ " (SELECT sum_pay_tax FROM pay_tax WHERE tax_period = '"+beforeMonth+"' AND doctor_id='"+id+"') ELSE 0 END AS 'sum_pay_tax' FROM pay_tax WHERE tax_period = '"+beforeMonth+"' "
+					+ " AND doctor_id='"+id+"') t2, (SELECT SUM(doctor_income) AS 'Income' FROM doctor_income WHERE doctor_month BETWEEN '"+getYear()+"01' AND '" + getYear() + getMonth() + "' and doctor_id='"+id+"') t3 "
+					+ " where t1.doctor_id='"+id+"') t4 group by t4.hcode,t4.doctor_income,t4.Income,t4.sum_pay_tax,t4.stdate,t4.sum_donate";
 
 			JSONObject obj = db.getJsonData(sql);
 			/*
@@ -121,7 +134,7 @@ public class CalculateTax {
 			 * return ("Not found doctor income"); }
 			 */
 
-			//System.out.println(obj);
+			// System.out.println(obj);
 
 			try {
 				// รหัสโรงพยาบาล
@@ -221,19 +234,20 @@ public class CalculateTax {
 		String status = "Close Complete";
 		DbConnector db = new DbConnector();
 		db.doConnect();
-		ArrayList<HashMap<String, String>> check = db.getData("SELECT * FROM pay_tax WHERE tax_period ='" + getYear() + getMonth() + "'");
+		ArrayList<HashMap<String, String>> check = db
+				.getData("SELECT * FROM pay_tax WHERE tax_period ='" + getYear() + getMonth() + "'");
 		if (check.size() != 0 && check.get(0).get("status").equals("c")) {
 			status = "This Month is Close!!!";
-		}else if (check.size() == 0) {
+		} else if (check.size() == 0) {
 			status = "This Month No Record";
-		}else{
+		} else {
 			String date = getYear() + getMonth();
 			CalTaxDAO cd = new CalTaxDAO();
 			cd.setDate(date);
 			String checked = cd.doClose();
-			if(checked.equals("S")){
+			if (checked.equals("S")) {
 				status = "Close This Month Success!!!";
-			}else{
+			} else {
 				status = "Close This Month Fail Please try again!!!";
 			}
 		}
