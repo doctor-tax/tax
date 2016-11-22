@@ -50,7 +50,7 @@ public class CalculateTax {
 		// System.out.println("id "+id);
 		int monthInt = Integer.parseInt(getMonth());
 		String beforeMonth = getYear() + String.format("%02d", monthInt - 1);
-		String status = "Insert Success!!!";
+		String status = "Calculate Success!!!";
 		DbConnector db = new DbConnector();
 		db.doConnect();
 		ArrayList<HashMap<String, String>> check = db.getData("SELECT * FROM pay_tax WHERE tax_period ='" + getYear()
@@ -58,7 +58,7 @@ public class CalculateTax {
 		if (check.size() != 0 && check.get(0).get("status").equals("c")) {
 			status = "This Month is Close!!!";
 		} else if (check.size() != 0 && check.get(0).get("status").equals("a")) {
-			status = "This Month has Calculated Please RollBack First";
+			status = "This Month has Calculated Please RollBack";
 		} else {
 			CalTaxDAO cd = new CalTaxDAO();
 			// cd.setDate(getYear()+getMonth());
@@ -121,7 +121,7 @@ public class CalculateTax {
 			 * return ("Not found doctor income"); }
 			 */
 
-			System.out.println(obj);
+			//System.out.println(obj);
 
 			try {
 				// รหัสโรงพยาบาล
@@ -189,7 +189,7 @@ public class CalculateTax {
 
 			} catch (Exception e) {
 				e.printStackTrace();
-				status = "Insert Fail!!";
+				status = "Calculate Fail!!";
 			}
 
 		}
@@ -217,7 +217,26 @@ public class CalculateTax {
 		return (status);
 	}
 
-	public void Close() {
-
+	public String Close() {
+		String status = "Close Complete";
+		DbConnector db = new DbConnector();
+		db.doConnect();
+		ArrayList<HashMap<String, String>> check = db.getData("SELECT * FROM pay_tax WHERE tax_period ='" + getYear() + getMonth() + "'");
+		if (check.size() != 0 && check.get(0).get("status").equals("c")) {
+			status = "This Month is Close!!!";
+		}else if (check.size() == 0) {
+			status = "This Month No Record";
+		}else{
+			String date = getYear() + getMonth();
+			CalTaxDAO cd = new CalTaxDAO();
+			cd.setDate(date);
+			String checked = cd.doClose();
+			if(checked.equals("S")){
+				status = "Close This Month Success!!!";
+			}else{
+				status = "Close This Month Fail Please try again!!!";
+			}
+		}
+		return status;
 	}
 }

@@ -91,4 +91,20 @@ public class CalTaxDAO {
 		conn.doSave("DELETE FROM pay_tax WHERE tax_period = '"+getDate()+"'");
 		conn.doCommit();
 	}
+	
+	public String doClose(){
+		String status = "";
+		try{
+			DbConnector conn = new DbConnector();
+			conn.doConnect();
+			//System.out.println(getHcode());
+			conn.doSave("UPDATE pay_tax SET status = 'c' WHERE tax_period = '"+getDate()+"'");
+			conn.doCommit();
+			status = "S";
+			return status;
+		}catch(Exception e){
+			status = "E";
+			return status;
+		}
+	}
 }//Main Method

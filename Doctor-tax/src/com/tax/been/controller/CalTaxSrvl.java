@@ -91,6 +91,16 @@ public class CalTaxSrvl extends HttpServlet {
 			JSONObject jsonObj = db.getJsonArrayData(sql);
 			//System.out.println(jsonObj);
 			out.println(jsonObj);
+		}else if(request.getParameter("method").equals("close")){
+			PrintWriter out = response.getWriter();
+			String month = request.getParameter("month");
+			String year = request.getParameter("year");
+			
+			CalculateTax cal = new CalculateTax();
+			cal.setMonth(month);
+			cal.setYear(year);
+			
+			out.print(cal.Close());
 		}
 	}// POST
 

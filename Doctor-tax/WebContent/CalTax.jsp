@@ -122,8 +122,8 @@
 							</button>
 
 							<button id="btnReset" class="btn btn-default"
-								onclick="clickReset()">
-								<b>Reset</b>
+								onclick="clickClose()">
+								<b>Close</b>
 							</button>
 						</div>
 
@@ -149,8 +149,8 @@
 										<tr>
 											<th>ID</th>
 											<th>Name</th>
-											<th>Hospital</th>
 											<th>Income</th>
+											<th>Hospital Code</th>
 											<th>Status</th>
 										</tr>
 									</thead>
