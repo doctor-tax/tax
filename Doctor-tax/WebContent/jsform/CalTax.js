@@ -20,9 +20,55 @@ $(document).ready(function() {
 function clickBack() {
 	location.href = "TaxbreakAdmin.jsp";
 }
+function calculate(month,year,id,hcode){
+	
+}
+var count = 0;
+function clickSave(){
+	var month = $("#dropdownMonth").val();
+	var year = $("#dropdownYear").val();
+	var table = $('#doc_income').DataTable();
+	if(!table.data().count()/5) {
+		alert('This month is Empty');
+	}else if(count < (table.data().count()/5)){
+		var row = table.rows(count).data();
+		$('#doc_income').dataTable().fnUpdate( '<span class="glyphicon glyphicon-time text-center"></span>', count, 4 );
+		var id = row[0][0];
+		var hcode = row[0][3];
+		var status = row[0][4];
+		$.ajax({
+					type : 'POST',
+					url : './CalTaxSrvl',
+					data : {
+						"method" : "save",
+						"month" : month,
+						"year" : year,
+						"id" : id,
+						"hcode" : hcode
+					},
+					success : function(data) {
+						
+						
+						var a = 'Calculate Success!!!';
+						if (data == a) {
+							$('#doc_income').dataTable().fnUpdate( '<span class="glyphicon glyphicon-ok-sign text-success text-center"></span>', count, 4 );
+						} else {
+							$('#doc_income').dataTable().fnUpdate( '<span class="glyphicon glyphicon-remove-sign text-danger text-center"></span>', count, 4 );
+						}
+						
+						count = count+1;
+						clickSave();
 
-function clickSave() {
-	/* var check = ""; */
+					}
+				})
+	}else{
+		count = 0;
+		//alert('Success!!!');
+	}
+	
+}
+/*function clickSave() {
+	 var check = ""; 
 	var month = $("#dropdownMonth").val();
 	var year = $("#dropdownYear").val();
 	var table = $('#doc_income').DataTable();
@@ -32,27 +78,23 @@ function clickSave() {
 	} else {
 		// alert(document.getElementById("#doc_income").rows.length);
 
-		$("tbody tr")
-				.each(
+		$("tbody tr").each(
 						function() {
-							/*
+							
 							 * alert(check); if(check == 'This Month is
 							 * Close!!!'){ return false; }else if(check == 'This
 							 * Month has Calculateed Please RollBack First'){
 							 * return false; }
-							 */
+							 
 
 							var $this = $(this);
 							var row = $this.closest("tr");
 							var id = row.find('td:eq(0)').text();
 							var hcode = row.find('td:eq(3)').text();
-							row
-									.find('td:eq(4)')
-									.html(
-											'<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate">Loading...</span>');
+							row.find('td:eq(4)').html(
+							'<span class="glyphicon glyphicon-refresh glyphicon-refresh-animate">Loading...</span>');
 
-							$
-									.ajax({
+							$.ajax({
 										type : 'POST',
 										url : './CalTaxSrvl',
 										data : {
@@ -70,19 +112,11 @@ function clickSave() {
 											// First';
 											// alert(data+" = "+a);
 											if (data == a) {
-												row
-														.find('td:eq(4)')
-														.html(
-																'<span class="glyphicon glyphicon-ok text-success"><b>  '
-																		+ data
-																		+ '</b></span>');
+												row.find('td:eq(4)').html(
+												'<span class="glyphicon glyphicon-ok text-success"><b>  '+ data+ '</b></span>');
 											} else {
-												row
-														.find('td:eq(4)')
-														.html(
-																'<span class="glyphicon glyphicon-remove text-danger"><b>  '
-																		+ data
-																		+ '</b></span>');
+												row.find('td:eq(4)').html(
+												'<span class="glyphicon glyphicon-remove text-danger"><b> '+ data+ '</b></span>');
 											}
 
 										}
@@ -93,7 +127,7 @@ function clickSave() {
 	// alert(id+" "+name+" "+month+" "+year);
 
 }
-
+*/
 function clickReset() {
 	location.reload();
 
@@ -122,6 +156,7 @@ function changeDate() {
 	var year = $("#dropdownYear").val();
 
 	$('#doc_income').dataTable().fnDestroy();
+	
 	$('#doc_income').DataTable({
 		"ajax" : {
 			type : "POST",
@@ -132,9 +167,11 @@ function changeDate() {
 				"month" : month,
 				"year" : year
 			},
-		}
+		},
+		"paging": false
 
 	});
+	
 
 }
 
