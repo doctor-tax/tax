@@ -2,9 +2,12 @@ package com.tax.been.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 import javax.servlet.ServletException;
@@ -51,6 +54,8 @@ public class CalTaxSrvl extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		if (request.getParameter("method").equals("save")) {
+			long startTime = System.nanoTime();
+
 			response.setContentType("application/text");
 			response.setCharacterEncoding("UTF-8");
 
@@ -59,14 +64,18 @@ public class CalTaxSrvl extends HttpServlet {
 			String hcode = request.getParameter("hcode");
 			String month = request.getParameter("month");
 			String year = request.getParameter("year");
-			
 			CalculateTax cal = new CalculateTax();
 			cal.setId(id);
 			cal.setMonth(month);
 			cal.setYear(year);
 			cal.setHcode(hcode);
 			
+			
 			out.print(cal.Calculate());
+			
+			long endTime = System.nanoTime();
+			long duration = (endTime - startTime); 
+			System.out.println("SRVL TIME === "+duration);
 			
 
 		}else if(request.getParameter("method").equals("rollback")){

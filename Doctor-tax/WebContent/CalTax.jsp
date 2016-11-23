@@ -130,6 +130,11 @@
 						<div class="col-xs-6 col-sm-3"></div>
 
 						<div class="col-xs-6 col-sm-3 text-right">
+							<button id="btnStop" class="btn btn-danger"
+								onclick="clickStop()" disabled>
+								<b>Stop</b>
+							</button>
+							
 							<button id="btnSave" class="btn btn-default"
 								onclick="clickSave()">
 								<b>Calculate</b>

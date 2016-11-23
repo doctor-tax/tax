@@ -1,6 +1,9 @@
 package com.tax.been.process;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 import org.json.JSONObject;
@@ -47,12 +50,14 @@ public class CalculateTax {
 	}
 
 	public String Calculate() {
-		// System.out.println("id "+id);
+		
+		
 		int monthInt = Integer.parseInt(getMonth());
 		String beforeMonth = getYear() + String.format("%02d", monthInt - 1);
 		String status = "Calculate Success!!!";
 		DbConnector db = new DbConnector();
 		db.doConnect();
+		
 		ArrayList<HashMap<String, String>> check = db.getData("SELECT * FROM pay_tax WHERE tax_period ='" + getYear()
 				+ getMonth() + "' AND doctor_id = '" + id + "' AND hcode = '" + hcode + "'");
 		if (check.size() != 0 && check.get(0).get("status").equals("c")) {
@@ -60,6 +65,7 @@ public class CalculateTax {
 		} else if (check.size() != 0 && check.get(0).get("status").equals("a")) {
 			status = "This Month has Calculated Please RollBack";
 		} else {
+			long startTime = System.nanoTime();
 			CalTaxDAO cd = new CalTaxDAO();
 			// cd.setDate(getYear()+getMonth());
 			// cd.doDelete();
@@ -72,6 +78,7 @@ public class CalculateTax {
 			 */
 
 			// sql คำนวณลดหย่อน
+			
 			String sql = "IF (SELECT MAX(id) AS '_max' FROM tra_tax WHERE doctor_id='" + id + "') > 0"
 					+ " SELECT t10.id,t10.hcode,t10.doctor_income,t10.Income,t10.sum_pay_tax,t10.stdate,t10.sum_tax_break,SUM(t10.sum_donate) as 'sum_donate' FROM "
 					+ "(SELECT t8.*, " + "CASE" + "	WHEN t9.type='a'  THEN t9.tax_break"
@@ -129,6 +136,10 @@ public class CalculateTax {
 					+ " where t1.doctor_id='"+id+"') t4 group by t4.hcode,t4.doctor_income,t4.Income,t4.sum_pay_tax,t4.stdate,t4.sum_donate";
 
 			JSONObject obj = db.getJsonData(sql);
+			long endTime = System.nanoTime();
+			long duration = (endTime - startTime); 
+			System.out.println("QRY CAL TIME === "+duration);
+			
 			/*
 			 * System.out.println("Size"+obj.length()); if(obj.length()==0){
 			 * return ("Not found doctor income"); }
@@ -137,6 +148,8 @@ public class CalculateTax {
 			// System.out.println(obj);
 
 			try {
+				long startTime1 = System.nanoTime();
+				
 				// รหัสโรงพยาบาล
 				String hcode = obj.getString("hcode");
 				// เงินเดือนหมอของเดือนนี้
@@ -160,12 +173,15 @@ public class CalculateTax {
 				cd.setDonate(donate);
 				cd.setHcode(hcode);
 				cd.setIncome(income);
-
+				long endTime1 = System.nanoTime();
+				long duration1 = (endTime1 - startTime1); 
+				System.out.println("SET DAO TIME === "+duration1);
 				Double net = Double.parseDouble(income) - Double.parseDouble(taxBreak) - Double.parseDouble(donate);
 				Double tax = 0.00;
 				// คำนวนขั้นบันได
 				String sqlStep = "SELECT * FROM step_tax";
-
+				long startTime2 = System.nanoTime();
+				
 				ArrayList<HashMap<String, String>> listData1 = db.getData(sqlStep);
 				for (int n = 0; n < listData1.size(); n++) {
 
@@ -194,10 +210,15 @@ public class CalculateTax {
 					cd.setSumPayTax(Double.toString(tax));
 				}
 
+				long endTime2 = System.nanoTime();
+				long duration2 = (endTime2 - startTime2); 
+				System.out.println("CAL STEP TIME === "+duration2);
 				cd.setPayTax(Double.toString(tax));
-
+				long startTime3 = System.nanoTime();
 				cd.doSave();
-
+				long endTime3 = System.nanoTime();
+				long duration3 = (endTime3 - startTime3); 
+				System.out.println("DAO SAVE TIME === "+duration3);
 				// System.out.println("Net = " + net + ",taxStep = " + tax);
 
 			} catch (Exception e) {

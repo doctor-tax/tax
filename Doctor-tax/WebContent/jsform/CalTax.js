@@ -20,51 +20,58 @@ $(document).ready(function() {
 function clickBack() {
 	location.href = "TaxbreakAdmin.jsp";
 }
-function calculate(month,year,id,hcode){
-	
-}
 var count = 0;
+var status1 = 'ready';
 function clickSave(){
-	var month = $("#dropdownMonth").val();
-	var year = $("#dropdownYear").val();
-	var table = $('#doc_income').DataTable();
-	if(!table.data().count()/5) {
-		alert('This month is Empty');
-	}else if(count < (table.data().count()/5)){
-		var row = table.rows(count).data();
-		$('#doc_income').dataTable().fnUpdate( '<span class="glyphicon glyphicon-time text-center"></span>', count, 4 );
-		var id = row[0][0];
-		var hcode = row[0][3];
-		var status = row[0][4];
-		$.ajax({
-					type : 'POST',
-					url : './CalTaxSrvl',
-					data : {
-						"method" : "save",
-						"month" : month,
-						"year" : year,
-						"id" : id,
-						"hcode" : hcode
-					},
-					success : function(data) {
-						
-						
-						var a = 'Calculate Success!!!';
-						if (data == a) {
-							$('#doc_income').dataTable().fnUpdate( '<span class="glyphicon glyphicon-ok-sign text-success text-center"></span>', count, 4 );
-						} else {
-							$('#doc_income').dataTable().fnUpdate( '<span class="glyphicon glyphicon-remove-sign text-danger text-center"></span>', count, 4 );
-						}
-						
-						count = count+1;
-						clickSave();
+	//alert(status1);
+	$("#btnStop").prop("disabled", false);
+	if(status1 == 'ready'){
+		var month = $("#dropdownMonth").val();
+		var year = $("#dropdownYear").val();
+		var table = $('#doc_income').DataTable();
+		if(!table.data().count()/5) {
+			alert('This month is Empty');
+		}else if(count < (table.data().count()/5)){
+			var row = table.rows(count).data();
+			$('#doc_income').dataTable().fnUpdate( '<span class="glyphicon glyphicon-time text-center"></span>', count, 4 );
+			var id = row[0][0];
+			var hcode = row[0][3];
+			var status = row[0][4];
+			$.ajax({
+						type : 'POST',
+						url : './CalTaxSrvl',
+						data : {
+							"method" : "save",
+							"month" : month,
+							"year" : year,
+							"id" : id,
+							"hcode" : hcode
+						},
+						success : function(data) {
+							
+							
+							var a = 'Calculate Success!!!';
+							if (data == a) {
+								$('#doc_income').dataTable().fnUpdate( '<span class="glyphicon glyphicon-ok-sign text-success text-center"></span>', count, 4 );
+							} else {
+								$('#doc_income').dataTable().fnUpdate( '<span class="glyphicon glyphicon-remove-sign text-danger text-center"></span>', count, 4 );
+							}
+							
+							count = count+1;
+							clickSave();
 
-					}
-				})
+						}
+					})
+		}else{
+			count = 0;
+			$("#btnStop").prop("disabled", true);
+			//alert('Success!!!');
+		}
 	}else{
-		count = 0;
-		//alert('Success!!!');
+		//alert("stop");
+		status1 = 'ready';
 	}
+	
 	
 }
 /*function clickSave() {
@@ -192,4 +199,9 @@ function clickClose() {
 			clickReset();
 		}
 	})
+}
+
+function clickStop(){
+	status1 = 'stop';
+	$("#btnStop").prop("disabled", true);
 }
