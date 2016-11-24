@@ -121,7 +121,7 @@
 								<b>Roll Back</b>
 							</button>
 
-							<button id="btnReset" class="btn btn-default"
+							<button id="btnClose" class="btn btn-default"
 								onclick="clickClose()">
 								<b>Close</b>
 							</button>

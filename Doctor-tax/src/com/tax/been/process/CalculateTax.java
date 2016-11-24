@@ -71,25 +71,8 @@ public class CalculateTax {
 		String status = "Calculate Success!!!";
 		
 		
-		/*ArrayList<HashMap<String, String>> check = db.getData("SELECT status FROM pay_tax WHERE tax_period ='" 
-		+ getYear() + getMonth()+"' AND doctor_id = '" +id+ "'" );
-		if (check.size() != 0 && check.get(0).get("status").equals("c")) {
-			status = "This Month is Close!!!";
-		} else if (check.size() != 0 && check.get(0).get("status").equals("a")) {
-			status = "This Month has Calculated Please RollBack";
-		} else {*/
 			long startTime = System.nanoTime();
 			
-			// cd.setDate(getYear()+getMonth());
-			// cd.doDelete();
-			/*
-			 * ArrayList<HashMap<String, String>> listData = db
-			 * .getData("SELECT * FROM doctor_income WHERE doctor_month ='" +
-			 * getYear() + getMonth() + "'"); //
-			 * System.out.println("size = "+listData.size()); if
-			 * (listData.size() == 0) { return ("Not found doctor income"); }
-			 */
-
 			// sql คำนวณลดหย่อน
 			
 			String sql = "IF (SELECT MAX(id) AS '_max' FROM tra_tax WHERE doctor_id='" + id + "') > 0"
@@ -151,15 +134,8 @@ public class CalculateTax {
 			JSONObject obj = db.getJsonData(sql);
 			long endTime = System.nanoTime();
 			long duration = (endTime - startTime); 
-			System.out.println("QRY CAL TIME === "+duration);
+			//System.out.println("QRY CAL TIME === "+duration);
 			
-			/*
-			 * System.out.println("Size"+obj.length()); if(obj.length()==0){
-			 * return ("Not found doctor income"); }
-			 */
-
-			// System.out.println(obj);
-
 			try {
 				long startTime1 = System.nanoTime();
 				
@@ -188,7 +164,7 @@ public class CalculateTax {
 				cd.setIncome(income);
 				long endTime1 = System.nanoTime();
 				long duration1 = (endTime1 - startTime1); 
-				System.out.println("SET DAO TIME === "+duration1);
+				//System.out.println("SET DAO TIME === "+duration1);
 				Double net = Double.parseDouble(income) - Double.parseDouble(taxBreak) - Double.parseDouble(donate);
 				Double tax = 0.00;
 				// คำนวนขั้นบันได
@@ -225,13 +201,13 @@ public class CalculateTax {
 
 				long endTime2 = System.nanoTime();
 				long duration2 = (endTime2 - startTime2); 
-				System.out.println("CAL STEP TIME === "+duration2);
+				//System.out.println("CAL STEP TIME === "+duration2);
 				cd.setPayTax(Double.toString(tax));
 				long startTime3 = System.nanoTime();
 				cd.doSave();
 				long endTime3 = System.nanoTime();
 				long duration3 = (endTime3 - startTime3); 
-				System.out.println("DAO SAVE TIME === "+duration3);
+				//System.out.println("DAO SAVE TIME === "+duration3);
 				// System.out.println("Net = " + net + ",taxStep = " + tax);
 				//db.doDisconnect();
 			} catch (Exception e) {

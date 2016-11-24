@@ -30,7 +30,7 @@ import com.tax.been.process.CalculateTax;
 public class CalTaxSrvl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	CalculateTax cal = new CalculateTax();
-
+	DbConnector db = new DbConnector();
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -75,7 +75,7 @@ public class CalTaxSrvl extends HttpServlet {
 			
 			long endTime = System.nanoTime();
 			long duration = (endTime - startTime); 
-			System.out.println("SRVL TIME === "+duration);
+			//System.out.println("SRVL TIME === "+duration);
 			
 
 		}else if(request.getParameter("method").equals("rollback")){
@@ -93,12 +93,11 @@ public class CalTaxSrvl extends HttpServlet {
 			PrintWriter out = response.getWriter();
 			response.setContentType("application/json");
 			response.setCharacterEncoding("UTF-8");
-			DbConnector db = new DbConnector();
+			
 			String month = request.getParameter("month");
 			String year = request.getParameter("year");
 			String sql = "SELECT doctor_id,doctor_name,doctor_income,hcode,'' AS status FROM doctor_income WHERE doctor_month ='"+year+month+"'";
 			JSONObject jsonObj = db.getJsonArrayData(sql);
-			//System.out.println(jsonObj);
 			out.println(jsonObj);
 		}else if(request.getParameter("method").equals("close")){
 			PrintWriter out = response.getWriter();
@@ -110,6 +109,20 @@ public class CalTaxSrvl extends HttpServlet {
 			cal.setYear(year);
 			
 			out.print(cal.Close());
+		}else if(request.getParameter("method").equals("checkMode")){
+			String status = "ready";
+			PrintWriter out = response.getWriter();
+			String month = request.getParameter("month");
+			String year = request.getParameter("year");
+			ArrayList<HashMap<String, String>> check = db
+					.getData("SELECT status FROM pay_tax WHERE tax_period ='" + year + month + "'");
+			if (check.size() != 0 && check.get(0).get("status").equals("c")) {
+				status = "This Month is Close";
+			} else if (check.size() != 0 && check.get(0).get("status").equals("a")) {
+				status = "This Month has Calculated Please RollBack";
+			}
+			out.print(status);
+			
 		}
 	}// POST
 

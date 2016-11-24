@@ -54,8 +54,10 @@ function clickSave(){
 							var a = 'Calculate Success!!!';
 							if (data == a) {
 								$('#doc_income').dataTable().fnUpdate( '<span class="glyphicon glyphicon-ok-sign text-success text-center"></span>', count, 4 );
+								//$('#doc_income').dataTable().fnDraw;
 							} else {
 								$('#doc_income').dataTable().fnUpdate( '<span class="glyphicon glyphicon-remove-sign text-danger text-center"></span>', count, 4 );
+								//$('#doc_income').dataTable().fnDraw;
 							}
 							
 							count = count+1;
@@ -65,13 +67,18 @@ function clickSave(){
 					})
 		}else{
 			count = 0;
+			status1 = 0;
+			alert("stop");
 			$("#btnStop").prop("disabled", true);
+			$("#btnSave").prop("disabled", true);
+			$("#btnRollBack").prop("disabled", false);
+			
 			//alert('Success!!!');
 		}
-	}else{
-		//alert("stop");
+	}/*else{
 		status1 = 0;
-	}
+		$("#btnStop").prop("disabled", true);
+	}*/
 	
 	
 }
@@ -144,6 +151,8 @@ function clickReset() {
 function clickRollBack() {
 	var month = $("#dropdownMonth").val();
 	var year = $("#dropdownYear").val();
+	$("#btnSave").prop("disabled", false);
+	$("#btnRollBack").prop("disabled", true);
 
 	$.ajax({
 		type : 'POST',
@@ -173,12 +182,37 @@ function changeDate() {
 			data : {
 				"method" : "getDbTable",
 				"month" : month,
-				"year" : year
-			},
-		},
-		"paging": false
+				"year" : year}
+		}/*,
+		"paging": false*/
 
 	});
+	
+	$.ajax({
+		type : 'POST',
+		url : './CalTaxSrvl',
+		data : {
+			"method" : "checkMode",
+			"month" : month,
+			"year" : year
+		},
+		success : function(data) {
+			
+			if(data == "This Month is Close"){
+				alert(data);
+				$("#btnSave").prop("disabled", true);
+				$("#btnRollBack").prop("disabled", true);
+				$("#btnClose").prop("disabled", true);
+			}else if(data == "This Month has Calculated Please RollBack"){
+				alert(data);
+				$("#btnSave").prop("disabled", true);
+				$("#btnRollBack").prop("disabled", false);
+			}else{
+				$("#btnSave").prop("disabled", false);
+				$("#btnRollBack").prop("disabled", true);
+			}
+		}
+	})
 	
 
 }
