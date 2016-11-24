@@ -3,6 +3,8 @@ package com.tax.been.dao;
 import com.tax.bean.util.DbConnector;
 
 public class CalTaxDAO {
+	DbConnector conn = new DbConnector();
+	
 	
 	private String date;
 	private String payTax;
@@ -74,18 +76,19 @@ public class CalTaxDAO {
 	
 	
 	public void doSave(){
-		DbConnector conn = new DbConnector();
+		
 		conn.doConnect();
 		//System.out.println(getHcode());
 		conn.doSave("INSERT INTO pay_tax(doctor_id,pay_tax, tax_period, hcode, doctor_income, income, sum_tax_break, sum_pay_tax,sum_donate,status) "
 				+ "VALUES ('"+getDocId()+"',"+getPayTax()+","+getDate()+",'"
 						+getHcode()+"',"+getDocIncome()+","+getIncome()+","+getTaxBreak()+","+getSumPayTax()+","+getDonate()+",'a')");
 		conn.doCommit();
+		conn.doDisconnect();
 		
 	} 
 	
 	public void doDelete(){
-		DbConnector conn = new DbConnector();
+		
 		conn.doConnect();
 		//System.out.println(getHcode());
 		conn.doSave("DELETE FROM pay_tax WHERE tax_period = '"+getDate()+"'");
@@ -95,7 +98,7 @@ public class CalTaxDAO {
 	public String doClose(){
 		String status = "";
 		try{
-			DbConnector conn = new DbConnector();
+			
 			conn.doConnect();
 			//System.out.println(getHcode());
 			conn.doSave("UPDATE pay_tax SET status = 'c' WHERE tax_period = '"+getDate()+"'");

@@ -29,6 +29,7 @@ import com.tax.been.process.CalculateTax;
 @WebServlet("/CalTaxSrvl")
 public class CalTaxSrvl extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	CalculateTax cal = new CalculateTax();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -64,7 +65,6 @@ public class CalTaxSrvl extends HttpServlet {
 			String hcode = request.getParameter("hcode");
 			String month = request.getParameter("month");
 			String year = request.getParameter("year");
-			CalculateTax cal = new CalculateTax();
 			cal.setId(id);
 			cal.setMonth(month);
 			cal.setYear(year);
@@ -83,7 +83,7 @@ public class CalTaxSrvl extends HttpServlet {
 			String month = request.getParameter("month");
 			String year = request.getParameter("year");
 			
-			CalculateTax cal = new CalculateTax();
+			
 			cal.setMonth(month);
 			cal.setYear(year);
 			
@@ -105,7 +105,7 @@ public class CalTaxSrvl extends HttpServlet {
 			String month = request.getParameter("month");
 			String year = request.getParameter("year");
 			
-			CalculateTax cal = new CalculateTax();
+			
 			cal.setMonth(month);
 			cal.setYear(year);
 			

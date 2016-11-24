@@ -21,11 +21,12 @@ function clickBack() {
 	location.href = "TaxbreakAdmin.jsp";
 }
 var count = 0;
-var status1 = 'ready';
+var status1 = 0;
+//0 = ready , 1 = stop
 function clickSave(){
 	//alert(status1);
 	$("#btnStop").prop("disabled", false);
-	if(status1 == 'ready'){
+	if(status1 == 0){
 		var month = $("#dropdownMonth").val();
 		var year = $("#dropdownYear").val();
 		var table = $('#doc_income').DataTable();
@@ -69,7 +70,7 @@ function clickSave(){
 		}
 	}else{
 		//alert("stop");
-		status1 = 'ready';
+		status1 = 0;
 	}
 	
 	
@@ -202,6 +203,6 @@ function clickClose() {
 }
 
 function clickStop(){
-	status1 = 'stop';
+	status1 = 1;
 	$("#btnStop").prop("disabled", true);
 }

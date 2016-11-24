@@ -12,6 +12,20 @@ import com.tax.bean.util.DbConnector;
 import com.tax.been.dao.CalTaxDAO;
 
 public class CalculateTax {
+	DbConnector db = new DbConnector();
+	CalTaxDAO cd = new CalTaxDAO();
+	
+	public CalculateTax() {
+		if(db == null){
+			db = new DbConnector();
+		}
+		
+		if(cd == null){
+			cd = new CalTaxDAO();
+		}
+		
+		// TODO Auto-generated constructor stub
+	}
 	public String getMonth() {
 		return month;
 	}
@@ -51,22 +65,21 @@ public class CalculateTax {
 
 	public String Calculate() {
 		
-		
+		db.doConnect();
 		int monthInt = Integer.parseInt(getMonth());
 		String beforeMonth = getYear() + String.format("%02d", monthInt - 1);
 		String status = "Calculate Success!!!";
-		DbConnector db = new DbConnector();
-		db.doConnect();
 		
-		ArrayList<HashMap<String, String>> check = db.getData("SELECT * FROM pay_tax WHERE tax_period ='" + getYear()
-				+ getMonth() + "' AND doctor_id = '" + id + "' AND hcode = '" + hcode + "'");
+		
+		/*ArrayList<HashMap<String, String>> check = db.getData("SELECT status FROM pay_tax WHERE tax_period ='" 
+		+ getYear() + getMonth()+"' AND doctor_id = '" +id+ "'" );
 		if (check.size() != 0 && check.get(0).get("status").equals("c")) {
 			status = "This Month is Close!!!";
 		} else if (check.size() != 0 && check.get(0).get("status").equals("a")) {
 			status = "This Month has Calculated Please RollBack";
-		} else {
+		} else {*/
 			long startTime = System.nanoTime();
-			CalTaxDAO cd = new CalTaxDAO();
+			
 			// cd.setDate(getYear()+getMonth());
 			// cd.doDelete();
 			/*
@@ -220,13 +233,13 @@ public class CalculateTax {
 				long duration3 = (endTime3 - startTime3); 
 				System.out.println("DAO SAVE TIME === "+duration3);
 				// System.out.println("Net = " + net + ",taxStep = " + tax);
-
+				//db.doDisconnect();
 			} catch (Exception e) {
 				e.printStackTrace();
 				status = "Calculate Fail!!";
 			}
 
-		}
+		//}
 		return status;
 
 	}
