@@ -57,7 +57,7 @@ function clickSave(){
 							
 							var a = 'Calculate Success!!!';
 							if (data == a) {
-								$('#doc_income').dataTable().fnUpdate( '<span class="glyphicon glyphicon-ok-sign text-success text-center"></span>', count, 4 );
+								$('#doc_income').dataTable().fnUpdate( '<span class="glyphicon glyphicon-ok-sign text-success text-center"></span>', count, 4,false,false );
 								//$('#doc_income').dataTable().fnDraw;
 							} else {
 								$('#doc_income').dataTable().fnUpdate( '<span class="glyphicon glyphicon-remove-sign text-danger text-center"></span>', count, 4 );
@@ -203,7 +203,8 @@ function changeDate() {
 				"month" : month,
 				"year" : year}
 		}/*,
-		"paging": false*/
+		"paging": false*/,
+		"bDeferRender": true
 
 	});
 	

@@ -120,7 +120,7 @@ public class CalTaxDAO {
 
 			conn.getPrepareStatement().executeUpdate();
 			conn.doCommit();
-			
+			conn.doDisconnect();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

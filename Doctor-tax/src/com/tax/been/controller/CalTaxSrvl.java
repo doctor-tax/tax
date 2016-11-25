@@ -82,7 +82,7 @@ public class CalTaxSrvl extends HttpServlet {
 			
 			long endTime = System.nanoTime();
 			long duration = (endTime - startTime); 
-			//System.out.println("SRVL TIME === "+duration);
+			System.out.println("SRVL TIME === "+duration);
 			
 
 		}else if(request.getParameter("method").equals("rollback")){
