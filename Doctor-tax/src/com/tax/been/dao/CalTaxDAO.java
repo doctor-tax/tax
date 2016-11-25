@@ -91,15 +91,15 @@ public class CalTaxDAO {
 
 	public void doSave() {
 
-		/*
-		 * conn.doConnect(); System.out.println(getHcode()); conn.doSave(
-		 * "INSERT INTO pay_tax(doctor_id,pay_tax, tax_period, hcode, doctor_income, income, sum_tax_break, sum_pay_tax,sum_donate,status) "
-		 * + "VALUES ('" + getDocId() + "'," + getPayTax() + "," + getDate() +
-		 * ",'" + getHcode() + "'," + getDocIncome() + "," + getIncome() + "," +
-		 * getTaxBreak() + "," + getSumPayTax() + "," + getDonate() + ",'a')");
-		 * conn.doCommit(); conn.doDisconnect();
-		 */
-		if (conn.getPrepareStatement() == null) {
+		
+		 conn.doConnect(); System.out.println(getHcode()); conn.doSave(
+		 "INSERT INTO pay_tax(doctor_id,pay_tax, tax_period, hcode, doctor_income, income, sum_tax_break, sum_pay_tax,sum_donate,status) "
+		 + "VALUES ('" + getDocId() + "'," + getPayTax() + "," + getDate() +
+		 ",'" + getHcode() + "'," + getDocIncome() + "," + getIncome() + "," +
+		 getTaxBreak() + "," + getSumPayTax() + "," + getDonate() + ",'a')");
+		 conn.doCommit(); conn.doDisconnect();
+		 
+		/*if (conn.getPrepareStatement() == null) {
 			conn.doPrepareConnect("INSERT INTO pay_tax(doctor_id,pay_tax, tax_period, "
 					+ " hcode, doctor_income, income, sum_tax_break, sum_pay_tax,sum_donate,status) "
 					+ " VALUES(?,?,?,?,?,?,?,?,?,?)");
@@ -120,11 +120,11 @@ public class CalTaxDAO {
 
 			conn.getPrepareStatement().executeUpdate();
 			conn.doCommit();
-
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
+*/
 	}
 
 	public void doDelete() {

@@ -22,8 +22,12 @@ function clickBack() {
 }
 var count = 0;
 var status1 = 0;
+var start ;
 //0 = ready , 1 = stop
 function clickSave(){
+	if(count == 0){
+		start = new Date().getTime();
+	}
 	//alert(status1);
 	$("#btnStop").prop("disabled", false);
 	if(status1 == 0){
@@ -68,7 +72,8 @@ function clickSave(){
 		}else{
 			count = 0;
 			status1 = 0;
-			alert("stop");
+			var end = new Date().getTime();
+			alert((end - start)/1000);
 			$("#btnStop").prop("disabled", true);
 			$("#btnSave").prop("disabled", true);
 			$("#btnRollBack").prop("disabled", false);
@@ -78,6 +83,7 @@ function clickSave(){
 	}else{
 		status1 = 0;
 		$("#btnStop").prop("disabled", true);
+		
 	}
 	
 	
