@@ -1,6 +1,5 @@
 package com.tax.been.dao;
 
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import com.tax.bean.util.DbConnector;
@@ -17,7 +16,6 @@ public class CalTaxDAO {
 	private String docId;
 	private String docIncome;
 	private String taxBreak;
-	private PreparedStatement pstm;
 
 	public String getPayTax() {
 		return payTax;
@@ -94,17 +92,20 @@ public class CalTaxDAO {
 	public void doSave() {
 
 		/*
-		 * conn.doConnect(); // System.out.println(getHcode()); conn.doSave(
+		 * conn.doConnect(); System.out.println(getHcode()); conn.doSave(
 		 * "INSERT INTO pay_tax(doctor_id,pay_tax, tax_period, hcode, doctor_income, income, sum_tax_break, sum_pay_tax,sum_donate,status) "
 		 * + "VALUES ('" + getDocId() + "'," + getPayTax() + "," + getDate() +
 		 * ",'" + getHcode() + "'," + getDocIncome() + "," + getIncome() + "," +
 		 * getTaxBreak() + "," + getSumPayTax() + "," + getDonate() + ",'a')");
 		 * conn.doCommit(); conn.doDisconnect();
 		 */
+		if (conn.getPrepareStatement() == null) {
+			conn.doPrepareConnect("INSERT INTO pay_tax(doctor_id,pay_tax, tax_period, "
+					+ " hcode, doctor_income, income, sum_tax_break, sum_pay_tax,sum_donate,status) "
+					+ " VALUES(?,?,?,?,?,?,?,?,?,?)");
+			System.out.println("Connect Prepare Statement");
+		}
 
-		conn.doPrepareConnect("INSERT INTO pay_tax(doctor_id,pay_tax, tax_period, "
-				+ " hcode, doctor_income, income, sum_tax_break, sum_pay_tax,sum_donate,status) "
-				+ " VALUES(?,?,?,?,?,?,?,?,?,?)");
 		try {
 			conn.getPrepareStatement().setString(1, getDocId());
 			conn.getPrepareStatement().setDouble(2, Double.parseDouble(getPayTax()));
@@ -119,7 +120,6 @@ public class CalTaxDAO {
 
 			conn.getPrepareStatement().executeUpdate();
 			conn.doCommit();
-			
 
 		} catch (SQLException e) {
 			e.printStackTrace();
