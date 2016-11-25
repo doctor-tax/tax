@@ -75,10 +75,10 @@ function clickSave(){
 			
 			//alert('Success!!!');
 		}
-	}/*else{
+	}else{
 		status1 = 0;
 		$("#btnStop").prop("disabled", true);
-	}*/
+	}
 	
 	
 }
