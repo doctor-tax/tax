@@ -70,13 +70,26 @@ function clickSave(){
 						}
 					})
 		}else{
-			count = 0;
-			status1 = 0;
-			var end = new Date().getTime();
-			alert((end - start)/1000);
-			$("#btnStop").prop("disabled", true);
-			$("#btnSave").prop("disabled", true);
-			$("#btnRollBack").prop("disabled", false);
+			$.ajax({
+				type : 'POST',
+				url : './CalTaxSrvl',
+				data : {
+					"method" : "Disconnect"
+				},
+				success : function(data) {
+					
+					alert(data);
+					count = 0;
+					status1 = 0;
+					var end = new Date().getTime();
+					alert((end - start)/1000);
+					$("#btnStop").prop("disabled", true);
+					$("#btnSave").prop("disabled", true);
+					$("#btnRollBack").prop("disabled", false);
+
+				}
+			})
+			
 			
 			//alert('Success!!!');
 		}

@@ -36,6 +36,13 @@ public class CalTaxSrvl extends HttpServlet {
 	 */
 	public CalTaxSrvl() {
 		super();
+		if(cal == null){
+			cal = new CalculateTax();
+		}
+		
+		if(db == null){
+			db = new DbConnector();
+		}
 		// TODO Auto-generated constructor stub
 	}
 
@@ -123,6 +130,11 @@ public class CalTaxSrvl extends HttpServlet {
 			}
 			out.print(status);
 			
+		}else if(request.getParameter("method").equals("Disconnect")){
+			PrintWriter out = response.getWriter();
+			db.doDisconnect();
+			
+			out.println("Success");
 		}
 	}// POST
 

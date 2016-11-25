@@ -65,7 +65,10 @@ public class CalculateTax {
 
 	public String Calculate() {
 		
-		db.doConnect();
+		if(db.getConnection() == null){
+			db.doConnect();
+			System.out.println("DBCONNNN CALCULATETAX");
+		}
 		int monthInt = Integer.parseInt(getMonth());
 		String beforeMonth = getYear() + String.format("%02d", monthInt - 1);
 		String status = "Calculate Success!!!";
