@@ -84,7 +84,7 @@ public class TaxbreakCalSrvl extends HttpServlet {
 				for (int i = 0; i < jsonAray.length(); i++) {
 					int tax_id = Integer.parseInt(jsonAray.getJSONObject(i).getString("id"));
 					double value = Double.parseDouble(jsonAray.getJSONObject(i).getString("value"));
-					db.setDoctor_id("010");
+					db.setDoctor_id("001");
 					db.setId(max);
 					db.setDatestam(df);
 					db.setTax_id(tax_id);

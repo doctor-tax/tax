@@ -18,6 +18,7 @@
 <script src="js/dataTables.bootstrap.min.js"></script>
 <script src="js/dataTables.responsive.min.js"></script>
 <script src="js/responsive.bootstrap.min.js"></script>
+<script src="js/npm.js"></script>
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/dataTables.bootstrap.min.css" rel="stylesheet">
 <link href="css/responsive.bootstrap.min.css" rel="stylesheet">
@@ -43,7 +44,7 @@
 			<div class="panel-body">
 				<div class="row">
 					<div class="col-sm-12 col-xs-12">
-						<h3>Tax Order</h3>
+						<h3>Tax Order <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></h3>
 						<div class="table-responsive dt-responsive ">
 							<table id="order_tax"
 								class="table table-striped table-responsive table-bordered dt-responsive nowrap table-hover">

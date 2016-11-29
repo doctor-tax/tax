@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import com.tax.bean.util.DbConnector;
 
 public class CalTaxDAO {
-	DbConnector conn = new DbConnector();
+	DbConnector conn ;
 
 	private String date;
 	private String payTax;
@@ -17,6 +17,14 @@ public class CalTaxDAO {
 	private String docIncome;
 	private String taxBreak;
 
+	public CalTaxDAO(){
+		conn = new DbConnector();
+		conn.doPrepareConnect("INSERT INTO pay_tax(doctor_id,pay_tax, tax_period, "
+				+ " hcode, doctor_income, income, sum_tax_break, sum_pay_tax,sum_donate,status) "
+				+ " VALUES(?,?,?,?,?,?,?,?,?,?)");
+
+	}
+	
 	public String getPayTax() {
 		return payTax;
 	}
@@ -97,14 +105,14 @@ public class CalTaxDAO {
 		 + "VALUES ('" + getDocId() + "'," + getPayTax() + "," + getDate() +
 		 ",'" + getHcode() + "'," + getDocIncome() + "," + getIncome() + "," +
 		 getTaxBreak() + "," + getSumPayTax() + "," + getDonate() + ",'a')");
-		 conn.doCommit(); conn.doDisconnect();*/
-		 
-		if (conn.getPrepareStatement() == null) {
+		 conn.doCommit(); 
+		 conn.doDisconnect();*/
+		/*if (conn.getPrepareStatement() == null) {
 			conn.doPrepareConnect("INSERT INTO pay_tax(doctor_id,pay_tax, tax_period, "
 					+ " hcode, doctor_income, income, sum_tax_break, sum_pay_tax,sum_donate,status) "
 					+ " VALUES(?,?,?,?,?,?,?,?,?,?)");
 			System.out.println("Connect Prepare Statement");
-		}
+		}*/
 
 		try {
 			conn.getPrepareStatement().setString(1, getDocId());
@@ -115,12 +123,12 @@ public class CalTaxDAO {
 			conn.getPrepareStatement().setDouble(6, Double.parseDouble(getIncome()));
 			conn.getPrepareStatement().setDouble(7, Double.parseDouble(getTaxBreak()));
 			conn.getPrepareStatement().setDouble(8, Double.parseDouble(getSumPayTax()));
-			conn.getPrepareStatement().setDouble(9, Double.parseDouble(getSumPayTax()));
+			conn.getPrepareStatement().setDouble(9, Double.parseDouble(getDonate()));
 			conn.getPrepareStatement().setString(10, "a");
 
 			conn.getPrepareStatement().executeUpdate();
 			conn.doCommit();
-			conn.doDisconnect();
+			//conn.doDisconnect();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
