@@ -79,7 +79,7 @@ public class DbConnector {
     
     public boolean doSave(String sql){
         try {
-        	System.out.println(sql);
+        	//System.out.println(sql);
 			stm.executeUpdate(sql);
 			return true;
 		} catch (SQLException e) {
@@ -98,6 +98,7 @@ public class DbConnector {
     }
     public boolean doDelete(String sql){
         try {
+        	System.out.println(sql);
 			stm.executeUpdate(sql);
 			return true;
 		} catch (SQLException e) {
@@ -174,12 +175,14 @@ public class DbConnector {
     	return jsonObj;
     }
     public JSONObject getJsonData(String sql) {
+    	//System.out.println(sql);
         JSONObject jsonObj = new JSONObject();
 		ResultSet rs = null;
 		try {
 			this.doConnect();
 			rs = this.stm.executeQuery(sql);
 			ResultSetMetaData rsMetaData = rs.getMetaData();
+			long startTime = System.nanoTime();
 			while (rs.next()) {
 				HashMap<String, String> rtnData = new HashMap<String, String>();
 				for (int i = 1; i <= rsMetaData.getColumnCount(); i++) {
@@ -192,6 +195,9 @@ public class DbConnector {
 					}
 				}
 			}
+			long endTime = System.nanoTime();
+			long duration = (endTime - startTime); 
+			//System.out.println("GET JSON === "+duration);
 			rs.close(); 
 		} catch (Exception e) {
 			System.out.println("Error " + e.getMessage());
