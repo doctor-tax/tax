@@ -147,9 +147,9 @@
 					<div class="row">
 						<div class="col-sm-12 col-xs-12">
 							<h3>Doctor Income</h3>
-							<div class="table-responsive">
+							<div class="table-responsive" width="100%">
 								<table id="doc_income"
-									class="table table-striped table-bordered dt-responsive nowrap">
+									class="table table-striped table-bordered dt-responsive nowrap" width="100%">
 									<thead>
 										<tr>
 											<th>ID</th>
