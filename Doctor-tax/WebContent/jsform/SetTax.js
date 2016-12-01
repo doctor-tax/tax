@@ -1,69 +1,78 @@
-//modal
-$( function() {
-    $( "#dialogDelete" ).dialog({
-      autoOpen: false,
-      modal: true,
-      buttons: {
-        "Confirm": function() {
-          $( this ).dialog(clickDelete());
-        },
-        Cancel: function() {
-          $( this ).dialog( "close" );
-        }
-      }
-      
-    });
- 
-    $( "#btnDelete" ).on( "click", function() {
-      $( "#dialogDelete" ).dialog( "open" );
-    });
-  } );
-
-$( function() {
-    $( "#dialogReset" ).dialog({
-      autoOpen: false,
-      modal: true,
-      buttons: {
-        "Confirm": function() {
-          $( this ).dialog(clickReset());
-        },
-        Cancel: function() {
-          $( this ).dialog( "close" );
-        }
-      }
-      
-    });
- 
-    $( "#btnReset" ).on( "click", function() {
-      $( "#dialogReset" ).dialog( "open" );
-    });
-  } );
-
-$( function() {
-    $( "#dialogSave" ).dialog({
-      autoOpen: false,
-      modal: true,
-      buttons: {
-        "Confirm": function() {
-          $( this ).dialog(clickSave());
-          $( this ).dialog( "close" );
-        },
-        Cancel: function() {
-          $( this ).dialog( "close" );
-        }
-      }
-      
-    });
- 
-    $( "#btnSave" ).on( "click", function() {
-      $( "#dialogSave" ).dialog( "open" );
-    });
-  } );
-// modal
-
 $(document).ready(function(){
 	genRoleGroup();
+	
+	modal();
+	
+	$('#inputList').keyup(function () {
+	    if (this.value != this.value.replace(/[^0-9]/g, '')) {
+	       this.value = this.value.replace(/[^0-9]/g, '');
+	    }
+	    if (this.value == '0'){
+	    	this.value = this.value.replace(/[^1-9]/g, '');
+	    }
+	});
 });
+
+function modal(){
+	
+	    $( "#dialogDelete" ).dialog({
+	      autoOpen: false,
+	      modal: true,
+	      buttons: {
+	        "Confirm": function() {
+	          $( this ).dialog(clickDelete());
+	        },
+	        Cancel: function() {
+	          $( this ).dialog( "close" );
+	        }
+	      }
+	      
+	    });
+	 
+	    $( "#btnDelete" ).on( "click", function() {
+	      $( "#dialogDelete" ).dialog( "open" );
+	    }); //delete
+	 
+
+	
+	    $( "#dialogReset" ).dialog({
+	      autoOpen: false,
+	      modal: true,
+	      buttons: {
+	        "Confirm": function() {
+	          $( this ).dialog(clickReset());
+	        },
+	        Cancel: function() {
+	          $( this ).dialog( "close" );
+	        }
+	      }
+	      
+	    });
+	 
+	    $( "#btnReset" ).on( "click", function() {
+	      $( "#dialogReset" ).dialog( "open" );
+	    }); //reset
+
+	
+	    $( "#dialogSave" ).dialog({
+	      autoOpen: false,
+	      modal: true,
+	      buttons: {
+	        "Confirm": function() {
+	          $( this ).dialog(clickSave());
+	          $( this ).dialog( "close" );
+	        },
+	        Cancel: function() {
+	          $( this ).dialog( "close" );
+	        }
+	      }
+	      
+	    });
+	 
+	    $( "#btnSave" ).on( "click", function() {
+	      $( "#dialogSave" ).dialog( "open" );
+	    }); //save
+}
 
 function changeDropDown(){
 	var value = $("#dropdownType").val();
@@ -441,7 +450,6 @@ function checkList(){
 	var max = $("#inputMaxList").val() * 1;
 	var oldList = $("#inputOldList").val();
 	var list = $("#inputList").val() * 1;
-	alert(list+" "+max);
 	if(list > max){
 		alert("ค่าสูงสุดที่ใส่ได้คือ "+max);
 		$("#inputList").val(oldList);

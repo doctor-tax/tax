@@ -89,8 +89,8 @@
 							</p>
 						</div>
 						<div class="col-xs-6 col-sm-3 ">
-							<input id="inputList" type="number" class="form-control input-sm"
-								onchange="changeList()" disabled>
+							<input id="inputList" class="form-control input-sm"
+								onchange="changeList()"  disabled >
 						</div>
 					</div>
 
@@ -123,7 +123,7 @@
 					<h3>
 						<b>Group</b>
 					</h3>
-					<div class="row table-responsive dt-responsive ">
+					<div class="row table-responsive dt-responsive" width="100%">
 
 						<div class="col-sm-12 col-xs-12">
 
