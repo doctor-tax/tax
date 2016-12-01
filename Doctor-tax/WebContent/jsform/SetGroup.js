@@ -63,6 +63,12 @@ $( function() {
 
 $(document).ready(function(){
 	genTable();
+	
+	$('#inputMode').val("New");
+	$('#inputName').val("");
+	$('#btnDelete').prop("disabled", true);
+	$('#inputId').prop("disabled", true);
+	$('#inputList').prop("disabled", true);
 });
 
 function genTable(){
@@ -178,7 +184,8 @@ function clickDelete(){
 }
 
 function clickReset(){
-	location.reload();
+	//location.reload();
+	location.href = "SetGroup.jsp";
 }
 
 function checkMode(){

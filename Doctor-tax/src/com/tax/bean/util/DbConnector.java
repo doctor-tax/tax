@@ -67,7 +67,9 @@ public class DbConnector {
     		if(!stm.isClosed()){ stm.close(); }else{ /*not implement*/ }
     		if(!pstm.isClosed()){ pstm.close(); }else{ /*not implement*/ }
     		if(!conn.isClosed()){ conn.close(); }else{ /*not implement*/ }
-    	} catch (Exception e){}
+    	} catch (Exception e){
+    		e.printStackTrace();
+    	}
     }
     
     public void setPrepareStatement(String sql){

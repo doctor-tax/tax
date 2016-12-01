@@ -16,6 +16,7 @@ public class CalculateTax {
 	CalTaxDAO cd = new CalTaxDAO();
 	
 	public CalculateTax() {
+		System.out.println("Yes");
 		if(db == null){
 			db = new DbConnector();
 		}
