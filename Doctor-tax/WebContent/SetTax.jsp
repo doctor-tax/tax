@@ -141,7 +141,7 @@
 					 			<p class="texy-right"><b>ลำดับ :</b></p>
 					 		</div>
 					 		<div class = "col-xs-6 col-sm-3 ">
-								<input id = "inputList" type="number" class="form-control input-sm" onchange="checkList()">
+								<input id = "inputList" class="form-control input-sm" onchange="checkList()">
 							</div>
 					 </div>
 						

@@ -1,68 +1,16 @@
-$( function() {
-    $( "#dialogDelete" ).dialog({
-      autoOpen: false,
-      modal: true,
-      buttons: {
-        "Confirm": function() {
-          $( this ).dialog(clickDelete());
-          $( this ).dialog( "close" );
-        },
-        Cancel: function() {
-          $( this ).dialog( "close" );
-        }
-      }
-      
-    });
- 
-    $( "#btnDelete" ).on( "click", function() {
-      $( "#dialogDelete" ).dialog( "open" );
-    });
-  } );
-
-$( function() {
-    $( "#dialogReset" ).dialog({
-      autoOpen: false,
-      modal: true,
-      buttons: {
-        "Confirm": function() {
-          $( this ).dialog(clickReset());
-          $( this ).dialog( "close" );
-        },
-        Cancel: function() {
-          $( this ).dialog( "close" );
-        }
-      }
-      
-    });
- 
-    $( "#btnReset" ).on( "click", function() {
-      $( "#dialogReset" ).dialog( "open" );
-    });
-  } );
-
-$( function() {
-    $( "#dialogSave" ).dialog({
-      autoOpen: false,
-      modal: true,
-      buttons: {
-        "Confirm": function() {
-          $( this ).dialog(clickSave());
-          $( this ).dialog( "close" );
-        },
-        Cancel: function() {
-          $( this ).dialog( "close" );
-        }
-      }
-      
-    });
- 
-    $( "#btnSave" ).on( "click", function() {
-      $( "#dialogSave" ).dialog( "open" );
-    });
-  } );//modal
-
 $(document).ready(function(){
 	genTable();
+	
+	modal();
+	
+	$('#inputList').keyup(function () {
+	    if (this.value != this.value.replace(/[^0-9]/g, '')) {
+	       this.value = this.value.replace(/[^0-9]/g, '');
+	    }
+	    if (this.value == '0'){
+	    	this.value = this.value.replace(/[^1-9]/g, '');
+	    }
+	});
 	
 	$('#inputMode').val("New");
 	$('#inputName').val("");
@@ -70,6 +18,65 @@ $(document).ready(function(){
 	$('#inputId').prop("disabled", true);
 	$('#inputList').prop("disabled", true);
 });
+function modal(){
+	$( "#dialogReset" ).dialog({
+	      autoOpen: false,
+	      modal: true,
+	      buttons: {
+	        "Confirm": function() {
+	          $( this ).dialog(clickReset());
+	          $( this ).dialog( "close" );
+	        },
+	        Cancel: function() {
+	          $( this ).dialog( "close" );
+	        }
+	      }
+	      
+	    });
+	 
+	    $( "#btnReset" ).on( "click", function() {
+	      $( "#dialogReset" ).dialog( "open" );
+	    }); //reset
+	    
+	    $( "#dialogSave" ).dialog({
+	        autoOpen: false,
+	        modal: true,
+	        buttons: {
+	          "Confirm": function() {
+	            $( this ).dialog(clickSave());
+	            $( this ).dialog( "close" );
+	          },
+	          Cancel: function() {
+	            $( this ).dialog( "close" );
+	          }
+	        }
+	        
+	      });
+	   
+	      $( "#btnSave" ).on( "click", function() {
+	        $( "#dialogSave" ).dialog( "open" );
+	      });//save
+	      
+	      $( "#dialogDelete" ).dialog({
+	          autoOpen: false,
+	          modal: true,
+	          buttons: {
+	            "Confirm": function() {
+	              $( this ).dialog(clickDelete());
+	              $( this ).dialog( "close" );
+	            },
+	            Cancel: function() {
+	              $( this ).dialog( "close" );
+	            }
+	          }
+	          
+	        });
+	     
+	        $( "#btnDelete" ).on( "click", function() {
+	          $( "#dialogDelete" ).dialog( "open" );
+	        });//delete
+	      
+}
 
 function genTable(){
 	$.ajax({
@@ -144,6 +151,7 @@ function clickSave(){
 	var name = $("#inputName").val();
 	var list = $("#inputList").val();
 	var oldList = $("#inputOldList").val();
+	//alert("8e8" == '%e%');
 	
 	
 	if(id==""||name==""||list==""){

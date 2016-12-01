@@ -89,8 +89,8 @@
 							</p>
 						</div>
 						<div class="col-xs-6 col-sm-3 ">
-							<input id="inputList" type="number" class="form-control input-sm"
-								onchange="changeList()" disabled pattern="[0-9]">
+							<input id="inputList" class="form-control input-sm"
+								onchange="changeList()"  disabled >
 						</div>
 					</div>
 
