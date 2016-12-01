@@ -146,22 +146,28 @@ function clickSave(){
 	var oldList = $("#inputOldList").val();
 	
 	
+	if(id==""||name==""||list==""){
+		alert("กรุณากรอกข้อมูลให้ครบด้วยครับ");
+	}else{
+		$.ajax({
+			type: 'POST',
+			url: './SetGroupSrvl',
+			data: 
+			 {"method":"save",
+				"id":id,
+				"name":name,
+				"list":list,
+				"mode":mode,
+				"oldList":oldList} ,
+			 success: function(data){
+				alert(data);
+				clickReset();
+			}
+		})
+	}
 	
-	$.ajax({
-		type: 'POST',
-		url: './SetGroupSrvl',
-		data: 
-		 {"method":"save",
-			"id":id,
-			"name":name,
-			"list":list,
-			"mode":mode,
-			"oldList":oldList} ,
-		 success: function(data){
-			alert(data);
-			clickReset();
-		}
-	})
+	
+	
 }
 
 function clickDelete(){
