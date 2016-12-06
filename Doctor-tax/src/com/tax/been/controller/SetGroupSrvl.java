@@ -135,9 +135,9 @@ public class SetGroupSrvl extends HttpServlet {
 			ud.setId(id);
 			ud.setList(list);
 			ud.setListMode("Delete");
-			ud.doManageList();
-			ud.doDelete();
+			
 			if(ud.doDelete()){
+				ud.doManageList();
 				out.print("Delete Success!");
 			}else{
 				out.println("ไม่สามารถลบ Group ที่มีสมาชิกได้\n หากต้องการลบ กรุณาลบสมาชิกใน Group ให้หมดก่อน");

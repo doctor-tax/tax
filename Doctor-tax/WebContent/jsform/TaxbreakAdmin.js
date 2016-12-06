@@ -53,3 +53,6 @@ function loadDataTable() {
 	});
 
 }
+function CalTax(){
+	location.href = "CalTax.jsp";
+}

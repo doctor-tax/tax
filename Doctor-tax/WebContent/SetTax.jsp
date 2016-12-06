@@ -88,7 +88,7 @@
 				 		</div>
 				 		<div class = "col-xs-6 col-sm-3 ">
 							<div class="input-group">
-							  <input id="inputAmount" type="number" class="form-control" placeholder="จำนวนเงิน" aria-describedby="basic-addon1">
+							  <input id="inputAmount" class="form-control" placeholder="จำนวนเงิน" aria-describedby="basic-addon1" >
 							  <span class="input-group-addon">บาท</span>
 							</div>
 						</div>
@@ -98,7 +98,7 @@
 				 		</div>
 				 		<div class = "col-xs-6 col-sm-3 ">
 							<div class="input-group">
-							  <input id="inputMax" type="number" class="form-control" placeholder="จำนวน" aria-describedby="basic-addon1">
+							  <input id="inputMax" class="form-control" placeholder="จำนวน" aria-describedby="basic-addon1">
 							  <span class="input-group-addon">คน</span>
 							</div>
 						</div>
@@ -110,7 +110,7 @@
 				 		</div>
 				 		<div class = "col-xs-6 col-sm-3 ">
 							<div class="input-group">
-							  <input id="inputRate" type="number" class="form-control" placeholder="จำนวนเงิน" aria-describedby="basic-addon1" disabled>
+							  <input id="inputRate" class="form-control" placeholder="จำนวนเงิน" aria-describedby="basic-addon1" disabled>
 							  <span class="input-group-addon">บาท</span>
 							</div>
 						</div>
@@ -120,7 +120,7 @@
 				 		</div>
 				 		<div class = "col-xs-6 col-sm-3 ">
 							<div class="input-group">
-							  <input id="inputPercent" type="number" class="form-control" placeholder="%" aria-describedby="basic-addon1" disabled>
+							  <input id="inputPercent" class="form-control" placeholder="%" aria-describedby="basic-addon1" disabled>
 							  <span class="input-group-addon">%</span>
 							</div>
 						</div>

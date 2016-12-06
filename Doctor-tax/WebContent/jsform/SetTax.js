@@ -3,7 +3,7 @@ $(document).ready(function(){
 	
 	modal();
 	
-	$('#inputList').keyup(function () {
+	$('#inputList,#inputAmount,#inputMax,#inputRate,#inputPercent').keyup(function () {
 	    if (this.value != this.value.replace(/[^0-9]/g, '')) {
 	       this.value = this.value.replace(/[^0-9]/g, '');
 	    }
@@ -19,7 +19,7 @@ function modal(){
 	      autoOpen: false,
 	      modal: true,
 	      buttons: {
-	        "Confirm": function() {
+	        Confirm: function() {
 	          $( this ).dialog(clickDelete());
 	        },
 	        Cancel: function() {
@@ -115,6 +115,7 @@ function changeDropDown(){
 }
 
 function clickReset(){
+	$('#inputName').val("");
 	location.reload();
 	
 }
@@ -173,6 +174,7 @@ function clickSave(){
 					 "oldList":oldList},
 				success: function(data){
 					//alert(data);
+					$('#btnSave').prop("disabled",true);
 					alert(data);
 				}
 			})
@@ -362,6 +364,7 @@ function checkMode(){
 				"id":id},
 			 
 			success: function(data){
+				$("#btnReset").prop("disabled", true);
 				$('#dropdownType').val(data.type).attr("selected", "selected");
 				changeDropDown();
 				$('#inputName').val(data.tax_order);

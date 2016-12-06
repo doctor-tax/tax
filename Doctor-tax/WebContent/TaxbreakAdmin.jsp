@@ -38,16 +38,17 @@
 						<button class="btn btn-primary" onclick="addGroup()">แก้ไข
 							Group</button>
 						<button class="btn btn-primary" onclick="addStep()">แก้ไขเงื่อนไขขั้นบันได</button>
+						<button class="btn btn-primary" onclick="CalTax()">คำนวนภาษี</button>
 					</div>
 				</div>
 			</div>
 			<div class="panel-body">
 				<div class="row">
 					<div class="col-sm-12 col-xs-12">
-						<h3>Tax Order <span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></h3>
+						<h3>Tax Order</h3>
 						<div class="table-responsive dt-responsive ">
 							<table id="order_tax"
-								class="table table-striped table-responsive table-bordered dt-responsive nowrap table-hover">
+								class="table table-striped table-responsive table-bordered dt-responsive nowrap table-hover" width="100%">
 								<thead>
 									<tr>
 										<th>ID</th>

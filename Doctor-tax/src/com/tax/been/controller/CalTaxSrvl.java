@@ -134,8 +134,6 @@ public class CalTaxSrvl extends HttpServlet {
 		}else if(request.getParameter("method").equals("Disconnect")){
 			PrintWriter out = response.getWriter();
 			db.doDisconnect();
-			System.out.println("conn = "+db.getConnection());
-			System.out.println("pstm = "+db.getPrepareStatement());
 			out.println("Success");
 		}
 	}// POST

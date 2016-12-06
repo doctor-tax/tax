@@ -129,7 +129,7 @@
 
 
 							<table id="tbGroup"
-								class="table table-striped table-responsive table-bordered dt-responsive nowrap table-hover">
+								class="table table-striped table-responsive table-bordered dt-responsive nowrap table-hover" width="100%">
 								<thead>
 									<tr>
 										<th>ID_GROUP</th>
