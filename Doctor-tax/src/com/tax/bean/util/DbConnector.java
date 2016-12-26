@@ -68,7 +68,7 @@ public class DbConnector {
     		if(!pstm.isClosed()){ pstm.close(); }else{ /*not implement*/ }
     		if(!conn.isClosed()){ conn.close(); }else{ /*not implement*/ }
     	} catch (Exception e){
-    		e.printStackTrace();
+    		System.out.println(e);
     	}
     }
     

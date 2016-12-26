@@ -204,7 +204,10 @@ function changeDate() {
 				"year" : year}
 		}/*,
 		"paging": false*/,
-		"bDeferRender": true
+		"bDeferRender": true/*,
+		"lengthMenu": [[1,5,10, 25, 50, -1], [1,5,10, 25, 50, "All"]]*/
+		
+		
 
 	});
 	

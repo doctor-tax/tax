@@ -105,6 +105,7 @@ public class SetTaxDAO {
 	public void doDelete(){
 		DbConnector conn = new DbConnector();
 		conn.doConnect();
+		conn.doDelete("DELETE FROM tra_tax WHERE tax_id = '"+getId()+"'");
 		conn.doDelete("DELETE FROM order_tax WHERE id = '"+getId()+"'");
 		conn.doCommit();
 	}
